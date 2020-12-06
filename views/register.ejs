@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="author" content="Aditya Menon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IEEECS | Selections</title>
+    <link rel="stylesheet" href="/stylesheets/register.css" />
+    <link rel="icon" type="image/png" href="images/logoicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:400,600,700"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+      rel="stylesheet"
+    />
+    <style>
+      ul {
+        list-style-type: none;
+      }
+
+      li {
+        padding: 4px;
+        color: #ffffff;
+        float: left;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="row" style="text-align: center">
+      <img src="images/ieeecsnew.png" id="mainlogo" , alt="IEECS-Logo" />
+    </div>
+    <h2 class="Lheading">Core Committee Selections</h2>
+    <br />
+    <div class="container" id="phone" style="text-align: center">
+      <div class="row">
+        <div class="phone_reg">
+          <h2 class="Sheading">Register</h2>
+          <form
+            autocomplete="off"
+            action="/admin/login"
+            method="POST"
+            name="reg_form"
+          >
+            <input
+              autocomplete="false"
+              name="hidden"
+              type="text"
+              style="display: none"
+            />
+            <input
+              autocomplete="false"
+              name="hidden"
+              type="text"
+              style="display: none"
+            />
+            <input
+              name="name"
+              placeholder="Name"
+              type="text"
+              autocomplete="off"
+              required
+            />
+            <input
+              name="regno"
+              placeholder="Reg. No."
+              type="text"
+              autocomplete="off"
+              required
+            /><input
+              name="Password"
+              placeholder="Password"
+              type="Password"
+              pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+              autocomplete="off"
+              required
+              title="Minimum 8 characters. Must contain a Special character, a
+                          Digit and Upper & Lowercase letters."
+            />
+            <br /><br />
+            <button
+              style="
+                z-index: 100;
+                border: none;
+                height: 100%;
+                width: 100%;
+                background-color: #faa41a;
+                color: #333333;
+                padding: 10px 13px 10px 13px;
+                width: 180px;
+                margin: auto;
+                border-radius: 100px;
+              "
+            >
+              Submit
+            </button>
+          </form>
+          <br />
+          <h4 style="color: white" id="reglink">
+            Already Registered? Click here to <a href="/">Log in</a>
+          </h4>
+        </div>
+      </div>
+      <div
+        class="g-recaptcha"
+        data-sitekey="6Leu6n8UAAAAAE33Fo9VhAe4f3QJ7YRrU7L63194"
+        data-size="invisible"
+        data-callback="setResponse"
+      ></div>
+    </div>
+    <script
+      src="https://www.google.com/recaptcha/api.js?onload=onloadCallback"
+      async
+      defer
+    ></script>
+    <script>
+      var onloadCallback = function () {
+        grecaptcha.execute();
+      };
+      function setResponse(response) {
+        document.querySelector(".g-recaptcha-response").value = response;
+        console.log(document.querySelector(".g-recaptcha-response").value);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="author" content="Aditya Menon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IEEECS | Selections</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="icon" type="image/png" href="images/logoicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+      rel="stylesheet"
+    />
+    <style>
+      .swal-button {
+        background-color: #faa41a !important;
+      }
+    </style>
+  </head>
+  <body onload="check()">
+    <div class="row" style="text-align: center">
+      <img src="images/ieeecsnew.png" id="mainlogo" alt="IEEECS-LOGO"/>
+    </div>
+    <br />
+   <div class="outer">
+      <div class="mycontainer">
+        <div style="text-align: center">
+          <h2 class="Lheading">Core Committee Selections</h2>
+        </div>
+        <br /><br />
+        <div class="left">
+          <object
+            type="image/svg+xml"
+            id="vector"
+            data="images/illustration.svg"
+          >
+            Your browser does not support SVG
+          </object>
+        </div>
+        <div class="right">
+          <div class="container">
+            <div class="container-forms">
+              <div class="container-info">
+                <div class="info-item">
+                  <div class="table">
+                    <div class="table-cell">
+                      <p>Have an account?</p>
+                      <div class="btn">Log in</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="info-item">
+                  <div class="table">
+                    <div class="table-cell">
+                      <p>Don't have an account?</p>
+                      <div class="btn">Sign up</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="container-form">
+                <div class="form-item log-in">
+                  <div class="table">
+                    <div class="table-cell">
+                      <form autocomplete="off" action="/login" method="POST">
+                        <input
+                          id="regno"
+                          type="text"
+                          name="regno"
+                          placeholder="Reg. No."
+                          autocomplete="off"
+                          required
+                        />
+                        <input
+                          id="pwd"
+                          type="password"
+                          name="password"
+                          placeholder="Password"
+                          autocomplete="off"
+                          required
+                        />
+                        <button
+                          style="
+                            z-index: 100;
+                            border: none;
+                            height: 100%;
+                            width: 100%;
+                            background-color: #faa41a;
+                            color: #333333;
+                            padding: 10px 13px 10px 13px;
+                            width: 180px;
+                            margin: auto;
+                            border-radius: 100px;
+                          "
+                        >
+                          Submit
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-item sign-up">
+                  <div class="table">
+                    <div class="table-cell" style="padding: 20px">
+                      <form
+                        autocomplete="off"
+                        action="/register"
+                        method="POST"
+                        name="reg_form"
+                      >
+                        <input
+                          autocomplete="false"
+                          name="hidden"
+                          type="text"
+                          style="display: none"
+                        />
+                        <input
+                          name="name"
+                          placeholder="Name"
+                          type="text"
+                          autocomplete="off"
+                          required
+                        />
+                        <input
+                          name="regno"
+                          placeholder="Reg. No."
+                          type="text"
+                          autocomplete="off"
+                          required
+                        /><input
+                          name="email"
+                          placeholder="Email"
+                          type="email"
+                          autocomplete="off"
+                          required
+                        /><input
+                          name="Password"
+                          placeholder="Password"
+                          type="Password"
+                          pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                          autocomplete="off"
+                          required
+                          title="Minimum 8 characters. Must contain a Special character, a
+                          Digit and Upper & Lowercase letters."
+                        /><input
+                          name="phone"
+                          placeholder="Phone Number"
+                          type="number"
+                          pattern="[0-9]{9}[0-9]$"
+                          autocomplete="off"
+                          title="Use 10 Digit Mobile Number"
+                          required
+                        /><input
+                          type="text"
+                          for="g-recaptcha-response"
+                          class="g-recaptcha-response"
+                          name="g-recaptcha-response"
+                          style="display: none"
+                        />
+                        <ul>
+                          <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                          <li>
+                            <input
+                              type="radio"
+                              name="gender"
+                              value="male"
+                              class="gender"
+                              style="width: unset; float: left"
+                              checked
+                            />
+                          </li>
+                          <li>Male</li>
+                          <li>
+                            <input
+                              class="gender"
+                              type="radio"
+                              name="gender"
+                              value="female"
+                              style="width: unset; float: left"
+                            />
+                          </li>
+                          <li>Female</li>
+                        </ul>
+                        <br />
+                        <button
+                          style="
+                            z-index: 100;
+                            border: none;
+                            height: 100%;
+                            width: 100%;
+                            background-color: #faa41a;
+                            color: #333333;
+                            padding: 10px 13px 10px 13px;
+                            width: 180px;
+                            margin: auto;
+                            border-radius: 100px;
+                          "
+                        >
+                          Submit
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container" id="phone" style="text-align: center">
+        <div style="text-align: center">
+          <h2 class="Lheading">Core Committee Selections</h2>
+        </div>
+        <div class="row">
+          <div class="phone_login">
+            <h2 class="Sheading">Login</h2>
+            <form autocomplete="off" action="/login" method="POST">
+              <input
+                id="regno1"
+                type="text"
+                name="regno"
+                placeholder="Reg. No."
+                pattern="(19|18|17)[A-Z]{3}[0-9]{4}$"
+                autocomplete="off"
+                required
+              />
+              <input
+                id="pwd1"
+                type="password"
+                name="password"
+                placeholder="Password"
+                autocomplete="off"
+                required
+              />
+              <button
+                style="
+                  z-index: 100;
+                  border: none;
+                  height: 100%;
+                  width: 100%;
+                  background-color: #faa41a;
+                  color: #333333;
+                  padding: 10px 13px 10px 13px;
+                  width: 180px;
+                  margin: auto;
+                  border-radius: 100px;
+                "
+              >
+                Submit
+              </button>
+            </form>
+            <br />
+            <h4 style="color: white" id="reglink">
+              Not Registered? Click <a href="/register">Here</a>
+            </h4>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="g-recaptcha"
+        data-sitekey="6Leu6n8UAAAAAE33Fo9VhAe4f3QJ7YRrU7L63194"
+        data-size="invisible"
+        data-callback="setResponse"
+      ></div>
+    </div>
+    <script
+      src="https://www.google.com/recaptcha/api.js?onload=onloadCallback"
+      async
+      defer
+    ></script>
+    <script>
+      var onloadCallback = function () {
+        grecaptcha.execute();
+      };
+      function setResponse(response) {
+        document.querySelector(".g-recaptcha-response").value = response;
+        console.log(document.querySelector(".g-recaptcha-response").value);
+      }
+    </script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+      function check() {
+        if ("<%=message%>") {
+          if ("<%=message%>" != "ok") {
+            swal("Oops!", "<%= message %>", "error");
+          } else {
+            swal("Successfully Registered", "One Step Closer!!", "success");
+          }
+        }
+      }
+    </script>
+    <!-- partial -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="/scripts/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/stylesheets/domain.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
+  <title>Preferences</title>
+  <style>
+    .swal-button {
+      background-color: #faa41a !important;
+    }
+  </style>
+</head>
+
+<body class="body colour1">
+  <a href="/logout"><img src="images/exit.png" alt="logo3" class="logo4" /></a>
+  <div class="container">
+    <div class="row" style="text-align: center">
+      <img src="images/ieeecs.png" alt="logo" class="logo center w" />
+      <img src="images/ieeecs.png" alt="logo" class="logo center b invisible" />
+    </div>
+    <div class="row" style="margin-bottom: 0px !important">
+      <p class="mytitle center">Select Your Domain</p>
+    </div>
+    <div class="row">
+      <div class="background b1 invisible"></div>
+      <div class="background b2 invisible"></div>
+      <div class="background b3 invisible"></div>
+      <div class="background b4 invisible"></div>
+      <div class="column">
+        <div class="mycard">
+          <p>Technical</p>
+          <div class="logo1"></div>
+          <img id="logo1" src="images/administrator.png" alt="technical" />
+          <br /><br />
+          <button style="background-color: #faa41a; color: #333333" class="btn waves-effect waves-light" type="submit"
+            name="action" value="technical" onclick="add(this)">
+            Select
+          </button>
+        </div>
+      </div>
+      <div class="column">
+        <div class="mycard">
+          <p>Design</p>
+          <!-- <br> -->
+          <img id="logo1" src="images/design.png" alt="design" />
+          <br /><br />
+          <button style="background-color: #faa41a; color: #333333" class="btn waves-effect waves-light" type="submit"
+            name="action" value="design" onclick="add(this)">
+            Select
+          </button>
+        </div>
+      </div>
+      <div class="column">
+        <div class="mycard">
+          <p>Management</p>
+          <img id="logo1" src="images/collaboration.png" alt="management" />
+          <br /><br />
+          <button style="background-color: #faa41a; color: #333333" class="btn waves-effect waves-light" type="submit"
+            name="action" value="management" onclick="add(this)">
+            Select
+          </button>
+        </div>
+      </div>
+      <div class="column">
+        <div class="mycard">
+          <p>Documentation</p>
+          <!-- <br> -->
+          <img id="logo1" src="images/file.png" alt="documentation" />
+          <br /><br />
+          <button style="background-color: #faa41a; color: #333333" class="btn waves-effect waves-light" type="submit"
+            name="action" value="documentation" onclick="add(this)">
+            Select
+          </button>
+        </div>
+      </div>
+      <div class="column">
+        <div class="mycard">
+          <p>Competitive</p>
+          <!-- <br> -->
+          <img id="logo1" src="images/file.png" alt="competitive" />
+          <br /><br />
+          <button style="background-color: #faa41a; color: #333333" class="btn waves-effect waves-light" type="submit"
+            name="action" value="competitive" onclick="add(this)">
+            Select
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="text-align: center">
+      <button style="background-color: #faa41a; color: #333333" class="btn waves-effect waves-light" type="submit"
+        name="action" onclick="start()" id="begin">
+        BEGIN !!
+      </button>
+      <p style="font-weight: bold; color: red; font-size: 1.1em">
+        Please select all the domains you are interested in!
+      </p>
+    </div>
+  </div>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    domain = [];
+    function add(e) {
+      f = 0;
+      for (var i = 0; i < domain.length; i++) {
+        if (domain[i] == e.value) {
+          f = 1;
+          break;
+        }
+      }
+      if (f == 0) {
+        if (e.value == "competitive") {
+          console.log(e.value);
+          swal({
+            title: "Note:",
+            text:
+              "There will be no quiz for the competitive section. An invite will be sent to you for the same in your registered e-mails.",
+            icon: "info",
+            button: "Ok",
+          });
+        }
+        domain.push(e.value);
+        console.log(domain);
+        e.style.background = "#333333";
+        e.style.color = "#faa41a";
+        e.innerHTML = "Selected";
+      } else {
+        index = domain.indexOf(e.value);
+        domain.splice(index, 1);
+        console.log(domain);
+        e.style.background = "#faa41a";
+        e.style.color = "#333333";
+        e.innerHTML = "Select";
+        f = 1;
+      }
+    }
+    function start() {
+      var numOfDom = domain.length;
+      console.log(numOfDom);
+      if (numOfDom > 0) {
+        swal({
+          title: "Do you want to proceed?",
+          text:
+            "Currently, the domains selected are: " +
+            domain +
+            ". (Once you click OK, you cannot edit the list of domains)",
+          icon: "info",
+          buttons: true,
+          dangerMode: true,
+        }).then((willSend) => {
+          if (willSend) {
+            $.ajax({
+              url: "/domain",
+              method: "POST",
+              dataType: "json",
+              contentType: "application/x-www-form-urlencoded",
+              data: {
+                domain: domain,
+              },
+              success: function (question) {
+                window.location.href = "/question";
+              },
+              error: function (msg) {
+                console.log(msg);
+                $("#begin").prop("disabled", false);
+              },
+            });
+          }
+        });
+      } else {
+        swal("Please Select a Domain!");
+      }
+    }
+  </script>
+  <script>
+    var x = document.querySelector("body");
+    var y = document.querySelectorAll(".background");
+    var a = document.querySelector(".w");
+    var b = document.querySelector(".b");
+    var text = document.querySelector(".mytitle");
+    var f = 0;
+    // window.addEventListener("resize", bg);
+    // function bg() {
+    //   var w = document.documentElement.clientWidth;
+    //   if (f == 1 && w <= 992 && w > 600) {
+    //     for (var i = 0; i < 2; i++) {
+    //       y[i].classList.remove("invisible");
+    //       y[i].classList.add("visible");
+    //     }
+    //     for (var i = 2; i < 4; i++) {
+    //       y[i].classList.remove("visible");
+    //       y[i].classList.add("invisible");
+    //     }
+    //   } else if (f == 1 && w > 992) {
+    //     y[0].classList.remove("invisible");
+    //     y[0].classList.add("visible");
+    //     for (var i = 1; i < 4; i++) {
+    //       y[i].classList.remove("visible");
+    //       y[i].classList.add("invisible");
+    //     }
+    //   } else if (f == 1 && w <= 600) {
+    //     for (var i = 0; i < 4; i++) {
+    //       y[i].classList.remove("invisible");
+    //       y[i].classList.add("visible");
+    //     }
+    //   }
+    // }
+    function toggle() {
+      if (f == 0) {
+        text.style.color = "#333333";
+
+        x.classList.remove("colour1");
+        x.classList.add("colour3");
+        var w = document.documentElement.clientWidth;
+        if (w > 992) {
+          for (var i = 0; i < 1; i++) {
+            y[i].classList.remove("invisible");
+            y[i].classList.add("visible");
+          }
+        } else if (w > 600 && w <= 992) {
+          for (var i = 0; i < 2; i++) {
+            y[i].classList.remove("invisible");
+            y[i].classList.add("visible");
+          }
+        } else {
+          for (var i = 0; i < 4; i++) {
+            y[i].classList.remove("invisible");
+            y[i].classList.add("visible");
+          }
+        }
+        b.classList.remove("invisible");
+        b.classList.add("visible");
+        a.classList.remove("visible");
+        a.classList.add("invisible");
+        f = 1;
+      } else {
+        text.style.color = "#ffffff";
+        x.classList.remove("colour3");
+        x.classList.add("colour1");
+        for (var i = 0; i < y.length; i++) {
+          y[i].classList.remove("visible");
+          y[i].classList.add("invisible");
+        }
+        a.classList.remove("invisible");
+        a.classList.add("visible");
+        b.classList.remove("visible");
+        b.classList.add("invisible");
+        f = 0;
+      }
+    }
+  </script>
+</body>
+
+</html>
