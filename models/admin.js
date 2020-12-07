@@ -17,6 +17,18 @@ const adminSchema = new mongoose.Schema({
     type: String,
     unique: true
   },
+  rating: {
+    type: {
+      user: {
+        type: mongoose.Schema.ObjectId,
+        ref: "applicant",
+      },
+      domains: {
+        domain: String,
+        rating: Number,
+      }
+    }
+  }
 });
 
 adminSchema.methods.generateHash = function generateHash(password) {

@@ -143,7 +143,7 @@ router.post("/domain", auth.isAuthenticated,auth.isAttempt, async (req, res, nex
 });
 
 /* GET questions */
-router.get("/question", auth.isAuthenticated, auth.isAttempt, async (req, res, next) => {
+router.get("/question/", auth.isAuthenticated, auth.isAttempt, async (req, res, next) => {
   try {
     // req.logout();
     // return res.render("closed")

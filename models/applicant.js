@@ -6,65 +6,64 @@ mongoose.set("useCreateIndex", true);
 
 const applicantSchema = new mongoose.Schema({
   name: {
-    type: String
+    type: String,
   },
   email: {
     type: String,
-    unique: true
+    unique: true,
   },
-  password:{
+  password: {
     type: String,
   },
   regno: {
     type: String,
-    unique: true
+    unique: true,
   },
-  phone:{
-    type:Number
+  phone: {
+    type: Number,
   },
   gender: {
     type: String,
     enum: ["male", "female", "other"],
-    default: "other"
+    default: "other",
   },
   compete: {
     type: Boolean,
-    default: false
+    default: false,
   },
-  domain: {
-    type: [String],
-    minlength: 1
-  },
-  response: [
-    {
-      questionId: {
-        type: mongoose.Schema.ObjectId,
-        ref: "question"
-      },
-      userSolution: String,
-    }
-  ],
-  status: {
-    type: String,
-    enum: ["approved", "reject", "hold", "invalid"],
-    default: "hold"
+  domains: {
+    type: [{
+      name: String,
+      questions: [
+        {
+          questionId: {
+            type: mongoose.Schema.ObjectId,
+            ref: "question",
+          },
+          userSolution: {
+            type: [String],
+            minlength: 1,
+          },
+        },
+      ]
+    }],
+    minlength: 1,
   },
   overSmart: {
     type: Boolean,
-    default: false
+    default: false,
   },
-  check: String,
   startTime: Number,
   endTime: Number,
   maxTime: Number,
   submitted: {
     type: Boolean,
-    default: false
+    default: false,
   },
   attempted: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
 applicantSchema.methods.generateHash = function generateHash(password) {

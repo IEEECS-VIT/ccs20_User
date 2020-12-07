@@ -3,20 +3,24 @@ const mongoose = require("mongoose");
 const questionSchema = new mongoose.Schema({
   qid: Number,
   question: String,
-  options: [String],
+  options: {
+    type: [String],
+    minlength: 4,
+  },
   answer: {
     type: [String],
-    minlength: 1
+    minlength: 1,
   },
-  isSubjective: {
-    type: Boolean,
-    default: false
+  qType: {
+    type: String,
+    enum: ["multic", "descr", "singlec", "oneline"],
+    default: "descr",
   },
   qDomain: {
     type: String,
     enum: ["technical", "design", "management", "documentation"],
     default: "management"
-  }
+  },
 });
 
 module.exports = mongoose.model("question", questionSchema);
