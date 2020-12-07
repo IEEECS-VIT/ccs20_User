@@ -103,7 +103,7 @@ router.get(
 );
 
 /* GET domain page */
-router.get("/domain", auth.isAttempt, async (req, res, next) => {
+router.get("/domain", auth.isAuthenticated, auth.isAttempt, async (req, res, next) => {
   try {
     // req.logout();
     // return res.render("closed")
@@ -114,7 +114,7 @@ router.get("/domain", auth.isAttempt, async (req, res, next) => {
 })
 
 /* POST domain details */
-router.post("/domain", auth.isAttempt, async (req, res, next) => {
+router.post("/domain", auth.isAuthenticated,auth.isAttempt, async (req, res, next) => {
   try {
     // req.logout();
     // return res.render("closed")
@@ -143,7 +143,7 @@ router.post("/domain", auth.isAttempt, async (req, res, next) => {
 });
 
 /* GET questions */
-router.get("/question", auth.isAttempt, async (req, res, next) => {
+router.get("/question", auth.isAuthenticated, auth.isAttempt, async (req, res, next) => {
   try {
     // req.logout();
     // return res.render("closed")
@@ -166,7 +166,7 @@ router.get("/question", auth.isAttempt, async (req, res, next) => {
 });
 
 /* POST answers */
-router.post("/question", auth.isSubmit, async (req, res, next) => {
+router.post("/question", auth.isAuthenticated, auth.isSubmit, async (req, res, next) => {
   try {
     // req.logout();
     // return res.render("closed")

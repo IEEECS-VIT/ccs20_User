@@ -28,7 +28,6 @@ mongoose.connect(
 );
 
 const usersRouter = require("./routes");
-const auth = require("./middleware/authentication");
 const app = express();
 app.disable("x-powered-by");
 

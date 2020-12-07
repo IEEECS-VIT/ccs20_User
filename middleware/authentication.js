@@ -18,5 +18,11 @@ module.exports = {
     if (!req.user.submitted) return next();
     let message = "You have already submitted the page.";
     res.render("thanks", { message });
-  }
+  },
+  isAuthenticated: (req, res, next) => {
+    if (req.user)
+      return next();
+    console.log("Not Authenticated to enter");
+    res.render("/");
+  },
 };
