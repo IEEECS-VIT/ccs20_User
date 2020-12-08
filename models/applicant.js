@@ -33,7 +33,11 @@ const applicantSchema = new mongoose.Schema({
   },
   domains: {
     type: [{
-      name: String,
+      name: {
+        type: String,
+        enum: ["technical", "design", "management", "documentation"],
+        default: "management"
+      },
       questions: [
         {
           questionId: {
@@ -45,7 +49,15 @@ const applicantSchema = new mongoose.Schema({
             minlength: 1,
           },
         },
-      ]
+      ],
+      startTime: {
+        type: Number,
+        default: Date.now()
+      },
+      endTime: {
+        type: Number,
+        default: Date.now()
+      }
     }],
     minlength: 1,
   },
@@ -53,8 +65,6 @@ const applicantSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  startTime: Number,
-  endTime: Number,
   maxTime: Number,
   submitted: {
     type: Boolean,
