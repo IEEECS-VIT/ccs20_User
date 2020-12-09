@@ -20,7 +20,7 @@ const adminSchema = new mongoose.Schema({
   rating: {
     type: {
       user: {
-        type: mongoose.Schema.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: "applicant",
       },
       domains: [{
