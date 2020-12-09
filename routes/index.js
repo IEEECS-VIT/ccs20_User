@@ -134,7 +134,7 @@ router.post(
           domain.pop();
         }
         if (i < domain.length) {
-          domains[domain[i]] = Object.create(null);
+          domains[domain[i]] = null;
         }
       }
       await A_Database.findByIdAndUpdate(req.user._id, {
@@ -171,7 +171,7 @@ router.get(
           if (questions.submitted) {
             return res.json({success:false, message:"Already submitted for this domain"});
           }
-          res.json(questions);
+          res.json(questions.data);
         } catch (err) {
           console.log(err.message);
           return res.json({ success: false, message: err.message });
