@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
   <title>Preferences</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
   <style>
     .swal-button {
       background-color: #faa41a !important;
@@ -29,8 +31,17 @@
       <div class="background b2 invisible"></div>
       <div class="background b3 invisible"></div>
       <div class="background b4 invisible"></div>
+
+      <div class="carousel">
+
+
+        <div class="carousel-item">
+
       <div class="column">
         <div class="mycard">
+          
+
+          
           <p>Technical</p>
           <div class="logo1"></div>
           <img id="logo1" src="images/administrator.png" alt="technical" />
@@ -41,6 +52,11 @@
           </button>
         </div>
       </div>
+      </div>
+
+
+
+      <div class="carousel-item">
       <div class="column">
         <div class="mycard">
           <p>Design</p>
@@ -53,6 +69,10 @@
           </button>
         </div>
       </div>
+    </div>
+
+   
+    <div class="carousel-item">
       <div class="column">
         <div class="mycard">
           <p>Management</p>
@@ -64,7 +84,10 @@
           </button>
         </div>
       </div>
-      <div class="column">
+    </div>
+
+    <div class="carousel-item">
+        <div class="column">
         <div class="mycard">
           <p>Documentation</p>
           <!-- <br> -->
@@ -76,6 +99,11 @@
           </button>
         </div>
       </div>
+    </div>
+
+
+
+    <div class="carousel-item">
       <div class="column">
         <div class="mycard">
           <p>Competitive</p>
@@ -87,6 +115,8 @@
             Select
           </button>
         </div>
+      </div>
+     </div> 
       </div>
     </div>
     <div class="row" style="text-align: center">
@@ -253,6 +283,15 @@
       }
     }
   </script>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script type="text/javascript">
+         $(document).ready(function(){
+            $('.carousel').carousel();
+           });
+  </script>
+  
 </body>
 
 </html>

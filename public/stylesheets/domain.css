@@ -13,11 +13,11 @@ animation: animatedBackground 30s linear infinite;
 }
 
 .logo {
-  height: 50px;
+  height: 100px;
   /* margin: 15px !important; */
   margin: auto;
   margin-top: 15px;
-}
+ }
 .colour1 {
   background-color: #202020;
   /* background-image: url('grid2.png'); */
@@ -71,19 +71,20 @@ animation: animatedBackground 30s linear infinite;
 
 /* Style the counter cards */
 .mycard {
-  padding: 16px;
+  padding: 64px;
   text-align: center;
   color: #333;
-  background-color: #333 !important;
+  background-color: rgb(230, 8, 8) !important;
   /* height: 50%; */
   border-radius: 24px !important;
-  margin: 0rem -2px 0rem 0px !important;
+  margin: -2rem -2px 0rem 2px !important;
   width: 100% !important;
   padding-bottom: 30px;
 }
 p {
   color: #ffffff;
-  font-size: 20px;
+  font-size: 40px;
+  text-align: center;
 }
 .container1 h2 {
   font-size: 2em;
@@ -319,4 +320,48 @@ h2 {
   .th{
     font-size: 1em;
   }
+}
+
+body
+{
+  margin:0;
+  padding:0;
+}
+
+.carousel
+{
+  transform:translateY(-50px);
+  height:700px;
+  perspective: 600px;
+}
+
+.carousel .carousel-item
+{
+  width:400px;
+}
+
+/* .carousel .carousel-item img
+{
+  width:100%;
+} */
+
+.carousel .carousel-item p
+{
+  margin :0;
+  padding: 0;
+  /* background: #fff; */
+  /* color:#000; */
+  box-sizing: border-box;
+  padding:10px 5px;
+  font-weight:bold;
+  font-size:16px;
+  text-align:center;
+
+}
+
+
+.column
+{
+  color: #faa41a;
+
 }
