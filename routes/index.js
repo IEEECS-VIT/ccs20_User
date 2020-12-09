@@ -135,7 +135,6 @@ router.post(
         }
         if (i < domain.length) {
           domains[domain[i]] = Object.create(null);
-          domains[domain[i]].status = 0;
         }
       }
       await A_Database.findByIdAndUpdate(req.user._id, {
@@ -144,6 +143,7 @@ router.post(
         domains: domains,
       });
       // either this or buffer page
+      userService.setQuestions(req.user._id);
       res.json({ success: true });
     } catch (error) {
       return next(error);
@@ -162,17 +162,8 @@ router.get(
       var domain = req.params.domain;
       var domains = req.user.domains;
       if (domains.hasOwnProperty(domain)) {
-        if (domains[domain].status === 0) {
-          // set questions and send json response and also updates
-          // domainStatus of user to 1
-          let questions = await userService.setQuestions(user.id, domain);
-          res.json(questions);
-        } else {
-          return res.json({
-            success: false,
-            message: "You already attempted this section",
-          });
-        }
+        // Always returns the questions response object for each domain
+        let questions = await R_Database.findById(domains[domain],{data}).populate();
       } else {
         return res.json({
           success: false,
@@ -192,26 +183,8 @@ router.post(
     try {
       var domain = req.params.domain;
       var domains = req.user.domains;
-      var responseId = req.body.responseId;
       if (domains.hasOwnProperty(domain)) {
-        if (
-          domains[domain].status === 1 &&
-          domains[domain].response == responseId
-        ) {
-          let response = R_Database.findById(responseId);
-          let solutions = req.body.solutions;
-          response.data.forEach((question) => {
-            solutions.forEach((solution) => {
-              if (question.qid === solution.qid) {
-                question.solution = solution.solution;
-              }
-            });
-          });
-          response.save();
-          return res.json({ success: true });
-        } else {
-          return res.json({ success: false, message: "Invalid Request" });
-        }
+        //Plans for Future
       } else {
         return res.json({
           success: false,
