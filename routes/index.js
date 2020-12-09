@@ -163,7 +163,20 @@ router.get(
       var domains = req.user.domains;
       if (domains.hasOwnProperty(domain)) {
         // Always returns the questions response object for each domain
-        let questions = await R_Database.findById(domains[domain],{data}).populate();
+        // populate according to response object
+        try {
+          let questions = await R_Database.findById(domains[domain], "data submitted")
+            .populate("data.questionId", "question option qType")
+            .lean();
+          if (questions.submitted) {
+            return res.json({success:false, message:"Already submitted for this domain"});
+          }
+          res.json(questions);
+        } catch (err) {
+          console.log(err.message);
+          return res.json({ success: false, message: err.message });
+        }
+        res.json(questions);
       } else {
         return res.json({
           success: false,
@@ -184,7 +197,25 @@ router.post(
       var domain = req.params.domain;
       var domains = req.user.domains;
       if (domains.hasOwnProperty(domain)) {
-        //Plans for Future
+        let responseObj = await R_Database.findById(domains[domain]);
+        if (responseObj.submitted) {
+          return res.json({
+            success: false,
+            message: "Already submitted for this domain",
+          });
+        }
+        responseObj.data.forEach((que) => {
+          req.body.solutions.forEach((sol) => {
+            if (sol.questionId == que.questionId) {
+              que.solution = sol.solution;
+            }
+          });
+        });
+        responseObj.submitted = true;
+        responseObj.startTime = req.body.startTime;
+        responseObj.endTime = req.body.endTime;
+        await responseObj.save();
+        res.json({success: true});
       } else {
         return res.json({
           success: false,
