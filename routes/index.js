@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var A_Database = require("../models/applicant");
+var Q_Database = require("../models/question");
 var userService = require("../services/userService");
 var userFunctions = require("../services/userFunctions");
 var passport = require("passport");
@@ -18,7 +19,7 @@ router.post(
   passport.authenticate("login", {
     successRedirect: "/instructions",
     failureRedirect: "/",
-    failureFlash: true
+    failureFlash: true,
   })
 );
 
@@ -71,7 +72,7 @@ router.post("/register", async (req, res, next) => {
   try {
     let message = await userFunctions.addUser(req.body);
     // console.log(req.body);
-    console.log(message)
+    console.log(message);
     if (message === "ok") return res.render("index", { message: "ok" });
     return res.render("index", { message: message });
   } catch (err) {
@@ -92,106 +93,135 @@ router.get("/thanks", (req, res, next) => {
 });
 
 /* GET instructions */
+router.get("/instructions", auth.isAttempt, async (req, res, next) => {
+  // req.logout();
+  // return res.render("closed")
+  res.render("instructions");
+});
+
+/* GET domain page */
 router.get(
-  "/instructions",
-  auth.isAttempt,
+  "/domain",
+  auth.isAuthenticated,
+  auth.isDomainSelected,
   async (req, res, next) => {
-    // req.logout();
-    // return res.render("closed")
-    res.render("instructions", { user: req.user });
+    try {
+      // req.logout();
+      // return res.render("closed")
+      return res.render("domains", { user: req.user });
+    } catch (error) {
+      return next(error);
+    }
   }
 );
 
-/* GET domain page */
-router.get("/domain", auth.isAuthenticated, auth.isAttempt, async (req, res, next) => {
-  try {
-    // req.logout();
-    // return res.render("closed")
-    return res.render("domains", { user: req.user })
-  } catch (error) {
-    return next(error)
-  }
-})
-
 /* POST domain details */
-router.post("/domain", auth.isAuthenticated,auth.isAttempt, async (req, res, next) => {
-  try {
-    // req.logout();
-    // return res.render("closed")
-    var startTime = Date.now();
-    var domain = req.body.domain;
-    var compete = false;
-    for (var i = 0; i < domain.length; i++) {
-      if (domain[i] === "competitive") {
-        compete = true;
-        domain[i] = domain[domain.length - 1];
-        domain.pop();
-        break;
-      }
-    }
-    var maxTime = domain.length * 600;
-    await A_Database.findByIdAndUpdate(req.user.id, {
-      compete: compete,
-      domain: domain,
-      startTime: startTime,
-      maxTime: maxTime
-    });
-    res.json({ success: true });
-  } catch (error) {
-    return next(error);
-  }
-});
-
-/* GET questions */
-router.get("/question/", auth.isAuthenticated, auth.isAttempt, async (req, res, next) => {
-  try {
-    // req.logout();
-    // return res.render("closed")
-    var stuff = await userService.setQuestions(req.user.id);
-    let questions = stuff.map(question => {
-      return {
-        questionId: question._id,
-        userSolution: []
-      };
-    });
-    await A_Database.findByIdAndUpdate(req.user.id, {
-      response: questions,
-      attempted: true
-    });
-    const data = await A_Database.findById(req.user.id, "response domain maxTime").populate("response.questionId", "question qDomain qType options").lean();
-    res.render("quiz", { data: data });
-  } catch (error) {
-    return next(error);
-  }
-});
-
-/* POST answers */
-router.post("/question", auth.isAuthenticated, auth.isSubmit, async (req, res, next) => {
-  try {
-    // req.logout();
-    // return res.render("closed")
-    const solutions = req.body.solutions;
-    console.log(solutions);
-    var endTime = Date.now();
-    let user = await A_Database.findById(req.user.id);
-    console.log(user);
-    let responseToUpdate = user.response;
-    responseToUpdate.forEach(question => {
-      solutions.forEach(solution => {
-        if (solution.questionId == question.questionId) {
-          question.userSolution = solution.userSolution;
+router.post(
+  "/domain",
+  auth.isAuthenticated,
+  auth.isDomainSelected,
+  async (req, res, next) => {
+    try {
+      // req.logout();
+      // return res.render("closed")
+      var domain = req.body.domain;
+      var compete = false;
+      var domains = Object.create(null);
+      for (var i = 0; i < domain.length; i++) {
+        if (domain[i] === "competitive") {
+          compete = true;
+          domain[i] = domain[domain.length - 1];
+          domain.pop();
         }
+        if (i < domain.length) {
+          domains[domain[i]] = Object.create(null);
+          domains[domain[i]].status = 0;
+        }
+      }
+      await A_Database.findByIdAndUpdate(req.user._id, {
+        compete: compete,
+        domainSelected: true,
+        domains: domains,
       });
-    });
-    user.response = responseToUpdate;
-    user.submitted = true;
-    user.endTime = endTime;
-    await user.save();
-    await userService.timeStatus(req.user.id);
-    res.json({ success: true });
-  } catch (error) {
-    return next(error);
+      // either this or buffer page
+      res.json({ success: true });
+    } catch (error) {
+      return next(error);
+    }
   }
-});
+);
+
+// The main quiz page
+router.get("/quiz", auth.isAuthenticated, async (req, res, next) => {});
+
+router.get(
+  "/question/:domain",
+  auth.isAuthenticated,
+  async (req, res, next) => {
+    try {
+      var domain = req.params.domain;
+      var domains = req.user.domains;
+      if (domains.hasOwnProperty(domain)) {
+        if (domains[domain].status === 0) {
+          // set questions and send json response and also updates
+          // domainStatus of user to 1
+          let questions = await userService.setQuestions(user.id, domain);
+          res.json(questions);
+        } else {
+          return res.json({
+            success: false,
+            message: "You already attempted this section",
+          });
+        }
+      } else {
+        return res.json({
+          success: false,
+          message: "No such domain selected!",
+        });
+      }
+    } catch (error) {
+      return next(error);
+    }
+  }
+);
+
+router.post(
+  "/question/:domain",
+  auth.isAuthenticated,
+  async (req, res, next) => {
+    try {
+      var domain = req.params.domain;
+      var domains = req.user.domains;
+      var responseId = req.body.responseId;
+      if (domains.hasOwnProperty(domain)) {
+        if (
+          domains[domain].status === 1 &&
+          domains[domain].response == responseId
+        ) {
+          let response = R_Database.findById(responseId);
+          let solutions = req.body.solutions;
+          response.data.forEach((question) => {
+            solutions.forEach((solution) => {
+              if (question.qid === solution.qid) {
+                question.solution = solution.solution;
+              }
+            });
+          });
+          response.save();
+          return res.json({ success: true });
+        } else {
+          return res.json({ success: false, message: "Invalid Request" });
+        }
+      } else {
+        return res.json({
+          success: false,
+          message: "No such domain selected!",
+        });
+      }
+    } catch (error) {
+      return next(error);
+    }
+  }
+);
 
 module.exports = router;
