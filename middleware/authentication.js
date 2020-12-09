@@ -14,6 +14,10 @@ module.exports = {
     let message = "You have already Attampted the quiz.";
     res.render("thanks", { message });
   },
+  isDomainSelected:(req,res,next) => {
+    if (!req.user.domainSelected) return next();
+    res.redirect("/quiz");
+  },
   isSubmit: (req, res, next) => {
     if (!req.user.submitted) return next();
     let message = "You have already submitted the page.";

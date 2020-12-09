@@ -8,11 +8,12 @@ const User = require("../models/applicant");
 //  */
 module.exports = (passport) => {
   passport.serializeUser((user, done) =>
-    done(null, user.id)
+    done(null, user._id)
   );
 
   passport.deserializeUser((id, done) => {
-      User.findById(id)
+      User.findById(id, {dominSelected:1, regno: 1, domains: 1})
+        .lean()
         .exec()
         .then((userData) => done(null, userData))
         .catch((err) => done(err, null));
@@ -32,6 +33,7 @@ module.exports = (passport) => {
           User.findOne({
             regno: regno,
           })
+            .lean()
             .exec()
             .then((user) => {
               console.log(user);
