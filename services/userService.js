@@ -1,9 +1,11 @@
 const Q_Database = require("../models/question");
 const A_Database = require("../models/applicant");
+const R_Databse = require("../models/response");
+const { use } = require("passport");
 module.exports.setQuestions = async id => {
   try {
-    var domain = await A_Database.findById(id, {domain: 1, _id: 0}).lean();
-    domain = domain.domain;
+    var user = await A_Database.findById(id);
+    var domain = Object.keys(user.domains);
     console.log(domain);
     var Ques = await Q_Database.find(
       { qDomain: {$in: domain} },
@@ -25,9 +27,10 @@ module.exports.setQuestions = async id => {
         domainArray[que.qDomain].objective.push(que._id);
       }
     }
-    var fArray = [], index, temp, Sque, Oque, resultque;
+    var index, temp, Sque, Oque, resultque;
     for (var ii = 0; ii < domain.length; ii++) {
       var newDomain = domain[ii];
+      let response = new R_Databse();
       Sque = domainArray[newDomain].subjective;
       Oque = domainArray[newDomain].objective;
       resultque = [];
@@ -58,9 +61,16 @@ module.exports.setQuestions = async id => {
         Sque = Sque.slice(0, 4); // No of question is 5 for documentation
         resultque.push.apply(resultque, Sque);
       }
-      fArray.push.apply(fArray, resultque);
+      resultque.forEach((qid)=>{
+        response.data.push({
+          questionId: qid,
+          solution: "",
+        });
+      })
+      await response.save();
+      user.domains[newDomain] = response.id;
     }
-    return fArray;
+    await user.save();
   } catch(error){
     console.log(error);
   }
