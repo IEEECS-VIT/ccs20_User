@@ -1,74 +1,88 @@
 const Q_Database = require("../models/question");
 const A_Database = require("../models/applicant");
 const R_Databse = require("../models/response");
-const { use } = require("passport");
-module.exports.setQuestions = async id => {
+
+module.exports.setQuestions = async (id, domain) => {
   try {
     var user = await A_Database.findById(id);
-    var domain = Object.keys(user.domains);
+    user["domains"] = Object.create(null);
     console.log(domain);
     var Ques = await Q_Database.find(
       { qDomain: {$in: domain} },
       { _id: 1, qDomain: 1, qType: 1}
     ).lean();
+    console.log(Ques.length);
     var domainArray= {},
         que, i;
     for (i = 0; i < domain.length; i++) {
       domainArray[domain[i]] = {
-        subjective: [],
-        objective: [],
+        oneline: [],
+        multic:[],
+        singlec:[],
+        descr:[],
       };
     }
     for (i = 0; i < Ques.length; i++) {
       que = Ques[i];
-      if (que.isSubjective) {
-        domainArray[que.qDomain].subjective.push(que._id);
-      } else {
-        domainArray[que.qDomain].objective.push(que._id);
-      }
+      domainArray[que.qDomain][que.qType].push(que._id);
     }
-    var index, temp, Sque, Oque, resultque;
-    for (var ii = 0; ii < domain.length; ii++) {
-      var newDomain = domain[ii];
+    var index,len;
+    for (let ii = 0; ii < domain.length; ii++) {
+      let newDomain = domain[ii];
       let response = new R_Databse();
-      Sque = domainArray[newDomain].subjective;
-      Oque = domainArray[newDomain].objective;
-      resultque = [];
+      let mque = domainArray[newDomain]["multic"];
+      let sque = domainArray[newDomain]["singlec"];
+      let dque = domainArray[newDomain]["descr"];
+      let oque = domainArray[newDomain]["oneline"];
+      let resultque = [];
       if (newDomain !== "documentation") {
-        for (i = Sque.length - 1; i > 0; i--) {
-          index = Math.floor(Math.random() * (i + 1));
-          temp = Sque[i];
-          Sque[i] = Sque[index];
-          Sque[index] = temp;
+        len = mque.length;
+        for (i = 0; i < 2; i++) {
+          index = Math.floor(Math.random() * len);
+          resultque.push(mque[index]);
+          mque[index] = mque[len-1];
+          len -= 1;
         }
-        Sque = Sque.slice(0, 7);
-        resultque.push.apply(resultque, Sque);
-        for (i = Oque.length - 1; i > 0; i--) {
-          index = Math.floor(Math.random() * (i + 1));
-          temp = Oque[i];
-          Oque[i] = Oque[index];
-          Oque[index] = temp;
+        len = sque.length;
+        for (i = 0; i < 2; i++) {
+          index = Math.floor(Math.random() * len);
+          resultque.push(sque[index]);
+          sque[index] = sque[len-1];
+          len -= 1;
         }
-        Oque = Oque.slice(0, 3);
-        resultque.push.apply(resultque, Oque);
+        len = dque.length;
+        for (i = 0; i < 3; i++) {
+          index = Math.floor(Math.random() * len);
+          resultque.push(dque[index]);
+          dque[index] = dque[len-1];
+          len -= 1;
+        }
+        len = oque.length;
+        for (i = 0; i < 3; i++) {
+          index = Math.floor(Math.random() * len);
+          resultque.push(oque[index]);
+          oque[index] = oque[len-1];
+          len -= 1;
+        }
       } else {
-        for (i = Sque.length - 1; i > 0; i--) {
-          index = Math.floor(Math.random() * (i + 1));
-          temp = Sque[i];
-          Sque[i] = Sque[index];
-          Sque[index] = temp;
+        len = dque.length;
+        for (i = 0; i < 5; i++) {
+          index = Math.floor(Math.random() * len);
+          resultque.push(dque[index]);
+          dque[index] = dque[len-1];
+          len -= 1;
         }
-        Sque = Sque.slice(0, 4); // No of question is 5 for documentation
-        resultque.push.apply(resultque, Sque);
       }
+      console.log(newDomain);
+      console.log(resultque);
       resultque.forEach((qid)=>{
         response.data.push({
           questionId: qid,
           solution: "",
         });
-      })
+      });
+      user["domains"][newDomain] = response.id;
       await response.save();
-      user.domains[newDomain] = response.id;
     }
     await user.save();
   } catch(error){

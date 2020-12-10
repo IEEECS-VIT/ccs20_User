@@ -9,9 +9,13 @@ module.exports = {
     console.log("auth failed");
     res.redirect("/");
   },
-  isDomainSelected:(req,res,next) => {
+  domainNotSelected:(req,res,next) => {
     if (!req.user.domainSelected) return next();
     res.redirect("/quiz");
+  },
+  domainSelected:(req,res,next) => {
+    if (req.user.domainSelected) return next();
+    res.redirect("/domain");
   },
   isAuthenticated: (req, res, next) => {
     if (req.user && req.user._id && req.user.regno && req.user.regno.startsWith("20"))
@@ -19,4 +23,10 @@ module.exports = {
     console.log("Not Authenticated to enter");
     res.render("/");
   },
+  isUser: (req,res,next) => {
+    if(!req.user || !req.user._id){
+      return next();
+    }
+    res.redirect("/check");
+  }
 };

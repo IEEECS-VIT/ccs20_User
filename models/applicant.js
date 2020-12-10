@@ -35,10 +35,11 @@ const applicantSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  domains: {
-    type: mongoose.Types.ObjectId,
-    ref: "response",
+  attempted: {
+    type: Boolean,
+    default: false,
   },
+  domains: Object,
 });
 
 applicantSchema.methods.generateHash = function generateHash(password) {

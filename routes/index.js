@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var A_Database = require("../models/applicant");
-var Q_Database = require("../models/question");
+var R_Database = require("../models/response");
 var userService = require("../services/userService");
 var userFunctions = require("../services/userFunctions");
 var passport = require("passport");
@@ -24,7 +24,7 @@ router.post(
 );
 
 /* GET mobile register */
-router.get("/register", (req, res) => {
+router.get("/register", auth.isUser, (req, res) => {
   // req.logout();
   // return res.render("closed")
   res.render("register", { message: "" });
@@ -93,9 +93,7 @@ router.get("/thanks", (req, res, next) => {
 });
 
 /* GET instructions */
-router.get("/instructions", auth.isAttempt, async (req, res, next) => {
-  // req.logout();
-  // return res.render("closed")
+router.get("/instructions", async (req, res, next) => {
   res.render("instructions");
 });
 
@@ -103,7 +101,7 @@ router.get("/instructions", auth.isAttempt, async (req, res, next) => {
 router.get(
   "/domain",
   auth.isAuthenticated,
-  auth.isDomainSelected,
+  auth.domainNotSelected,
   async (req, res, next) => {
     try {
       // req.logout();
@@ -115,35 +113,39 @@ router.get(
   }
 );
 
+/* Check routes */
+router.get("/check",auth.isAuthenticated, (req,res,next)=>{
+  if (!req.user.domainSelected) {
+    res.redirect("/domain");
+  } else {
+    res.redirect("/quiz");
+  }
+})
+
 /* POST domain details */
 router.post(
   "/domain",
   auth.isAuthenticated,
-  auth.isDomainSelected,
+  auth.domainNotSelected,
   async (req, res, next) => {
     try {
       // req.logout();
       // return res.render("closed")
       var domain = req.body.domain;
       var compete = false;
-      var domains = Object.create(null);
       for (var i = 0; i < domain.length; i++) {
         if (domain[i] === "competitive") {
           compete = true;
           domain[i] = domain[domain.length - 1];
           domain.pop();
         }
-        if (i < domain.length) {
-          domains[domain[i]] = null;
-        }
       }
       await A_Database.findByIdAndUpdate(req.user._id, {
         compete: compete,
         domainSelected: true,
-        domains: domains,
       });
+      await userService.setQuestions(req.user._id, domain);
       // either this or buffer page
-      userService.setQuestions(req.user._id);
       res.json({ success: true });
     } catch (error) {
       return next(error);
@@ -152,7 +154,9 @@ router.post(
 );
 
 // The main quiz page
-router.get("/quiz", auth.isAuthenticated, async (req, res, next) => {});
+router.get("/quiz", auth.isAuthenticated, auth.domainSelected ,async (req, res, next) => {
+  res.render("quiz", {user: req.user.regno, domains: Object.keys(req.user.domains)});
+});
 
 router.get(
   "/question/:domain",
