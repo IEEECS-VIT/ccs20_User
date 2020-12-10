@@ -10,10 +10,6 @@ const subSchema = new mongoose.Schema(
   { _id: false }
 );
 const resSchema = new mongoose.Schema({
-  submitted: {
-    type: Boolean,
-    default: false,
-  },
   startTime: Number,
   endTime: Number,
   data: [subSchema],

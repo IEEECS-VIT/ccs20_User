@@ -9,12 +9,26 @@ module.exports = {
     console.log("auth failed");
     res.redirect("/");
   },
-  domainNotSelected:(req,res,next) => {
-    if (!req.user.domainSelected) return next();
+  isSelected:(req,res,next) => {
+    if (!req.user.questionSelected) return next();
     res.redirect("/quiz");
   },
-  domainSelected:(req,res,next) => {
-    if (req.user.domainSelected) return next();
+  check:(req,res,next)=>{
+    if (req.user.questionSelected) {
+      if(req.user.domainsLeft.length === 0){
+        return res.redirect("/completed");
+      }
+      return res.redirect("/quiz");
+    } 
+    next(); 
+  },
+  isQuiz:(req,res,next) => {
+    if (req.user.questionSelected) {
+      if(req.user.domainsLeft.length === 0){
+        return res.redirect("/completed");
+      }
+      return next();
+    }
     res.redirect("/domain");
   },
   isAuthenticated: (req, res, next) => {
