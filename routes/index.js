@@ -184,7 +184,6 @@ router.get(
           console.log(err.message);
           return res.json({ success: false, message: err.message });
         }
-        res.json(questions);
       } else {
         return res.json({
           success: false,
