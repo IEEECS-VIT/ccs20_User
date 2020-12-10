@@ -12,7 +12,7 @@ module.exports = (passport) => {
   );
 
   passport.deserializeUser((id, done) => {
-      User.findById(id, {dominSelected:1, regno: 1, domains: 1})
+      User.findById(id, {domainSelected:1, regno: 1, domains: 1})
         .lean()
         .exec()
         .then((userData) => done(null, userData))

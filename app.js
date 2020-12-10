@@ -58,6 +58,17 @@ app.use(
   })
 );
 
+const Question = require("./models/question");
+
+app.post("/postQ", async (req,res)=>{
+  try {
+    await Question.create(req.body);
+    res.send("Yesss");
+  } catch (err) {
+    res.send("nooo");
+  }
+})
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
