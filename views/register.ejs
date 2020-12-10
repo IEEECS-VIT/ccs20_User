@@ -40,7 +40,7 @@
           <h2 class="Sheading">Register</h2>
           <form
             autocomplete="off"
-            action="/admin/login"
+            action="/login"
             method="POST"
             name="reg_form"
           >
@@ -70,6 +70,12 @@
               autocomplete="off"
               required
             /><input
+            name="email"
+            placeholder="Email"
+            type="email"
+            autocomplete="off"
+            required
+          /><input
               name="Password"
               placeholder="Password"
               type="Password"
@@ -78,7 +84,15 @@
               required
               title="Minimum 8 characters. Must contain a Special character, a
                           Digit and Upper & Lowercase letters."
-            />
+            /><input
+            name="phone"
+            placeholder="Phone Number"
+            type="number"
+            pattern="[0-9]{9}[0-9]$"
+            autocomplete="off"
+            title="Use 10 Digit Mobile Number"
+            required
+          />
             <br /><br />
             <button
               style="
