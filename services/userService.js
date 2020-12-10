@@ -80,8 +80,8 @@ module.exports.setQuestions = async (id, domain) => {
           len -= 1;
         }
       }
-      console.log(newDomain);
-      console.log(resultque);
+      // console.log(newDomain);
+      // console.log(resultque);
       resultque.forEach((qid) => {
         response.data.push({
           questionId: qid,
