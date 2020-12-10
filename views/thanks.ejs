@@ -16,24 +16,54 @@
             transform: translate(-50%, -50%) !important;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
 
 <body class="colour1">
     <div class="container">
-        <div class="row" style="text-align: center;">
+        <div class="row" style="text-align: center;">  
             <div class="col12 top">
                 <img src="images/ieeecs.png" alt="logo" class="logo" />
             </div>
         </div>
-        <div class="container3">
-            <div class="row" style="text-align: center;">
-                <img src="images/Capture.png" alt="logo2" class="logo2" />
-            </div>
-            <div class="row" style="text-align: center;">
-                <h2>Thank you</h2>
-                <p class="th">Hope to see you for the next phase</p>
-            </div>
+        <div class="row" style="text-align: center; margin-top: 5%;">
+            <h2>Thank you</h2>
+            <p class="th">Hope to see you for the next phase!</p>
         </div>
+        <div class="row" style="text-align: center; padding: 20px 0px;">
+            <div style="width: 50%;  float: left; "> 
+                <canvas id="myChart"></canvas>
+            </div>
+            <div style="margin-left: 50%; margin-top: 10%; "> 
+                <h2>Time Left: </h2>
+                <p>01:07</p>
+            </div>
+            <script>                    
+                var ctx = document.getElementById('myChart').getContext('2d');
+                
+                Chart.defaults.global.defaultFontColor = 'white';
+                //Chart.defaults.global.defaultFontSize = 12;
+                Chart.defaults.global.legend.position='bottom' 
+                var data = {
+                    datasets: [{
+                        backgroundColor: ['#00b33c','#ff1a1a'],
+                        data: [20, 10]
+                    }],
+
+                        // These labels appear in the legend and in the tooltips when hovering different arcs
+                    labels: [
+                        'No. of questions attempted',
+                        'No. of questions not attempted'
+                    ]
+                };
+                var myPieChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: data,
+                    options: {}
+                });                    
+            </script>
+        </div>       
+        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 
