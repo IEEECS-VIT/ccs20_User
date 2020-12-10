@@ -93,7 +93,7 @@ router.get("/thanks", (req, res, next) => {
 });
 
 /* GET instructions */
-router.get("/instructions", async (req, res, next) => {
+router.get("/instructions", auth.check, async (req, res, next) => {
   res.render("instructions");
 });
 
@@ -101,7 +101,7 @@ router.get("/instructions", async (req, res, next) => {
 router.get(
   "/domain",
   auth.isAuthenticated,
-  auth.domainNotSelected,
+  auth.isSelected,
   async (req, res, next) => {
     try {
       // req.logout();
@@ -113,36 +113,31 @@ router.get(
   }
 );
 
-/* Check routes */
-router.get("/check",auth.isAuthenticated, (req,res,next)=>{
-  if (!req.user.domainSelected) {
-    res.redirect("/domain");
-  } else {
-    res.redirect("/quiz");
-  }
-})
-
 /* POST domain details */
 router.post(
   "/domain",
   auth.isAuthenticated,
-  auth.domainNotSelected,
+  auth.isSelected,
   async (req, res, next) => {
     try {
       // req.logout();
       // return res.render("closed")
       var domain = req.body.domain;
       var compete = false;
+      var domainsLeft = [];
       for (var i = 0; i < domain.length; i++) {
         if (domain[i] === "competitive") {
           compete = true;
           domain[i] = domain[domain.length - 1];
           domain.pop();
         }
+        if (i < domain.length) {
+          domainsLeft.push(domain[i]);
+        }
       }
       await A_Database.findByIdAndUpdate(req.user._id, {
         compete: compete,
-        domainSelected: true,
+        domainsLeft: domainsLeft,
       });
       await userService.setQuestions(req.user._id, domain);
       // either this or buffer page
@@ -153,11 +148,17 @@ router.post(
   }
 );
 
-// The main quiz page
-router.get("/quiz", auth.isAuthenticated, auth.domainSelected ,async (req, res, next) => {
-  res.render("quiz", {user: req.user.regno, domains: Object.keys(req.user.domains)});
-});
+/* The main quiz page */
+router.get(
+  "/quiz",
+  auth.isAuthenticated,
+  auth.isQuiz,
+  async (req, res, next) => {
+    res.render("quiz", { user: req.user.regno, domains: req.user.domainsLeft });
+  }
+);
 
+/* Route to get question for each part */
 router.get(
   "/question/:domain",
   auth.isAuthenticated,
@@ -169,12 +170,15 @@ router.get(
         // Always returns the questions response object for each domain
         // populate according to response object
         try {
-          let questions = await R_Database.findById(domains[domain], "data submitted")
+          if (!req.user.domainsLeft.includes(domain)) {
+            return res.json({
+              success: false,
+              message: "Already submitted for this domain",
+            });
+          }
+          let questions = await R_Database.findById(domains[domain], "data")
             .populate("data.questionId", "question option qType")
             .lean();
-          if (questions.submitted) {
-            return res.json({success:false, message:"Already submitted for this domain"});
-          }
           res.json(questions.data);
         } catch (err) {
           console.log(err.message);
@@ -193,6 +197,7 @@ router.get(
   }
 );
 
+/* Route for posting each part answer */
 router.post(
   "/question/:domain",
   auth.isAuthenticated,
@@ -201,13 +206,13 @@ router.post(
       var domain = req.params.domain;
       var domains = req.user.domains;
       if (domains.hasOwnProperty(domain)) {
-        let responseObj = await R_Database.findById(domains[domain]);
-        if (responseObj.submitted) {
+        if (!req.user.domainsLeft.includes(domain)) {
           return res.json({
             success: false,
             message: "Already submitted for this domain",
           });
         }
+        let responseObj = await R_Database.findById(domains[domain]);
         responseObj.data.forEach((que) => {
           req.body.solutions.forEach((sol) => {
             if (sol.questionId == que.questionId) {
@@ -215,11 +220,17 @@ router.post(
             }
           });
         });
-        responseObj.submitted = true;
         responseObj.startTime = req.body.startTime;
         responseObj.endTime = req.body.endTime;
         await responseObj.save();
-        res.json({success: true});
+        var domainsLeft = req.user.domainsLeft;
+        if (domainsLeft.indexOf(domain) >= 0) {
+          domainsLeft.splice(domainsLeft.indexOf(domain), 1);
+        }
+        await A_Database.findByIdAndUpdate(req.user._id, {
+          domainsLeft: domainsLeft,
+        });
+        res.json({ success: true });
       } else {
         return res.json({
           success: false,

@@ -31,14 +31,11 @@ const applicantSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  domainSelected: {
+  questionSelected: {
     type: Boolean,
     default: false,
   },
-  attempted: {
-    type: Boolean,
-    default: false,
-  },
+  domainsLeft: [String],
   domains: Object,
 });
 
