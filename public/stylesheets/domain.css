@@ -71,6 +71,7 @@ animation: animatedBackground 30s linear infinite;
   }
 }
 
+
 /* Style the counter cards */
 .mycard {
   padding: 64px;
@@ -82,11 +83,15 @@ animation: animatedBackground 30s linear infinite;
   margin: -2rem -2px 1rem 2px !important;
   width: 100% !important;
   padding-bottom: 30px;
-  min-width: 200px;
+  min-width: 250px;
+  min-height: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
+
 p {
   color: #ffffff;
   font-size: 40px;
@@ -100,6 +105,9 @@ p {
 }
 .container {
   color: #faa41a;
+  width:100%;
+  height:100vh ;
+
 }
 .btn {
   /* background-color: #faa41a !important; */
@@ -143,6 +151,7 @@ p {
   position: absolute;
   right: 20px;
   top: 20px;
+ 
 }
 @media screen and (max-width: 600px) {
   .logo3 {
@@ -156,8 +165,13 @@ p {
     top: 30px;
     width: 20px;
     height: 20px;
+    /* left:100%;
+    top: ;
+    position: absolute;
+    transform: translate(-100%,-20%); */
   }
 }
+
 
 /* :root{
   --primary-colour: #ffffff;
@@ -303,6 +317,8 @@ input:checked + .slider:before {
 @media screen and (max-width: 992px){
   .logo2{
     width: 277px !important;
+  
+    
     /* height: 252px !important; */
   }
 }
@@ -332,11 +348,22 @@ body
 {
   margin:0;
   padding:0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+
 }
 
 .carousel
 {
   transform:translateY(-50px);
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  
   height:700px;
   perspective: 600px;
 }
@@ -344,16 +371,18 @@ body
 .carousel .carousel-item
 {
   width:400px;
+  height: 700px;
 }
 
-/* .carousel .carousel-item img
+.carousel .carousel-item img
 {
   width:100%;
-} */
+  box-shadow: 5px 5px 15px #000,-5px -5px 15px #000;
+}
 
 .carousel .carousel-item p
 {
-  margin :0;
+  margin :0; 
   padding: 0;
   /* background: #fff; */
   /* color:#000; */
@@ -365,7 +394,29 @@ body
 
 }
 
-
+@media screen and (max-width: 600px){
+  .mycard
+  {
+    padding: 64px;
+    text-align: center;
+    color: #333;
+    background-color: #333333 !important;
+    
+    border-radius: 24px !important;
+    margin: -2rem -2px 1rem 2px !important;
+    width: 100% !important;
+    padding-bottom: 30px;
+    min-width: 150px;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+  }
+ 
+}
 .column
 {
   color: #faa41a;
