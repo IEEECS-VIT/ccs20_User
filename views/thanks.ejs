@@ -30,11 +30,13 @@
             <h2>Thank you</h2>
             <p class="th">Hope to see you for the next phase!</p>
         </div>
-        <div class="row" style="text-align: center; padding: 20px 0px;">
-            <div style="width: 50%;  float: left; "> 
+        
+        <div class="flex-container" style="display: flex; flex-wrap: wrap; justify-content: center;
+            align-items: center; align-content: space-between; text-align: center; padding: 20px 0px;">    
+            <div class="column1" > 
                 <canvas id="myChart"></canvas>
             </div>
-            <div style="margin-left: 50%; margin-top: 10%; "> 
+            <div class="column1"  > 
                 <h2>Time Left: </h2>
                 <p>01:07</p>
             </div>
@@ -42,7 +44,7 @@
                 var ctx = document.getElementById('myChart').getContext('2d');
                 
                 Chart.defaults.global.defaultFontColor = 'white';
-                //Chart.defaults.global.defaultFontSize = 12;
+                
                 Chart.defaults.global.legend.position='bottom' 
                 var data = {
                     datasets: [{
