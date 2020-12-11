@@ -48,8 +48,11 @@
                 Chart.defaults.global.legend.position='bottom' 
                 var data = {
                     datasets: [{
+                        borderWidth: 2,
                         backgroundColor: ['#00b33c','#ff1a1a'],
-                        data: [20, 10]
+                        data: [20, 10],
+                        hoverBackgroundColor: ['#00e64d','#ff3333'],
+                        hoverBorderWidth: 4
                     }],
 
                         // These labels appear in the legend and in the tooltips when hovering different arcs
@@ -61,7 +64,17 @@
                 var myPieChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: data,
-                    options: {}
+                    options: {
+                        animation: {
+                            duration: 1000,
+                            easing: 'easeOutBounce',  
+                            animateScale: true
+                        },
+                        hover: {
+                            animationDuration: 1000
+                        }
+        
+                    }
                 });                    
             </script>
         </div>       
