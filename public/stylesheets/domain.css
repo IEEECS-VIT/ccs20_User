@@ -394,29 +394,39 @@ body
 
 }
 
-@media screen and (max-width: 600px){
-  .mycard
-  {
-    padding: 64px;
-    text-align: center;
-    color: #333;
-    background-color: #333333 !important;
-    
-    border-radius: 24px !important;
-    margin: -2rem -2px 1rem 2px !important;
-    width: 100% !important;
-    padding-bottom: 30px;
-    min-width: 150px;
-    min-height: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    
-  }
+.CardDiv{
+  display: none;
+}
+
+@media screen and (max-width:600px){
+ .CarouselDiv
+ {
+   display: none !important;
+  
+ }
+ .CardDiv
+ {
+   display: block !important;
+   
+}
+.mycard
+{
+  padding: 1px;
+  text-align: center;
+  color: #333;
+  background-color: #333 !important;
+  /* height: 50%; */
+  border-radius: 24px !important;
+  margin: 0rem -2px 0rem 0px !important;
+  width: 100% !important;
+  padding-bottom: 30px;
  
 }
+
+ 
+}
+
+
 .column
 {
   color: #faa41a;
