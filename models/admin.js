@@ -20,13 +20,13 @@ const adminSchema = new mongoose.Schema({
   rating: {
     type: {
       user: {
-        type: mongoose.Schema.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: "applicant",
       },
-      domains: {
+      domains: [{
         domain: String,
         rating: Number,
-      }
+      }]
     }
   }
 });
@@ -35,4 +35,4 @@ adminSchema.methods.generateHash = function generateHash(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(SALT_FACTOR), null);
 };
 
-module.exports = mongoose.model("adminmembers", adminSchema);
+module.exports = mongoose.model("admin", adminSchema);

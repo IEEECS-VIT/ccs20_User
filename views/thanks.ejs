@@ -16,24 +16,69 @@
             transform: translate(-50%, -50%) !important;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
 
 <body class="colour1">
     <div class="container">
-        <div class="row" style="text-align: center;">
+        <div class="row" style="text-align: center;">  
             <div class="col12 top">
                 <img src="images/ieeecs.png" alt="logo" class="logo" />
             </div>
         </div>
-        <div class="container3">
-            <div class="row" style="text-align: center;">
-                <img src="images/Capture.png" alt="logo2" class="logo2" />
-            </div>
-            <div class="row" style="text-align: center;">
-                <h2>Thank you</h2>
-                <p class="th">Hope to see you for the next phase</p>
-            </div>
+        <div class="row" style="text-align: center; margin-top: 5%;">
+            <h2>Thank you</h2>
+            <p class="th">Hope to see you for the next phase!</p>
         </div>
+        
+        <div class="flex-container" style="display: flex; flex-wrap: wrap; justify-content: center;
+            align-items: center; align-content: space-between; text-align: center; padding: 20px 0px;">    
+            <div class="column1" > 
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="column1"  > 
+                <h2>Time Left: </h2>
+                <p>01:07</p>
+            </div>
+            <script>                    
+                var ctx = document.getElementById('myChart').getContext('2d');
+                
+                Chart.defaults.global.defaultFontColor = 'white';
+                
+                Chart.defaults.global.legend.position='bottom' 
+                var data = {
+                    datasets: [{
+                        borderWidth: 2,
+                        backgroundColor: ['#00b33c','#ff1a1a'],
+                        data: [20, 10],
+                        hoverBackgroundColor: ['#00e64d','#ff3333'],
+                        hoverBorderWidth: 4
+                    }],
+
+                        // These labels appear in the legend and in the tooltips when hovering different arcs
+                    labels: [
+                        'No. of questions attempted',
+                        'No. of questions not attempted'
+                    ]
+                };
+                var myPieChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: data,
+                    options: {
+                        animation: {
+                            duration: 1000,
+                            easing: 'easeOutBounce',  
+                            animateScale: true
+                        },
+                        hover: {
+                            animationDuration: 1000
+                        }
+        
+                    }
+                });                    
+            </script>
+        </div>       
+        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 

@@ -1,15 +1,13 @@
 const mongoose = require("mongoose");
 
 const questionSchema = new mongoose.Schema({
-  qid: Number,
   question: String,
   options: {
     type: [String],
     minlength: 4,
   },
   answer: {
-    type: [String],
-    minlength: 1,
+    type: String,
   },
   qType: {
     type: String,

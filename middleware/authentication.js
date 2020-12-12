@@ -9,20 +9,38 @@ module.exports = {
     console.log("auth failed");
     res.redirect("/");
   },
-  isAttempt: (req, res, next) => {
-    if (!req.user.attempted) return next();
-    let message = "You have already Attampted the quiz.";
-    res.render("thanks", { message });
+  isSelected:(req,res,next) => {
+    if (!req.user.questionSelected) return next();
+    res.redirect("/quiz");
   },
-  isSubmit: (req, res, next) => {
-    if (!req.user.submitted) return next();
-    let message = "You have already submitted the page.";
-    res.render("thanks", { message });
+  check:(req,res,next)=>{
+    if (req.user.questionSelected) {
+      if(req.user.domainsLeft.length === 0){
+        return res.redirect("/completed");
+      }
+      return res.redirect("/quiz");
+    } 
+    next(); 
+  },
+  isQuiz:(req,res,next) => {
+    if (req.user.questionSelected) {
+      if(req.user.domainsLeft.length === 0){
+        return res.redirect("/completed");
+      }
+      return next();
+    }
+    res.redirect("/domain");
   },
   isAuthenticated: (req, res, next) => {
-    if (req.user)
+    if (req.user && req.user._id && req.user.regno && req.user.regno.startsWith("20"))
       return next();
     console.log("Not Authenticated to enter");
     res.render("/");
   },
+  isUser: (req,res,next) => {
+    if(!req.user || !req.user._id){
+      return next();
+    }
+    res.redirect("/check");
+  }
 };
