@@ -164,6 +164,9 @@ router.get(
   auth.isAuthenticated,
   async (req, res, next) => {
     try {
+      if (!req.xhr) {
+        return res.json({success: false, message: "Unauthorized to access"});
+      }
       var domain = req.params.domain;
       var domains = req.user.domains;
       if (domains.hasOwnProperty(domain)) {
@@ -202,6 +205,9 @@ router.post(
   auth.isAuthenticated,
   async (req, res, next) => {
     try {
+      if (!req.xhr) {
+        return res.json({success: false, message: "Unauthorized to access"});
+      }
       var domain = req.params.domain;
       var domains = req.user.domains;
       if (domains.hasOwnProperty(domain)) {
