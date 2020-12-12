@@ -223,7 +223,7 @@ textarea:focus:not([readonly]) {
   font-family: 'Montserrat', sans-serif;
 }
 .border-1 {
-  border-right: 4px solid #faa41a;
+  border-right: 2px solid #faa41a;
 }
 .border-2 {
   border-right: none;
@@ -236,7 +236,7 @@ textarea:focus:not([readonly]) {
   flex-direction: row;
 }
 .question-area {
-  width: 90%;
+  width: 70%;
   height: 30vw;
   border: 2px solid #faa41a;
   border-radius: 20px;
@@ -481,6 +481,7 @@ button:focus {
     margin-top: 10px;
   }
   .question-area {
+    width: 90%;
     height: 60vh;
     margin: 0px auto;
   }
@@ -508,6 +509,7 @@ button:focus {
     background-color: #faa41a;
     margin-top: 10px;
     border-radius: 20px;
+    box-shadow: 2px 2px 5px black;
   }
   .main-content {
     margin-top: 20px;
