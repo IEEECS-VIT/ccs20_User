@@ -19,6 +19,7 @@ animation: animatedBackground 30s linear infinite;
   width: 35%;
   /* margin: 0.2em; */
   margin: 2%;
+  padding-top: 2px;
 }
 
 .nav-extended {
@@ -235,7 +236,7 @@ textarea:focus:not([readonly]) {
   flex-direction: row;
 }
 .question-area {
-  width: 70%;
+  width: 90%;
   height: 30vw;
   border: 2px solid #faa41a;
   border-radius: 20px;
@@ -308,6 +309,8 @@ textarea:focus:not([readonly]) {
 .button-container {
   /* margin-top: 20px; */
   align-items: center;
+  position: relative;
+  bottom: 20px;
   /* border: 2px solid blue; */
 }
 .btn-def {
@@ -462,6 +465,7 @@ button:focus {
     display:none;
   }
   .clock {
+    width: 100px;
     min-width: 150px;
     display: flex;
     justify-content: center;
@@ -474,7 +478,7 @@ button:focus {
   .second-content-container {
     width: 90vw;
     margin: 0px auto;
-    margin-top: 20px;
+    margin-top: 10px;
   }
   .question-area {
     height: 60vh;
@@ -496,19 +500,60 @@ button:focus {
     align-items: center;
     padding: 0px;
     margin: 0px;
-    height: 60px;
+    height: 35px;
     width: 200px;
     /* min-width: 100px; */
     /* min-height: 50px; */
     margin: 0px auto;
     background-color: #faa41a;
-    margin-top: 20px;
+    margin-top: 10px;
     border-radius: 20px;
+  }
+  .main-content {
+    margin-top: 20px;
+  }
+  .button-container {
+    /* border: 2px solid red; */
+    position: relative;
+    bottom: 35px;
   }
 }
 
 @media all and(max-width:993px) {
   .btn-submit {
     margin-top: 40px;
+  }
+}
+
+@media all and (max-width:600px) {
+  .question-txt {
+    font-size: 17px;
+  }
+  [type="radio"]:not(:checked) + span, [type="radio"]:checked + span {
+    font-size: 12px;
+  }
+  /* [type="radio"] + span:before, [type="radio"] + span:after {
+    height: 12px;
+    width: 12px;
+  } */
+  .option {
+    font-size: 20px;
+  }
+  .user-icon, .username {
+    font-size: 15px;
+  }
+}
+
+@media all and (max-width:610px) {
+  .nav-extended {
+    height: 60px !important;
+  }
+  .custom-logo {
+    padding-top: 0px;
+  }
+}
+@media all and (max-width:400px) {
+  .nav-extended {
+    height: 15vw !important;
   }
 }
