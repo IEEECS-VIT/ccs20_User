@@ -13,6 +13,11 @@ router.get("/", (req, res) => {
   res.render("index", { message: req.flash("message") || "" });
 });
 
+
+router.get("/quiz2", (req, res) => {
+  res.render("quiz2", { message: req.flash("message") || "" });
+});
+
 /* POST user login */
 router.post(
   "/login",
