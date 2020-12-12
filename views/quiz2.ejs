@@ -1,11 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css" />
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" /> -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+  <link rel="stylesheet" href="/stylesheets/quiz.css" />
+  <title>IEEECS | QUIZ</title>
+  <!-- <style>
+    [type="radio"]:checked+span:after,
+    [type="radio"].with-gap:checked+span:after {
+      background-color: #faa41a;
+    }
+
+    [type="radio"]:checked+span:after,
+    [type="radio"].with-gap:checked+span:before,
+    [type="radio"].with-gap:checked+span:after {
+      border: 2px solid #faa41a;
+    }
+  </style> -->
+  <!-- <style>
+    .swal-button {
+      background-color: #faa41a !important;
+    }
+  </style> -->
 </head>
+
 <body>
-    <h1>Hello world</h1>
+  <div id="cover"></div>
+  <script>
+    $(window).on("load", function () {
+      $("#cover").fadeOut(200);
+    });
+  </script>
+  <div class="navbar-fixed">
+    <nav class="nav-extended" >
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo left"><img src="/images/IEEE-CS_New.png" alt="logo" class="custom-logo" /></a>
+        <span class="right-nav-item"><i class="fas fa-user user-icon"></i><span class="username">Aditya Menon</span></span>
+      </div>      
+    </nav>
+  </div>
+  <div class="main-content">
+      <div class="first-content-container">
+          <div class="domain-option row reset">
+            <div class="technical domain-name col border-left border-1 ongoing">1. Technical</div>
+            <div class="management domain-name col border-1">2. Management</div>
+            <div class="design domain-name col border-1 not-selected">3. Design</div>
+            <div class="documentation domain-name col border-right border-1 border-2">4. Documentation</div>
+          </div>
+          <div class="clock">
+              <span class="timer"><i class="far fa-clock"></i><span class="time">HH:MM:SS</span></span>
+          </div>
+      </div>
+      <div class="mobile-domain-option">
+        <span>Section 1 of 4: Technical</span>
+      </div>
+      <div class="second-content-container">
+          <div class="question-area">
+              <div class="actual-question">
+                  <div class="question-txt">Q1. What is the full form of IEEE?</div>
+                  <div class="option-container">
+                    <label class="option">
+                        <input name="group1" type="radio" />
+                        <span class="option-txt">Wrong Answer</span>
+                    </label><br>
+                    <label class="option">
+                        <input name="group1" type="radio" />
+                        <span class="option-txt">Wrong Answer</span>
+                    </label><br>
+                    <label class="option">
+                        <input name="group1" type="radio" />
+                        <span class="option-txt">Correct Answer</span>
+                    </label><br>
+                    <label class="option">
+                        <input name="group1" type="radio" />
+                        <span class="option-txt">Wrong Answer</span>
+                    </label><br>
+                      <!-- <label for="option1">Wrong Answer</label>
+                      <input type="radio" id="option1" name="answer"><br>
+                      <label for="option2">Wrong Answer</label>
+                      <input type="radio" id="option2" name="answer"><br>
+                      <label for="option3">Right Answer</label>
+                      <input type="radio" id="option3" name="answer"><br>
+                      <label for="option4" >Wrong Answer</label>
+                      <input type="radio" id="option4" name="answer"><br> -->
+                  </div>
+              </div>
+          </div>
+          <div class="question-navigation">
+            <div class="nav-container">
+                <ul>
+                    <li class="navigation-txt"><button type="submit" class="btn-nav ongoing">1</button></li>
+                    <li class="navigation-txt"><button type="submit" class="btn-nav attempted">2</button></li>
+                    <li class="navigation-txt"><button type="submit" class="btn-nav skipped">3</button></li>
+                    <li class="navigation-txt"><button type="submit" class="btn-nav">4</button></li>
+                    <li class="navigation-txt"><button type="submit" class="btn-nav attempted">5</button></li>
+                    <li class="navigation-txt"><button type="submit" class="btn-nav">6</button></li>
+                </ul>
+            </div>
+          </div>
+
+      </div>
+      <div class="button-content">
+          <div class="row button-container">
+              <div class="col l4 s6">
+                  <button type="submit" class="btn-def btn-quiz"><i class="fas fa-chevron-left"></i><span class="quiz-nav-btn">Previous</span></button>
+              </div>
+              <div class="col l4 s6">
+                  <button type="submit" class="btn-def btn-quiz"><span class="quiz-nav-btn">Next</span><i class="fas fa-chevron-right"></i></button>
+                  <!-- <input type="submit" class="btn-quiz btn-submit" value="Submit Test"> -->
+                </div>
+              <div class="col l4 s12">
+                  <button type="submit" class="btn-def btn-submit"><span>Submit Test</span></button>
+                </div>
+          </div>
+      </div>
+
+  </div>
+  
+  
 </body>
+
 </html>
+
+
+<!-- 
+  Allow Multiple Correct Type with various answers
+  For Objective allow more than 4 options
+ -->
