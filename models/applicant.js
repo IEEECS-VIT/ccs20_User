@@ -31,39 +31,12 @@ const applicantSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  domains: {
-    type: [{
-      name: String,
-      questions: [
-        {
-          questionId: {
-            type: mongoose.Schema.ObjectId,
-            ref: "question",
-          },
-          userSolution: {
-            type: [String],
-            minlength: 1,
-          },
-        },
-      ]
-    }],
-    minlength: 1,
-  },
-  overSmart: {
+  questionSelected: {
     type: Boolean,
     default: false,
   },
-  startTime: Number,
-  endTime: Number,
-  maxTime: Number,
-  submitted: {
-    type: Boolean,
-    default: false,
-  },
-  attempted: {
-    type: Boolean,
-    default: false,
-  },
+  domainsLeft: [String],
+  domains: Object,
 });
 
 applicantSchema.methods.generateHash = function generateHash(password) {

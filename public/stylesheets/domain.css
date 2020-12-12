@@ -40,6 +40,10 @@ animation: animatedBackground 30s linear infinite;
   border-radius: 5px;
   align-self: center;
 }
+.column1 {
+  width: 50%;
+  display: block;
+}
 
 /* Remove extra left and right margins, due to padding */
 .row {
@@ -65,6 +69,13 @@ animation: animatedBackground 30s linear infinite;
 }
 @media screen and (max-width: 600px) {
   .column {
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .column1 {
     width: 100%;
     display: block;
     text-align: center;

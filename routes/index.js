@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var A_Database = require("../models/applicant");
+var R_Database = require("../models/response");
 var userService = require("../services/userService");
 var userFunctions = require("../services/userFunctions");
 var passport = require("passport");
@@ -12,18 +13,23 @@ router.get("/", (req, res) => {
   res.render("index", { message: req.flash("message") || "" });
 });
 
+
+router.get("/quiz2", (req, res) => {
+  res.render("quiz2", { message: req.flash("message") || "" });
+});
+
 /* POST user login */
 router.post(
   "/login",
   passport.authenticate("login", {
     successRedirect: "/instructions",
     failureRedirect: "/",
-    failureFlash: true
+    failureFlash: true,
   })
 );
 
 /* GET mobile register */
-router.get("/register", (req, res) => {
+router.get("/register", auth.isUser, (req, res) => {
   // req.logout();
   // return res.render("closed")
   res.render("register", { message: "" });
@@ -71,7 +77,7 @@ router.post("/register", async (req, res, next) => {
   try {
     let message = await userFunctions.addUser(req.body);
     // console.log(req.body);
-    console.log(message)
+    console.log(message);
     if (message === "ok") return res.render("index", { message: "ok" });
     return res.render("index", { message: message });
   } catch (err) {
@@ -92,106 +98,159 @@ router.get("/thanks", (req, res, next) => {
 });
 
 /* GET instructions */
+router.get("/instructions", auth.check, async (req, res, next) => {
+  res.render("instructions");
+});
+
+/* GET domain page */
 router.get(
-  "/instructions",
-  auth.isAttempt,
+  "/domain",
+  auth.isAuthenticated,
+  auth.isSelected,
   async (req, res, next) => {
-    // req.logout();
-    // return res.render("closed")
-    res.render("instructions", { user: req.user });
+    try {
+      // req.logout();
+      // return res.render("closed")
+      return res.render("domains", { user: req.user });
+    } catch (error) {
+      return next(error);
+    }
   }
 );
 
-/* GET domain page */
-router.get("/domain", auth.isAuthenticated, auth.isAttempt, async (req, res, next) => {
-  try {
-    // req.logout();
-    // return res.render("closed")
-    return res.render("domains", { user: req.user })
-  } catch (error) {
-    return next(error)
-  }
-})
-
 /* POST domain details */
-router.post("/domain", auth.isAuthenticated,auth.isAttempt, async (req, res, next) => {
-  try {
-    // req.logout();
-    // return res.render("closed")
-    var startTime = Date.now();
-    var domain = req.body.domain;
-    var compete = false;
-    for (var i = 0; i < domain.length; i++) {
-      if (domain[i] === "competitive") {
-        compete = true;
-        domain[i] = domain[domain.length - 1];
-        domain.pop();
-        break;
-      }
-    }
-    var maxTime = domain.length * 600;
-    await A_Database.findByIdAndUpdate(req.user.id, {
-      compete: compete,
-      domain: domain,
-      startTime: startTime,
-      maxTime: maxTime
-    });
-    res.json({ success: true });
-  } catch (error) {
-    return next(error);
-  }
-});
-
-/* GET questions */
-router.get("/question/", auth.isAuthenticated, auth.isAttempt, async (req, res, next) => {
-  try {
-    // req.logout();
-    // return res.render("closed")
-    var stuff = await userService.setQuestions(req.user.id);
-    let questions = stuff.map(question => {
-      return {
-        questionId: question._id,
-        userSolution: []
-      };
-    });
-    await A_Database.findByIdAndUpdate(req.user.id, {
-      response: questions,
-      attempted: true
-    });
-    const data = await A_Database.findById(req.user.id, "response domain maxTime").populate("response.questionId", "question qDomain qType options").lean();
-    res.render("quiz", { data: data });
-  } catch (error) {
-    return next(error);
-  }
-});
-
-/* POST answers */
-router.post("/question", auth.isAuthenticated, auth.isSubmit, async (req, res, next) => {
-  try {
-    // req.logout();
-    // return res.render("closed")
-    const solutions = req.body.solutions;
-    console.log(solutions);
-    var endTime = Date.now();
-    let user = await A_Database.findById(req.user.id);
-    console.log(user);
-    let responseToUpdate = user.response;
-    responseToUpdate.forEach(question => {
-      solutions.forEach(solution => {
-        if (solution.questionId == question.questionId) {
-          question.userSolution = solution.userSolution;
+router.post(
+  "/domain",
+  auth.isAuthenticated,
+  auth.isSelected,
+  async (req, res, next) => {
+    try {
+      // req.logout();
+      // return res.render("closed")
+      var domain = req.body.domain;
+      var compete = false;
+      var domainsLeft = [];
+      for (var i = 0; i < domain.length; i++) {
+        if (domain[i] === "competitive") {
+          compete = true;
+          domain[i] = domain[domain.length - 1];
+          domain.pop();
         }
+        if (i < domain.length) {
+          domainsLeft.push(domain[i]);
+        }
+      }
+      await A_Database.findByIdAndUpdate(req.user._id, {
+        compete: compete,
+        domainsLeft: domainsLeft,
       });
-    });
-    user.response = responseToUpdate;
-    user.submitted = true;
-    user.endTime = endTime;
-    await user.save();
-    await userService.timeStatus(req.user.id);
-    res.json({ success: true });
-  } catch (error) {
-    return next(error);
+      await userService.setQuestions(req.user._id, domain);
+      // either this or buffer page
+      res.json({ success: true });
+    } catch (error) {
+      return next(error);
+    }
   }
-});
+);
+
+/* The main quiz page */
+router.get(
+  "/quiz",
+  auth.isAuthenticated,
+  auth.isQuiz,
+  async (req, res, next) => {
+    res.render("quiz", { user: req.user.regno, domains: req.user.domainsLeft });
+  }
+);
+
+/* Route to get question for each part */
+router.get(
+  "/question/:domain",
+  auth.isAuthenticated,
+  async (req, res, next) => {
+    try {
+      if (!req.xhr) {
+        return res.json({success: false, message: "Unauthorized to access"});
+      }
+      var domain = req.params.domain;
+      var domains = req.user.domains;
+      if (domains.hasOwnProperty(domain)) {
+        // Always returns the questions response object for each domain
+        // populate according to response object
+        try {
+          if (!req.user.domainsLeft.includes(domain)) {
+            return res.json({
+              success: false,
+              message: "Already submitted for this domain",
+            });
+          }
+          let questions = await R_Database.findById(domains[domain], "data")
+            .populate("data.questionId", "question option qType")
+            .lean();
+          res.json(questions.data);
+        } catch (err) {
+          console.log(err.message);
+          return res.json({ success: false, message: err.message });
+        }
+      } else {
+        return res.json({
+          success: false,
+          message: "No such domain selected!",
+        });
+      }
+    } catch (error) {
+      return next(error);
+    }
+  }
+);
+
+/* Route for posting each part answer */
+router.post(
+  "/question/:domain",
+  auth.isAuthenticated,
+  async (req, res, next) => {
+    try {
+      if (!req.xhr) {
+        return res.json({success: false, message: "Unauthorized to access"});
+      }
+      var domain = req.params.domain;
+      var domains = req.user.domains;
+      if (domains.hasOwnProperty(domain)) {
+        if (!req.user.domainsLeft.includes(domain)) {
+          return res.json({
+            success: false,
+            message: "Already submitted for this domain",
+          });
+        }
+        let responseObj = await R_Database.findById(domains[domain]);
+        responseObj.data.forEach((que) => {
+          req.body.solutions.forEach((sol) => {
+            if (sol.questionId == que.questionId) {
+              que.solution = sol.solution;
+            }
+          });
+        });
+        responseObj.startTime = req.body.startTime;
+        responseObj.endTime = req.body.endTime;
+        await responseObj.save();
+        var domainsLeft = req.user.domainsLeft;
+        if (domainsLeft.indexOf(domain) >= 0) {
+          domainsLeft.splice(domainsLeft.indexOf(domain), 1);
+        }
+        await A_Database.findByIdAndUpdate(req.user._id, {
+          domainsLeft: domainsLeft,
+        });
+        res.json({ success: true });
+      } else {
+        return res.json({
+          success: false,
+          message: "No such domain selected!",
+        });
+      }
+    } catch (error) {
+      return next(error);
+    }
+  }
+);
 
 module.exports = router;

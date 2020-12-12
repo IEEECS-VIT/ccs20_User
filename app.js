@@ -10,14 +10,6 @@ const session = require("cookie-session");
 const flash = require("connect-flash");
 require("dotenv").config();
 
-//setting Database
-// mongoose.connect(
-//   'mongodb://localhost:27017/IEEECS_CCS',
-//   { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true },
-//   err => {
-//     if (!err) console.log("Connection successful");
-//   }
-// );
 
 mongoose.connect(
   process.env.MONGO_URI,
@@ -43,18 +35,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-const keys = ["Ron", "Swanson"];
 const expiryDate = new Date(5 * Date.now() + 60 * 60 * 1000); // 5 hours
 app.use(
   session({
-    secret: "mustache",
+    secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
     cookie: {
       secure: true,
       expires: expiryDate
     },
-    keys: keys
+    keys: process.env.SESSION_KEYS.split()
   })
 );
 
