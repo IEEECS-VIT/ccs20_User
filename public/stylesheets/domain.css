@@ -422,33 +422,17 @@ body
   text-align: center;
   color: #333;
   background-color: #333 !important;
+  /* height: 50%; */
   border-radius: 24px !important;
-  margin: 2rem -2px 0rem 0px !important;
-  width: 90% !important;
-  padding-bottom: 20px;
-  margin-bottom: 50px !important;
-  transition: 0.3s;
-  height: 300px;
-  box-sizing: border-box;
-  
-}
-.ContainerDiv{
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  flex-flow:wrap  !important;
+  margin: 0rem -2px 0rem 0px !important;
+  width: 100% !important;
+  padding-bottom: 30px;
  
 }
-.mycard p
-{
-  padding: 20px 20px; 
-  font-size: 100%;
+
+ 
 }
 
-
-}
 
 .column
 {
