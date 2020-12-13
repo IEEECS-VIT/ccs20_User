@@ -327,6 +327,8 @@ h2 {
 }
 .carousel .carousel-item img{
   width: 100%;
+  /* margin: 20%; */
+  
 }
 
 .carousel .carousel-item p
