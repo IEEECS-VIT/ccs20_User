@@ -328,6 +328,8 @@ h2 {
 }
 .carousel .carousel-item img{
   width: 100%;
+  /* margin: 20%; */
+  
 }
 
 .carousel .carousel-item p
@@ -359,7 +361,7 @@ h2 {
   width: 100% !important;
   padding-bottom: 30px;
   min-width: 250px;
-  min-height: 250px;
+  min-height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -367,10 +369,10 @@ h2 {
   background-repeat: no-repeat;
   /* justify-content: space-evenly; */
 }
-.mycardNew img
+/* .mycardNew img
 {
   margin-bottom: 2% !important;
-}
+} */
 .rowCard
 {
   display: none !important;
@@ -392,6 +394,14 @@ h2 {
 {
   .last{
     display: none !important;
+  }
+  #begin
+  {
+    margin-top: 15% !important;
+  }
+  #RedLine
+  {
+    margin-top: 4% !important;
   }
 }
 @media only screen and (max-width:768px)
@@ -428,6 +438,8 @@ h2 {
     background-color: transparent;
     height: 36px;
   }
- 
-  
+ #RedLine
+ {
+   margin-top: 1% !important;
+ }
 }
