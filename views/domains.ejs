@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
   <title>Preferences</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <style>
     .swal-button {
       background-color: #faa41a !important;
@@ -21,10 +22,11 @@
       <img src="images/ieeecs.png" alt="logo" class="logo center w" />
       <img src="images/ieeecs.png" alt="logo" class="logo center b invisible" />
     </div>
+    
     <div class="row" style="margin-bottom: 0px !important">
       <p class="mytitle center">Select Your Domain</p>
     </div>
-    <div class="row">
+    <div class="rowCard">
       <div class="background b1 invisible"></div>
       <div class="background b2 invisible"></div>
       <div class="background b3 invisible"></div>
@@ -76,6 +78,7 @@
           </button>
         </div>
       </div>
+
       <div class="column">
         <div class="mycard">
           <p>Competitive</p>
@@ -88,8 +91,111 @@
           </button>
         </div>
       </div>
+
+      <div style="background-color: transparent; " class="column last">
+        <div class="mycard last">
+          <p style="color:transparent">C</p>
+          <!-- <br> -->
+          <!-- <img id="logo1" src="images/file.png" alt="" /> -->
+        <div style="height: 100px; width:100px"> </div>
+          <br /><br />
+          <div class="last-btn" style="background-color:transparent; color: transparent" class="btn waves-effect waves-light">
+            
+        </div>
+        </div>
+      </div>
+      
     </div>
-    <div class="row" style="text-align: center">
+
+    <div class="rowCarousel">
+      <div class= "carousel">
+        <div class="carousel-item">
+
+          <div class="columnNew">
+            <div class="mycardNew">
+              
+    
+              
+              <p>Technical</p>
+              <div class="logo1"></div>
+              <img id="logo1" src="images/administrator.png" alt="technical" />
+              <br /><br />
+              <button style="background-color: #faa41a; color: #333333" class="btn waves-effect waves-light" type="submit"
+                name="action" value="technical" onclick="add(this)">
+                Select
+              </button>
+            </div>
+          </div>
+          </div>
+    
+    
+    
+          <div class="carousel-item">
+          <div class="columnNew">
+            <div class="mycardNew">
+              <p>Design</p>
+              <!-- <br> -->
+              <img id="logo1" src="images/design.png" alt="design" />
+              <br /><br />
+              <button style="background-color: #faa41a; color: #333333" class="btn waves-effect waves-light" type="submit"
+                name="action" value="design" onclick="add(this)">
+                Select
+              </button>
+            </div>
+          </div>
+        </div>
+    
+       
+        <div class="carousel-item">
+          <div class="columnNew">
+            <div class="mycardNew">
+              <p>Management</p>
+              <img id="logo1" src="images/collaboration.png" alt="management" />
+              <br /><br />
+              <button style="background-color: #faa41a; color: #333333" class="btn waves-effect waves-light" type="submit"
+                name="action" value="management" onclick="add(this)">
+                Select
+              </button>
+            </div>
+          </div>
+        </div>
+    
+        <div class="carousel-item">
+            <div class="columnNew">
+            <div class="mycardNew">
+              <p>Documentation</p>
+              <!-- <br> -->
+              <img id="logo1" src="images/file.png" alt="documentation" />
+              <br /><br />
+              <button style="background-color: #faa41a; color: #333333" class="btn waves-effect waves-light" type="submit"
+                name="action" value="documentation" onclick="add(this)">
+                Select
+              </button>
+            </div>
+          </div>
+        </div>
+    
+    
+    
+        <div class="carousel-item">
+          <div class="columnNew">
+            <div class="mycardNew">
+              <p>Competitive</p>
+              <!-- <br> -->
+              <img id="logo1" src="images/file.png" alt="competitive" />
+              <br /><br />
+              <button style="background-color: #faa41a; color: #333333" class="btn waves-effect waves-light" type="submit"
+                name="action" value="competitive" onclick="add(this)">
+                Select
+              </button>
+            </div>
+          </div>
+         </div> 
+      </div>
+
+    </div>
+
+    <div  class="row beginButton" style="text-align: center">
       <button style="background-color: #faa41a; color: #333333" class="btn waves-effect waves-light" type="submit"
         name="action" onclick="start()" id="begin">
         BEGIN !!
@@ -99,6 +205,8 @@
       </p>
     </div>
   </div>
+
+
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -252,6 +360,12 @@
         f = 0;
       }
     }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+    $('.carousel').carousel();
+  });
   </script>
 </body>
 

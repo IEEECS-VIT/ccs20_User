@@ -40,14 +40,11 @@ animation: animatedBackground 30s linear infinite;
   border-radius: 5px;
   align-self: center;
 }
-.column1 {
-  width: 50%;
-  display: block;
-}
 
 /* Remove extra left and right margins, due to padding */
 .row {
   margin: 0 -5px;
+ 
 }
 
 /* Clear floats after the columns */
@@ -55,6 +52,7 @@ animation: animatedBackground 30s linear infinite;
   content: "";
   display: table;
   clear: both;
+ 
 }
 
 /* Responsive columns */
@@ -72,26 +70,9 @@ animation: animatedBackground 30s linear infinite;
     text-align: center;
   }
 }
-@media screen and (max-width: 1024px) {
-  .column1 {
-    width: 100%;
-    display: block;
-    text-align: center;
-  }
-}
 
 /* Style the counter cards */
-.mycard {
-  padding: 16px;
-  text-align: center;
-  color: #333;
-  background-color: #333 !important;
-  /* height: 50%; */
-  border-radius: 24px !important;
-  margin: 0rem -2px 0rem 0px !important;
-  width: 100% !important;
-  padding-bottom: 30px;
-}
+
 p {
   color: #ffffff;
   font-size: 20px;
@@ -296,6 +277,7 @@ input:checked + .slider:before {
 .mytitle {
   font-size: 1.8em;
   font-weight: 700;
+  padding-bottom: 64px;
 }
 @media screen and (max-width: 600px){
   .logo2{
@@ -330,4 +312,117 @@ h2 {
   .th{
     font-size: 1em;
   }
+}
+
+.carousel
+{
+  transform: translateY(-100px);
+  height: 700px;
+  perspective:600px ;
+}
+.carousel .carousel-item
+{
+  width: 600px;
+  height: 700px;
+}
+.carousel .carousel-item img{
+  width: 100%;
+}
+
+.carousel .carousel-item p
+{
+  margin :0; 
+  padding: 0;
+  /* background: #fff; */
+  /* color:#000; */
+  box-sizing: border-box;
+  padding:10px 5px;
+  font-weight:bold;
+  font-size:16px;
+  text-align:center;
+}
+.carousel .carousel-item #logo1
+{
+  height: 100px  !important;
+}
+
+.mycardNew
+{
+  padding: 64px;
+  text-align: center;
+  color: #333;
+  background-color: #333333 !important;
+  /* height: 50%; */
+  border-radius: 24px !important;
+  margin: -2rem -2px 1rem 2px !important;
+  width: 100% !important;
+  padding-bottom: 30px;
+  min-width: 250px;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.rowCard
+{
+  display: none !important;
+}
+
+.column
+{
+  display:hide !important;
+}
+
+@media only screen and (max-width:600px)
+{
+  .last{
+    display: none !important;
+  }
+}
+
+@media only screen and (max-width:460px)
+{
+  .last{
+    display: none !important;
+  }
+}
+@media only screen and (max-width:768px)
+{
+  .rowCard
+  {
+    display: block !important;
+  }
+  .rowCarousel
+  {
+    display: none !important;
+  }
+  .mycard {
+    padding: 16px;
+    text-align: center;
+    color: #333;
+    background-color: #333 !important;
+    /* height: 50%; */
+    border-radius: 24px !important;
+    margin: 0rem -2px 0rem 0px !important;
+    width: 100% !important;
+    padding-bottom: 30px;
+  }
+  .last
+  {
+   background-color: transparent !important;
+    
+  }
+  .last-btn
+  {
+    box-shadow: none;
+    color: transparent;
+    border: transparent;
+    background-color: transparent;
+    height: 36px;
+  }
+ 
+  
 }
