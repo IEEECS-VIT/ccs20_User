@@ -46,7 +46,7 @@
     <nav class="nav-extended" style="height: 72px;" >
       <div class="nav-wrapper">
         <a href="#" class="brand-logo left"><img src="/images/IEEE-CS_New.png" alt="logo" class="custom-logo" /></a>
-        <span class="right-nav-item"><i class="fas fa-user user-icon"></i><span class="username">Aditya Menon</span></span>
+        <span class="right-nav-item"><em class="fas fa-user user-icon"></em><span class="username">Aditya Menon</span></span>
       </div>      
     </nav>
   </div>
@@ -59,7 +59,7 @@
             <div class="documentation domain-name col border-right border-1 border-2">4. Documentation</div>
           </div>
           <div class="clock">
-              <span class="timer"><i class="far fa-clock"></i><span class="time">HH:MM:SS</span></span>
+              <span class="timer"><em class="far fa-clock"></em><span class="time">HH:MM:SS</span></span>
           </div>
           
       </div>
@@ -78,7 +78,6 @@
                   </div> -->
 
                   <!-- For multi-line subjective -->
-
                   <div class="option-container">
                     <textarea name="longAnswer" class="long-input-field-style" cols="60" rows="30" placeholder="Answer in Brief" ></textarea>
                   </div>
@@ -141,10 +140,10 @@
       <div class="button-content">
           <div class="row button-container">
               <div class="col l4 s6">
-                  <button type="submit" class="btn-def btn-quiz"><i class="fas fa-chevron-left"></i><span class="quiz-nav-btn">Previous</span></button>
+                  <button type="submit" class="btn-def btn-quiz"><em class="fas fa-chevron-left"></em><span class="quiz-nav-btn">Previous</span></button>
               </div>
               <div class="col l4 s6">
-                  <button type="submit" class="btn-def btn-quiz"><span class="quiz-nav-btn">Next</span><i class="fas fa-chevron-right"></i></button>
+                  <button type="submit" class="btn-def btn-quiz"><span class="quiz-nav-btn">Next</span><em class="fas fa-chevron-right"></em></button>
                   <!-- <input type="submit" class="btn-quiz btn-submit" value="Submit Test"> -->
                 </div>
               <div class="col l4 s12">
@@ -155,13 +154,98 @@
 
   </div>
   
-  
+  <script type="text/javascript">
+    var userData;
+    $(document).ready(function () {
+      $.ajax({
+        url: "/domainInfo",
+        method: "GET",
+        success: function (res) {
+          if (res.success == true) {
+            userData = res.data;
+            mainFunc();
+          }
+        },
+        error: function (msg) {
+          console.log(msg);
+        },
+      });
+    });
+    function mainFunc() {
+      
+    }
+    function domainFunc(domain) {
+      // make all the number divs
+      // make the next and previous buttons work
+      // make a domain question boxes
+      // fetch domain wise questions
+    }
+    function multiChoiceAns(qid, options){
+      let containerDiv = document.createElement("div");
+      containerDiv.classList.add("option-container");
+      var i;
+      for(i = 0; i < options.length; i++) {
+        let label = document.createElement("label");
+        label.classList.add("option");
+        let br = document.createElement("br");
+        let inputElement = document.createElement("input");
+        inputElement.type = "checkbox";
+        inputElement.name = qid; // name
+        inputElement.classList.add("filled-in checkbox-style");
+        let span = document.createElement("span");
+        span.classList.add("option-text");
+        span.innerText = options[i]; // option text
+        label.appendChild(inputElement);
+        label.appendChild(span);
+        containerDiv.appendChild(label);
+        containerDiv.appendChild(br);
+      }
+    }
+    function singleChoiceAns(qid, options){
+      let containerDiv = document.createElement("div");
+      containerDiv.classList.add("option-container");
+      for(i = 0; i < options.length; i++) {
+        let label = document.createElement("label");
+        label.classList.add("option");
+        let br = document.createElement("br");
+        let inputElement = document.createElement("input");
+        inputElement.type = "radio";
+        inputElement.name = qid; // name
+        let span = document.createElement("span");
+        span.classList.add("option-text");
+        span.innerText = options[i]; // option text
+        label.appendChild(inputElement);
+        label.appendChild(span);
+        containerDiv.appendChild(label);
+        containerDiv.appendChild(br);
+      }
+    }
+    function descAns(qid){
+      let containerDiv = document.createElement("div");
+      containerDiv.classList.add("option-container");
+      let textarea = document.createElement("textarea");
+      textarea.classList.add("long-input-field-style");
+      textarea.placeholder = "Answer in Brief";
+      textarea.cols = 60;
+      textarea.rows = 30;
+      textarea.name = qid; // name
+      containerDiv.appendChild(textarea);
+    }
+    function singleLineAns(qid){
+      let containerDiv = document.createElement("div");
+      containerDiv.classList.add("option-container");
+      let label = document.createElement("label");
+      label.htmlFor = qid; // name
+      label.innerText = "Answer:";
+      let inputElement = document.createElement("input");
+      inputElement.classList.add("input-field-style");
+      inputElement.type = "text";
+      inputElement.placeholder = "In a Sentence or Two";
+      inputElement.name = qid; // name
+      containerDiv.appendChild(label);
+      containerDiv.appendChild(inputElement);
+    }
+  </script>
 </body>
 
 </html>
-
-
-<!-- 
-  Allow Multiple Correct Type with various answers
-  For Objective allow more than 4 options
- -->

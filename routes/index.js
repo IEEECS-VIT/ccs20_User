@@ -163,6 +163,16 @@ router.get(
   }
 );
 
+/* */
+router.get("/domaininfo", auth.isAuthenticated, (req,res,next)=>{
+  if (!req.xhr) {
+    return res.json({success: false, message: "Unauthorized to access"});
+  }
+  else {
+    res.json({domains: domains});
+  }
+});
+
 /* Route to get question for each part */
 router.get(
   "/question/:domain",
