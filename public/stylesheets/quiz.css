@@ -284,6 +284,36 @@ textarea:focus:not([readonly]) {
   /* border: 2px solid blue; */
 }
 /* ***************** */
+.input-field-style
+{
+  color: #F7F7F7; 
+  /* border-bottom: 1px solid #FAA41A; 
+  box-shadow: 0 1px 0 0 #FAA41A; */
+}
+.input-field-style:focus
+{ 
+  border-bottom: 1px solid #FAA41A !important; 
+  box-shadow: 0 1px 0 0 #FAA41A !important;
+}
+
+.long-input-field-style
+{
+  color: #F7F7F7;
+  border: solid 2px #FAA41A;
+  border-radius: 20px;
+  padding: 2% 2% 2% 2%;
+  background-color: #444;
+  min-height: 70%;
+  margin: auto;
+  resize: none;
+}
+
+.checkbox-style[type="checkbox"].filled-in:checked + span:not(.lever):after 
+{
+    border: 2px solid #FAA41A;  
+    background-color: #FAA41A;
+}
+
 .ongoing {
   color: #202020;
   background-color: #faa41a;
