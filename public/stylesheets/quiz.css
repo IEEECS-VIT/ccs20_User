@@ -387,7 +387,7 @@ textarea:focus:not([readonly]) {
 .btn-submit {
   background-color: #444444;
   color: #faa41a;
-  transition: 0.5s all ease-in-out;
+  transition: 0.2s all ease-in-out;
 }
 .btn-submit:hover {
   background-color: #faa41a;
@@ -411,7 +411,7 @@ ul li {
   border-radius: 15px;
   font-family: 'Montserrat', sans-serif;
   color: #faa41a;
-  font-size: 1.2vw;
+  font-size: 1.6vw;
   cursor: pointer;
 }
 /* ****************** */
