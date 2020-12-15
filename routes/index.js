@@ -206,6 +206,11 @@ router.get(
           let questions = await R_Database.findById(domains[domain], "data")
             .populate("data.questionId", "question option qType options")
             .lean();
+          var length = questions.data.length;
+          while (length > 0) {
+            --length;
+            questions.data[length] = questions.data[length].questionId;
+          }
           res.json({success:true, data: questions.data});
         } catch (err) {
           console.log(err.message);
