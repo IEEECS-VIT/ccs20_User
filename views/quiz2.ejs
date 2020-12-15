@@ -46,7 +46,7 @@
     <nav class="nav-extended" style="height: 72px;" >
       <div class="nav-wrapper">
         <a href="#" class="brand-logo left"><img src="/images/IEEE-CS_New.png" alt="logo" class="custom-logo" /></a>
-        <span class="right-nav-item"><em class="fas fa-user user-icon"></em><span class="username">Aditya Menon</span></span>
+        <span class="right-nav-item"><em class="fas fa-user user-icon"></em><span class="username"><%= user %></span></span>
       </div>      
     </nav>
   </div>
@@ -148,7 +148,7 @@
                 </div>
               <div class="col l4 s12">
                   <button type="submit" class="btn-def btn-submit"><span>Submit Test</span></button>
-                </div>
+              </div>
           </div>
       </div>
 
@@ -158,7 +158,7 @@
     var userData;
     $(document).ready(function () {
       $.ajax({
-        url: "/domainInfo",
+        url: "/domaininfo",
         method: "GET",
         success: function (res) {
           if (res.success == true) {
@@ -171,7 +171,8 @@
         },
       });
     });
-    function mainFunc() {
+    function mainFunc(domains) {
+
       
     }
     function domainFunc(domain) {

@@ -159,17 +159,21 @@ router.get(
   auth.isAuthenticated,
   auth.isQuiz,
   async (req, res, next) => {
-    res.render("quiz", { user: req.user.regno, domains: req.user.domainsLeft });
+    res.render("quiz2", { user: req.user.regno });
   }
 );
 
-/* */
+/* Get User's Domain Info */
 router.get("/domaininfo", auth.isAuthenticated, (req,res,next)=>{
   if (!req.xhr) {
     return res.json({success: false, message: "Unauthorized to access"});
   }
   else {
-    res.json({domains: domains});
+    var domains = Object.create(null);
+    Object.keys(req.user.domais).forEach((domain)=>{
+      domains[domain] = !req.user.domainsLeft.includes(domain);
+    });
+    res.json(domains);
   }
 });
 
