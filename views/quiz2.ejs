@@ -9,7 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css" />
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" /> -->
@@ -156,9 +157,11 @@
   </div>
   
   <script type="text/javascript">
+
   var loadQues, loadNext, loadPrev;
   $(document).ready(function () {
     (function packFunc() {
+
       // Dummy JSON
       var questionData=[{
         "id": 1,
@@ -440,6 +443,36 @@
       containerDiv.appendChild(inputElement);
       return containerDiv;
     }
+      // Pre section timer using Sweetalert2 
+      Swal.fire({
+      title: 'Get Ready!',
+      icon: 'warning',
+      html:
+        'Your Test Will Begin in ' +
+        "<span id='sw-timer-count'>5</span>",
+      allowOutsideClick: false,
+      timer: 7000,
+      showCloseButton: false,
+      showCancelButton: false,
+      showConfirmButton: false,
+      focusConfirm: false,
+
+    });
+    // SW Timer DOM
+    var swTimer=document.getElementById('sw-timer-count');
+    var i=5;
+    setInterval(function(){
+      if(i<=0)
+      {
+        swTimer.innerHTML=0;
+      }
+      else
+      {
+        swTimer.innerHTML=i;
+        i--; 
+      }
+    }, 1000);
+
   })()
   });
   </script>
