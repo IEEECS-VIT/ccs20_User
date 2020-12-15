@@ -53,9 +53,9 @@
   <div class="main-content">
       <div class="first-content-container">
           <div class="domain-option row reset">
-            <div class="technical domain-name col border-left border-1 ongoing">1. Technical</div>
+            <div class="technical domain-name col border-left border-1">1. Technical</div>
             <div class="management domain-name col border-1">2. Management</div>
-            <div class="design domain-name col border-1 not-selected">3. Design</div>
+            <div class="design domain-name col border-1">3. Design</div>
             <div class="documentation domain-name col border-right border-1 border-2">4. Documentation</div>
           </div>
           <div class="clock">
@@ -64,7 +64,7 @@
           
       </div>
       <div class="mobile-domain-option">
-        <span>Section 1 of 4: Technical</span>
+        <span id="mobile-domain-text">Section 1 of 4: Technical</span>
       </div>
       <div class="second-content-container">
           <div class="question-area">
@@ -173,8 +173,36 @@
       });
     });
     function mainFunc(domains) {
+      // false: Not attempted
+      // true: attempted
+      // null: Not chosen
 
-      
+      var domainSelector=document.getElementsByClassName('domain-name');
+      var firstSectionFlag=0;
+      var mobileSectionCount=0;
+      var domainNameArray=['Technical', 'Management', 'Design', 'Documentation'];
+      var mobileFirstSection=0;
+      var mobileDomainSelector=document.getElementById('mobile-domain-text');
+      for(var i=0;i<domainSelector.length;i++)
+      {
+        if(domains[i]===null)
+          domainSelector[i].classList.add('not-selected')
+        else if(!domains[i] && !firstSectionFlag)
+        {
+          // Highlights only the first section selected by user
+          domainSelector[i].classList.add('ongoing');
+          firstSectionFlag++;
+          mobileFirstSection=i;
+        }
+        if(domains[i]!==null)
+        {
+          mobileSectionCount++;
+          // console.log(domains[i]);
+          //mobileSectionList[i]=i; Tech, Mgmt, Design, Doc (0,1,2,3)
+        }
+      }
+      // console.log(mobileSectionList);
+      mobileDomainSelector.textContent="Section 1 of "+mobileSectionCount+": "+domainNameArray[mobileFirstSection];
     }
     function domainFunc(domain) {
       // make all the number divs
