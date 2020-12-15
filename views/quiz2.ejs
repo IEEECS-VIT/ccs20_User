@@ -156,6 +156,9 @@
   </div>
   
   <script type="text/javascript">
+  var loadQues, loadNext, loadPrev;
+  $(document).ready(function () {
+    (function packFunc() {
       // Dummy JSON
       var questionData=[{
         "id": 1,
@@ -203,7 +206,6 @@
         },
       });
     });
-    var loadQues, loadNext, loadPrev;
     // function loadQues(number) {
     //   number = parseInt(number);
     // }
@@ -438,6 +440,8 @@
       containerDiv.appendChild(inputElement);
       return containerDiv;
     }
+  })()
+  });
   </script>
 </body>
 
