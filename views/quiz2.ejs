@@ -155,16 +155,20 @@
   </div>
   
   <script type="text/javascript">
-    var userData;
+    // this array holds the data corresponding to backend data of 
+    // section answered.
+    // update this array only when a section's answer is submitted to backend and 
+    // success response is what we got 
+    var userDomainData;
     $(document).ready(function () {
       $.ajax({
         url: "/domaininfo",
         method: "GET",
         success: function (res) {
           if (res.success == true) {
-            userData = res.data;
-            console.log(userData);
-            mainFunc(userData);
+            userDomainData = res.data;
+            console.log(userDomainData);
+            mainFunc();
           }
         },
         error: function (msg) {
@@ -172,37 +176,49 @@
         },
       });
     });
-    function mainFunc(domains) {
+    function mainFunc() {
       // false: Not attempted
       // true: attempted
       // null: Not chosen
-
       var domainSelector=document.getElementsByClassName('domain-name');
-      var firstSectionFlag=0;
-      var mobileSectionCount=0;
       var domainNameArray=['Technical', 'Management', 'Design', 'Documentation'];
-      var mobileFirstSection=0;
+      var mobileSectionCount=domainNameArray.length;
+      var mobileSectionNumber=1;
+      var mobileFirstSection=null;
       var mobileDomainSelector=document.getElementById('mobile-domain-text');
-      for(var i=0;i<domainSelector.length;i++)
-      {
-        if(domains[i]===null)
-          domainSelector[i].classList.add('not-selected')
-        else if(!domains[i] && !firstSectionFlag)
-        {
-          // Highlights only the first section selected by user
-          domainSelector[i].classList.add('ongoing');
-          firstSectionFlag++;
-          mobileFirstSection=i;
+      for(var i=0;i<domainSelector.length;i++){
+        if(userDomainData[i]===null) {
+          domainSelector[i].classList.add('not-selected');
+          mobileSectionCount -= 1;
+        } else if(mobileFirstSection===null){
+          if (userDomainData[i] === false) {
+            domainSelector[i].classList.add('ongoing');
+            mobileFirstSection = domainNameArray[i];
+          } else {
+            domainSelector[i].classList.add('domain-attempted');
+            mobileSectionNumber += 1;
+          }
         }
-        if(domains[i]!==null)
-        {
-          mobileSectionCount++;
-          // console.log(domains[i]);
-          //mobileSectionList[i]=i; Tech, Mgmt, Design, Doc (0,1,2,3)
-        }
+        // else if(!domains[i] && !firstSectionFlag){
+        //   // Highlights only the first section selected by user
+        //   domainSelector[i].classList.add('ongoing');
+        //   firstSectionFlag++;
+        //   mobileFirstSection=i;
+        // }
+        // if(domains[i]!==null){
+        //   mobileSectionCount++;
+        //   // console.log(domains[i]);
+        //   // mobileSectionList[i]=i; Tech, Mgmt, Design, Doc (0,1,2,3)
+        // }
+        if (mobileFirstSection !== null) {
+          mobileDomainSelector.textContent=`Section ${mobileSectionNumber} of ${mobileSectionCount}: ${mobileFirstSection}`;
+          var domainChoosedName = mobileFirstSection.toLowerCase();
+          // we got the name of section to start now and we can proceed further
+        } else{
+          // All domains Answered
+          // do end test
+        } 
       }
-      // console.log(mobileSectionList);
-      mobileDomainSelector.textContent="Section 1 of "+mobileSectionCount+": "+domainNameArray[mobileFirstSection];
     }
     function domainFunc(domain) {
       // make all the number divs
