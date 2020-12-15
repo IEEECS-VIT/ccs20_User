@@ -9,7 +9,7 @@ const auth = require("../middleware/authentication");
 const request = require("request-promise");
 
 /* GET index page */
-router.get("/", (req, res) => {
+router.get("/", auth.isUser, (req, res) => {
   res.render("index", { message: req.flash("message") || "" });
 });
 
@@ -21,6 +21,7 @@ router.get("/quiz2", (req, res) => {
 /* POST user login */
 router.post(
   "/login",
+  auth.isUser,
   passport.authenticate("login", {
     successRedirect: "/instructions",
     failureRedirect: "/",
@@ -70,7 +71,7 @@ router.get("/register", auth.isUser, (req, res) => {
 //     .catch(err => next(err));
 // });
 
-//Register without recaptcha
+// Register without recaptcha
 
 /* POST register details */
 router.post("/register", async (req, res, next) => {

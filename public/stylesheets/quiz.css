@@ -334,7 +334,7 @@ textarea:focus:not([readonly]) {
   /* font-size: 100px; */
 }
 [type="radio"]:not(:checked) + span, [type="radio"]:checked + span {
-  font-size: 1.5vw;
+  font-size: 1rem;
 }
 [type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:after {
   background-color: #faa41a;
@@ -606,4 +606,8 @@ textarea {
   .nav-extended {
     height: 15vw !important;
   }
+}
+
+.hidden {
+  display: none;
 }

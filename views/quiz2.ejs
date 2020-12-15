@@ -68,22 +68,22 @@
       </div>
       <div class="second-content-container">
           <div class="question-area">
-              <div class="actual-question">
+              <!-- <div class="actual-question hidden">
                   <div class="question-txt">Q1. What is the full form of IEEE?</div>
-
-                  <!-- For Single line Subjective -->
-                  <!-- <div class="option-container">
+                  <div class="option-container">
                     <label for="answer">Answer: </label>
                     <input class="input-field-style" type="text" name="answer" placeholder="In a Sentence or Two">
-                  </div> -->
-
-                  <!-- For multi-line subjective -->
+                  </div>
+              </div>
+              <div class="actual-question hidden">
+                <div class="question-txt">Q1. What is the full form of IEEE?</div>
                   <div class="option-container">
                     <textarea name="longAnswer" class="long-input-field-style" cols="60" rows="30" placeholder="Answer in Brief" ></textarea>
                   </div>
-
-                  <!-- For Single-correct MCQ -->
-                  <!-- <div class="option-container">
+              </div>
+              <div class="actual-question">
+                <div class="question-txt">Q1. What is the full form of IEEE?</div>
+                  <div class="option-container">
                     <label class="option">
                         <input name="group1" type="radio" />
                         <span class="option-txt">Wrong Answer</span>
@@ -100,10 +100,11 @@
                         <input name="group1" type="radio" />
                         <span class="option-txt">Wrong Answer</span>
                     </label><br>
-                  </div> -->
-
-                  <!-- For Multi-correct MCQ -->
-                  <!-- <div class="option-container">
+                  </div>
+              </div>
+              <div class="actual-question">
+                <div class="question-txt">Q1. What is the full form of IEEE?</div>
+                  <div class="option-container">
                     <label class="option">
                       <input name="group1" type="checkbox" class="filled-in checkbox-style" />
                       <span class="option-txt">Wrong Answer</span>
@@ -120,18 +121,18 @@
                       <input name="group1" type="checkbox" class="filled-in checkbox-style" />
                       <span class="option-txt">Wrong Answer</span>
                   </label><br>
-                  </div> -->
-              </div>
+                  </div>
+              </div> -->
           </div>
           <div class="question-navigation">
             <div class="nav-container">
-                <ul>
-                    <li class="navigation-txt"><button onclick="loadQues(this.val);" type="submit" class="btn-nav ongoing">1</button></li>
-                    <li class="navigation-txt"><button onclick="loadQues(this.val);" type="submit" class="btn-nav">2</button></li>
-                    <li class="navigation-txt"><button onclick="loadQues(this.val);" type="submit" class="btn-nav">3</button></li>
-                    <li class="navigation-txt"><button onclick="loadQues(this.val);" type="submit" class="btn-nav">4</button></li>
-                    <li class="navigation-txt"><button onclick="loadQues(this.val);" type="submit" class="btn-nav">5</button></li>
-                    <li class="navigation-txt"><button onclick="loadQues(this.val);" type="submit" class="btn-nav">6</button></li>
+                <ul class="nav-container-ul">
+                    <!-- <li class="navigation-txt"><button onclick="loadQues(parseInt(this.innerText)-1);" type="submit" class="btn-nav ongoing">1</button></li>
+                    <li class="navigation-txt"><button onclick="loadQues(parseInt(this.innerText)-1);" type="submit" class="btn-nav">2</button></li>
+                    <li class="navigation-txt"><button onclick="loadQues(parseInt(this.innerText)-1);" type="submit" class="btn-nav">3</button></li>
+                    <li class="navigation-txt"><button onclick="loadQues(parseInt(this.innerText)-1);" type="submit" class="btn-nav">4</button></li>
+                    <li class="navigation-txt"><button onclick="loadQues(parseInt(this.innerText)-1);" type="submit" class="btn-nav">5</button></li>
+                    <li class="navigation-txt"><button onclick="loadQues(parseInt(this.innerText)-1);" type="submit" class="btn-nav">6</button></li> -->
                 </ul>
             </div>
           </div>
@@ -140,10 +141,10 @@
       <div class="button-content">
           <div class="row button-container">
               <div class="col l4 s6">
-                  <button type="submit" class="btn-def btn-quiz"><em class="fas fa-chevron-left"></em><span class="quiz-nav-btn">Previous</span></button>
+                  <button type="submit" class="btn-def btn-quiz" onclick="loadPrev()"><em class="fas fa-chevron-left"></em><span class="quiz-nav-btn">Previous</span></button>
               </div>
               <div class="col l4 s6">
-                  <button type="submit" class="btn-def btn-quiz"><span class="quiz-nav-btn">Next</span><em class="fas fa-chevron-right"></em></button>
+                  <button type="submit" class="btn-def btn-quiz" onclick="loadNext()"><span class="quiz-nav-btn">Next</span><em class="fas fa-chevron-right"></em></button>
                   <!-- <input type="submit" class="btn-quiz btn-submit" value="Submit Test"> -->
                 </div>
               <div class="col l4 s12">
@@ -155,14 +156,8 @@
   </div>
   
   <script type="text/javascript">
-    // this array holds the data corresponding to backend data of 
-    // section answered.
-    // update this array only when a section's answer is submitted to backend and 
-    // success response is what we got
-    
-      var questionData=[];
       // Dummy JSON
-      questionData=[{
+      var questionData=[{
         "id": 1,
         "question":"What is the Full Form of IEEE?",
         "qtype":"singlec",
@@ -186,8 +181,11 @@
         "qtype":"descr",
         "options":null,
       },
-    ]
-
+    ];
+    // this array holds the data corresponding to backend data of 
+    // section answered.
+    // update this array only when a section's answer is submitted to backend and 
+    // success response is what we got
     var userDomainData;
     $(document).ready(function () {
       $.ajax({
@@ -205,6 +203,16 @@
         },
       });
     });
+    var loadQues, loadNext, loadPrev;
+    // function loadQues(number) {
+    //   number = parseInt(number);
+    // }
+    // function loadNext(){
+
+    // }
+    // function loadPrev(){
+
+    // }
     function mainFunc() {
       // false: Not attempted
       // true: attempted
@@ -259,6 +267,7 @@
         success: function (res) {
           if (res.success == true) {
             console.log(res.data);
+            prepareAll(res.data);
           } else {
             // We can display this error as a 
             // sweet alert and tell to refresh page
@@ -269,7 +278,46 @@
           console.log(msg);
         },
       });
-
+      function prepareAll(questions) {
+        let qDivision = document.getElementsByClassName("question-area")[0];
+        let qNavig = document.getElementsByClassName("nav-container-ul")[0];
+        let qArray = [];
+        let navArray = [];
+        var len = 0;
+        var changeTo;
+        var prevTo;
+        var nextTo;
+        questions.forEach(question => {
+          let qData = createQuestion(question, ++len);
+          qDivision.appendChild(qData);
+          qArray.push(qData);
+          let navData = createNavigation(len);
+          qNavig.appendChild(navData);
+          navArray.push(navData.children[0]);
+        });
+        var current = 0;
+        --len;
+        console.log(len);
+        changeTo = function changeTo(no) {
+          if (no <= len && no >= 0) {
+            qArray[current].classList.add("hidden");
+            navArray[current].classList.remove("ongoing");
+            current = no;
+            qArray[current].classList.remove("hidden");
+            navArray[current].classList.add("ongoing");
+          }
+        }
+        nextTo = function nextTo() {
+          changeTo(current+1);
+        }
+        prevTo = function prevTo() {
+          changeTo(current-1);
+        }
+        loadNext = nextTo;
+        loadPrev = prevTo;
+        loadQues = changeTo;
+        changeTo(current);
+      }
       // Sample Question Structure
       // res.data is array of following type
       /*
@@ -284,7 +332,38 @@
           question: String // string containing actual question 
       }
       */
-
+    }
+    function createNavigation(no, func) {
+      let liE = document.createElement("li");
+      liE.classList.add("navigation-txt");
+      let buttonE = document.createElement("button");
+      buttonE.type = "submit";
+      buttonE.classList.add("btn-nav");
+      buttonE.innerText = no;
+      buttonE.onclick=new Function(`{loadQues(parseInt(${no-1}))}`);
+      liE.appendChild(buttonE);
+      return liE;
+    }
+    function createQuestion (questionObj, no) {
+      let questionContainer = document.createElement("div");
+      questionContainer.classList.add("hidden");
+      questionContainer.classList.add("actual-question");
+      let qDiv = document.createElement("div");
+      qDiv.classList.add("question-txt");
+      qDiv.innerText = `Q${no}. ${questionObj.question}`;
+      let ansDiv;
+      if (questionObj.qType === "multic") {
+        ansDiv = multiChoiceAns(questionObj._id, questionObj.options);
+      } else if (questionObj.qType === "singlec") {
+        ansDiv = singleChoiceAns(questionObj._id, questionObj.options);
+      } else if(questionObj.qType === "descr") {
+        ansDiv = descAns(questionObj._id);
+      } else {
+        ansDiv = singleLineAns(questionObj._id);
+      }
+      questionContainer.appendChild(qDiv);
+      questionContainer.appendChild(ansDiv);
+      return questionContainer;
     }
     function multiChoiceAns(qid, options){
       let containerDiv = document.createElement("div");
@@ -297,19 +376,23 @@
         let inputElement = document.createElement("input");
         inputElement.type = "checkbox";
         inputElement.name = qid; // name
-        inputElement.classList.add("filled-in checkbox-style");
+        inputElement.value = options[i] // option-text
+        inputElement.classList.add("filled-in"); 
+        inputElement.classList.add("checkbox-style");
         let span = document.createElement("span");
-        span.classList.add("option-text");
+        span.classList.add("option-txt");
         span.innerText = options[i]; // option text
         label.appendChild(inputElement);
         label.appendChild(span);
         containerDiv.appendChild(label);
         containerDiv.appendChild(br);
       }
+      return containerDiv;
     }
     function singleChoiceAns(qid, options){
       let containerDiv = document.createElement("div");
       containerDiv.classList.add("option-container");
+      var i;
       for(i = 0; i < options.length; i++) {
         let label = document.createElement("label");
         label.classList.add("option");
@@ -317,14 +400,16 @@
         let inputElement = document.createElement("input");
         inputElement.type = "radio";
         inputElement.name = qid; // name
+        inputElement.value = options[i] // option-text
         let span = document.createElement("span");
-        span.classList.add("option-text");
+        span.classList.add("option-txt");
         span.innerText = options[i]; // option text
         label.appendChild(inputElement);
         label.appendChild(span);
         containerDiv.appendChild(label);
         containerDiv.appendChild(br);
       }
+      return containerDiv;
     }
     function descAns(qid){
       let containerDiv = document.createElement("div");
@@ -336,6 +421,7 @@
       textarea.rows = 30;
       textarea.name = qid; // name
       containerDiv.appendChild(textarea);
+      return containerDiv;
     }
     function singleLineAns(qid){
       let containerDiv = document.createElement("div");
@@ -350,6 +436,7 @@
       inputElement.name = qid; // name
       containerDiv.appendChild(label);
       containerDiv.appendChild(inputElement);
+      return containerDiv;
     }
   </script>
 </body>

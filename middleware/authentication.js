@@ -41,6 +41,6 @@ module.exports = {
     if(!req.user || !req.user._id){
       return next();
     }
-    res.redirect("/check");
+    res.redirect("/instructions");
   }
 };
