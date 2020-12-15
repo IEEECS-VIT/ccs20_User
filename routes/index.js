@@ -169,11 +169,16 @@ router.get("/domaininfo", auth.isAuthenticated, (req,res,next)=>{
     return res.json({success: false, message: "Unauthorized to access"});
   }
   else {
-    var domains = Object.create(null);
-    Object.keys(req.user.domais).forEach((domain)=>{
-      domains[domain] = !req.user.domainsLeft.includes(domain);
+    var domains = ["technical", "management", "design", "documentation"];
+    var response = [];
+    domains.forEach((domain)=>{
+      if (req.user.domains.hasOwnProperty(domain)){
+        response.push(!req.user.domainsLeft.includes(domain));
+      } else {
+        response.push(null);
+      }
     });
-    res.json(domains);
+    res.json({success:true, data: response});
   }
 });
 

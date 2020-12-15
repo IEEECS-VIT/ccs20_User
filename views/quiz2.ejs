@@ -163,7 +163,8 @@
         success: function (res) {
           if (res.success == true) {
             userData = res.data;
-            mainFunc();
+            console.log(userData);
+            mainFunc(userData);
           }
         },
         error: function (msg) {
