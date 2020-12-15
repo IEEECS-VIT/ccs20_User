@@ -210,21 +210,55 @@
         //   // console.log(domains[i]);
         //   // mobileSectionList[i]=i; Tech, Mgmt, Design, Doc (0,1,2,3)
         // }
-        if (mobileFirstSection !== null) {
-          mobileDomainSelector.textContent=`Section ${mobileSectionNumber} of ${mobileSectionCount}: ${mobileFirstSection}`;
-          var domainChoosedName = mobileFirstSection.toLowerCase();
-          // we got the name of section to start now and we can proceed further
-        } else{
-          // All domains Answered
-          // do end test
-        } 
       }
+      if (mobileFirstSection !== null) {
+        mobileDomainSelector.textContent=`Section ${mobileSectionNumber} of ${mobileSectionCount}: ${mobileFirstSection}`;
+        var domainChoosedName = mobileFirstSection.toLowerCase();
+        // we got the name of section to start now and we can proceed further
+        // this function contains all the related data about a section
+        domainFunc(domainChoosedName);
+      } else {
+        // All domains Answered
+        // do end test
+      } 
     }
     function domainFunc(domain) {
-      // make all the number divs
-      // make the next and previous buttons work
-      // make a domain question boxes
-      // fetch domain wise questions
+      // first fetch all questions from backend
+      $.ajax({
+        url: `/question/${domain}`,
+        method: "GET",
+        success: function (res) {
+          if (res.success == true) {
+            console.log(res.data);
+          } else {
+            // We can display this error as a 
+            // sweet alert and tell to refresh page
+            console.log(res.message);
+          }
+        },
+        error: function (msg) {
+          console.log(msg);
+        },
+      });
+
+      // Sample Question Structure
+      // res.data is array of following type
+      /*
+      {
+        questionId: {
+          _id: // contains questionId which is mongoose id of question
+               // the candidate for name field of each question
+          ,
+          options: [String] // may be empty for descr and oneline type
+          ,
+          qType: String Enum { multic, descr, oneline, singlec } // one of 4 types
+          ,
+          question: String // string containing actual question 
+        },
+        solution: "" // empty string representing user solution 
+                     // unnecessary but redundant due to database design
+      }
+      */
     }
     function multiChoiceAns(qid, options){
       let containerDiv = document.createElement("div");

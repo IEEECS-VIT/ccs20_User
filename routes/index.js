@@ -204,9 +204,9 @@ router.get(
             });
           }
           let questions = await R_Database.findById(domains[domain], "data")
-            .populate("data.questionId", "question option qType")
+            .populate("data.questionId", "question option qType options")
             .lean();
-          res.json(questions.data);
+          res.json({success:true, data: questions.data});
         } catch (err) {
           console.log(err.message);
           return res.json({ success: false, message: err.message });
