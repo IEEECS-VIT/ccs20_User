@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css" />
-  <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -209,6 +208,12 @@
             },
           });
         });
+        $( document ).ajaxComplete(function() {
+          setTimeout(() => {
+            timer("Please Wait for some time", 5);
+          }, 500);
+
+        });
         function mainFunc() {
           // false: Not attempted
           // true: attempted
@@ -250,7 +255,7 @@
             // we got the name of section to start now and we can proceed further
             // this function contains all the related data about a section
             domainFunc(domainChoosedName);
-            timer("Please Wait for some time", 5);
+            // timer("Please Wait for some time", 5);
           } else {
             // All domains Answered
             // do end test
@@ -438,11 +443,11 @@
         function timer(message, time) {
           // Pre section timer using Sweetalert2
           Swal.fire({
-            title: 'Please Wait!',
-            icon: 'none',
-            html:  `${message}`,
+            // title: 'Get Ready!',
+            html:"<h2 id='sw-timer-count' style='text-align: center'>5</h2><h4 style='text-align: center'>Get Ready!</h4>",
+            // html:  `${message}`,
             allowOutsideClick: false,
-            timer: (time + 2) * 1000,
+            timer: (time + 1) * 1000,
             showCloseButton: false,
             showCancelButton: false,
             showConfirmButton: false,
@@ -452,9 +457,10 @@
             imageHeight: "100%",
             showLoaderOnConfirm: true,
           });
+
           // SW Timer DOM
           var swTimer = document.getElementById('sw-timer-count');
-          var i = time;
+          var i = time-1;
           var timerVal;
           var clearMyTimer = function clearMyTimer() {
             if (timerVal !== undefined) {

@@ -122,6 +122,15 @@ textarea:focus:not([readonly]) {
   width: 100%;
 }
 
+.swal2-timer-progress-bar
+{
+  background-color: #FAA41A;
+}
+/* .swal2-timer-progress-bar-container
+{
+  width: 20%;
+} */
+
 .pc-submit {
   color: white;
   background-color: #faa41a;
