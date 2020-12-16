@@ -17,7 +17,7 @@ router.get("/", auth.isUser, (req, res) => {
 // GET CountDown Page
 
 router.get("/countdown", (req,res) => {
-  res.render("countDown", { message: req.flash("message") || "" });)
+  res.render("countDown", { message: req.flash("message") || "" });
   // res.send("<h1>hi</h1>")
  
 })
