@@ -121,7 +121,6 @@ textarea:focus:not([readonly]) {
   height: 100%;
   width: 100%;
 }
-
 .swal2-timer-progress-bar
 {
   background-color: #FAA41A;

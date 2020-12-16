@@ -212,8 +212,35 @@
           setTimeout(() => {
             timer("Please Wait for some time", 5);
           }, 500);
-
+          // submitSection('Technical');
+          // loaderSwal();
         });
+        function submitSection(nextSection){
+          // Alert when user confirms submit section
+          Swal.fire({
+            icon:'warning',
+            title:'Are You Sure?',
+            html:"Next Section is <b>"+nextSection+'</b>',
+            showCancelButton:true,
+            showConfirmButton:true,
+            confirmButtonText:'Submit and Move to Next Section',
+            allowOutsideClick:false,
+
+          }).then((result) => {
+          if (result.isConfirmed) {
+            // Move to next section
+          }
+        });
+        }
+        function loaderSwal(){
+          Swal.fire({
+            html:"<img id='loaderSwalsvg' src='/images/load.svg'/><h4 style='text-align:center'>Please Wait</h4> ",
+            // title:'Please Wait',
+            // text:'Your Test is Loading',
+            showConfirmButton:false,
+            allowOutsideClick:false,
+          })
+        }
         function mainFunc() {
           // false: Not attempted
           // true: attempted
@@ -444,7 +471,7 @@
           // Pre section timer using Sweetalert2
           Swal.fire({
             // title: 'Get Ready!',
-            html:"<h2 id='sw-timer-count' style='text-align: center'>5</h2><h4 style='text-align: center'>Get Ready!</h4>",
+            html:"<h2 id='sw-timer-count' style='text-align: center'>"+time+"</h2><h4 style='text-align: center'>Get Ready!</h4>",
             // html:  `${message}`,
             allowOutsideClick: false,
             timer: (time + 1) * 1000,
