@@ -8,10 +8,18 @@ var passport = require("passport");
 const auth = require("../middleware/authentication");
 const request = require("request-promise");
 
+
 /* GET index page */
 router.get("/", auth.isUser, (req, res) => {
   res.render("index", { message: req.flash("message") || "" });
 });
+
+// GET CountDown Page
+
+router.get("/countDown", (req,res) => {
+  // res.render('countDown')
+  res.send("<h1>hi</h1>")
+})
 
 
 router.get("/quiz2", (req, res) => {
@@ -277,5 +285,7 @@ router.post(
     }
   }
 );
+
+
 
 module.exports = router;
