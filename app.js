@@ -19,11 +19,13 @@ require("dotenv").config();
 //   }
 // );
 
-app.use("/.well-known", express.static(path.join(__dirname, "certbot")));
 
 const usersRouter = require("./routes");
 const app = express();
 app.disable("x-powered-by");
+
+// certbot
+app.use("/.well-known", express.static(path.join(__dirname, "certbot")));
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
