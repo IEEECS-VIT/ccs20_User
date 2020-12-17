@@ -46,7 +46,7 @@
   <div class="navbar-fixed">
     <nav class="nav-extended" style="height: 72px;">
       <div class="nav-wrapper">
-        <a href="#" class="brand-logo left"><img src="/images/IEEE-CS_New.png" alt="logo" class="custom-logo" /></a>
+        <a class="brand-logo left"><img src="/images/IEEE-CS_New.png" alt="logo" class="custom-logo" /></a>
         <span class="right-nav-item"><em class="fas fa-user user-icon"></em><span
             class="username"><%= user %></span></span>
       </div>
@@ -480,7 +480,7 @@
           userSectionData["startTime"] = Date.now();
           var timer = 30  // 15 minutes
           function myTimer()  { 
-            document.getElementById("section-time").innerText = "00:" + parseInt((timer) / (60)) + ":" + ((timer % 60) < 10 ? ("0" + timer%60) : timer%60);
+            document.getElementById("section-time").innerText = "00:" + ((timer / 60) < 10 ? ("0"+Math.floor(timer/60)) : Math.floor(timer/60)) + ":" + ((timer % 60) < 10 ? ("0" + timer%60) : timer%60);
             timer--;
             if (timer <= 0) {
               document.getElementById("section-time").innerText = "Time's Up";

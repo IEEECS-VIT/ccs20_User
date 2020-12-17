@@ -235,6 +235,7 @@ textarea:focus:not([readonly]) {
 }
 .timer {
   font-size: 25px;
+  min-width: 124px;
 }
 .time {
   margin-left: 1.2vw;
@@ -396,6 +397,7 @@ textarea:focus:not([readonly]) {
   background-color: #444444;
   color: #faa41a;
   transition: 0.2s all ease-in-out;
+  min-width: 150px;
 }
 .btn-submit:hover {
   background-color: #faa41a;
@@ -528,6 +530,7 @@ textarea {
     margin: 0px auto;
   }
   .time, .timer {
+    margin-left: 4px !important;
     margin: 0px;
     font-size: 20px;
   }
