@@ -14,19 +14,6 @@ router.get("/", auth.isUser, (req, res) => {
   res.render("index", { message: req.flash("message") || "" });
 });
 
-// GET CountDown Page
-
-router.get("/countdown", (req,res) => {
-  res.render("countDown", { message: req.flash("message") || "" });
-  // res.send("<h1>hi</h1>")
- 
-})
-
-
-router.get("/quiz2", (req, res) => {
-  res.render("quiz2", { message: req.flash("message") || "" });
-});
-
 /* POST user login */
 router.post(
   "/login",

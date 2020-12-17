@@ -11,15 +11,13 @@ const flash = require("connect-flash");
 require("dotenv").config();
 
 
-mongoose.connect(
-  process.env.MONGO_URI,
-  { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true },
-  err => {
-    if (!err) console.log("Connection successful");
-  }
-);
-
-
+// mongoose.connect(
+//   process.env.MONGO_URI,
+//   { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true },
+//   err => {
+//     if (!err) console.log("Connection successful");
+//   }
+// );
 
 const usersRouter = require("./routes");
 const app = express();
@@ -36,6 +34,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+
+// GET CountDown Page
+// For all the routes
+app.use("/", (req,res) => {
+  res.render("countDown"); 
+});
 
 const expiryDate = new Date(5 * Date.now() + 60 * 60 * 1000); // 5 hours
 app.use(
