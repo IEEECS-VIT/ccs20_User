@@ -218,10 +218,26 @@ ion-icon:hover{
 }
 
 @media(max-width: 500px){
+
+    section .contentBx .countdown .time{
+        
+        width: 50px;
+        height: 60px;
+    }
+
+    section .contentBx .countdown .time span {
+        font-size: 10px;
+    }
+    header a img{
+        width:130px;
+        height:40px
+    }
+
     section .contentBx h2{
-        margin-top:-30px;
+        margin-top:-50px;
         font-size: 27px;
     }
+
     section .imgBx img{
         width:190px;
         height: 160px;
@@ -232,8 +248,8 @@ ion-icon:hover{
         background-color:  rgb(34, 34, 34);
         color:white;
         height:50px;
-        width:185px;
-        font-size: 15px;
+        width:165px;
+         font-size: 12px;
         margin-bottom: 10px;
         letter-spacing: 0px;
         padding-top:12px;
@@ -241,14 +257,22 @@ ion-icon:hover{
 
 }
 
+@media (max-width:450px){
+    section .imgBx img{
+        width:150px;
+        height: 130px;
+    }
+}
 
 @media (max-width: 380px){
+    
     section .contentBx a{
-         margin-top:0px;
+       
+         margin-top:15px;
     }
 
     header{
-        padding: 10px 50px;
+        padding: 15px 50px;
     }
 
     section .contentBx h2{
@@ -264,10 +288,7 @@ ion-icon:hover{
         height: 140px;
      }
     
-    section .contentBx .countdown .time{
-        width: 50px;
-        height: 60px;
-    }
+    
 
     
 }
@@ -275,9 +296,9 @@ ion-icon:hover{
 @media (max-width: 330px){
 
     section .contentBx a{
-        width:170px;
-        font-size: 12px;
-
+        width:150px;
+        font-size: 11px;
+        padding-right:2px;
     }
     section .imgBx img{
          width:150px;
@@ -288,6 +309,9 @@ ion-icon:hover{
         font-size: 25px;
     }
 
+    section .contentBx p{
+        font-size: 12px;
+    }
     .wave{
         margin-right: -25px;
     }
@@ -296,12 +320,19 @@ ion-icon:hover{
         margin-left: -15px;
     }
 }
+
+@media (min-height: 700px){
+    section .imgBx img{
+         width:260px;
+         height: 210px;
+     }
+}
 @media (min-height: 800px){
 
-    section .imgBx img{
+    /* section .imgBx img{
          width:300px;
          height: 250px;
-     }
+     } */
 
       section .contentBx .countdown .time{
         width: 60px;
