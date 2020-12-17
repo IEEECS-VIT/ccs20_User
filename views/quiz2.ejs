@@ -61,13 +61,14 @@
         <div class="documentation domain-name col border-right border-1 border-2">4. Documentation</div>
       </div>
       <div class="clock">
-        <span class="timer"><em class="far fa-clock"></em><span class="time">HH:MM:SS</span></span>
+        <span class="timer"><em class="far fa-clock"></em><span class="time" id="section-time">HH:MM:SS</span></span>
       </div>
 
     </div>
     <div class="mobile-domain-option">
       <span id="mobile-domain-text">Section 1 of 4: Technical</span>
     </div>
+    <form>
     <div class="second-content-container">
       <div class="question-area">
         <!-- <div class="actual-question hidden">
@@ -129,7 +130,7 @@
       <div class="question-navigation">
         <div class="nav-container">
           <ul class="nav-container-ul">
-            <!-- <li class="navigation-txt"><button onclick="loadQues(parseInt(this.innerText)-1);" type="submit" class="btn-nav ongoing">1</button></li>
+              <!-- <li class="navigation-txt"><button onclick="loadQues(parseInt(this.innerText)-1);" type="submit" class="btn-nav ongoing">1</button></li> 
                     <li class="navigation-txt"><button onclick="loadQues(parseInt(this.innerText)-1);" type="submit" class="btn-nav">2</button></li>
                     <li class="navigation-txt"><button onclick="loadQues(parseInt(this.innerText)-1);" type="submit" class="btn-nav">3</button></li>
                     <li class="navigation-txt"><button onclick="loadQues(parseInt(this.innerText)-1);" type="submit" class="btn-nav">4</button></li>
@@ -138,8 +139,8 @@
           </ul>
         </div>
       </div>
-
     </div>
+  </form>
     <div class="button-content">
       <div class="row button-container">
         <div class="col l4 s6">
@@ -152,47 +153,23 @@
           <!-- <input type="submit" class="btn-quiz btn-submit" value="Submit Test"> -->
         </div>
         <div class="col l4 s12">
-          <button type="submit" class="btn-def btn-submit"><span>Submit Test</span></button>
+          <button type="submit" class="btn-def btn-submit" onclick="mainSubmit()"><span id="submit-test-section">Submit Test</span></button>
         </div>
       </div>
     </div>
   </div>
   <script type="text/javascript">
-    var loadQues, loadNext, loadPrev;
+    var loadQues, loadNext, loadPrev, mainSubmit;
     $(document).ready(function () {
       (function packFunc() {
-        // Dummy JSON
-        var questionData = [{
-          "id": 1,
-          "question": "What is the Full Form of IEEE?",
-          "qtype": "singlec",
-          "options": ['Wrong', 'Correct', 'Wrong', 'Wrong'],
-        },
-        {
-          "id": 2,
-          "question": "What is the Full Form of IEEE?",
-          "qtype": "multic",
-          "options": ['Wrong', 'Correct', 'Wrong', 'Wrong'],
-        },
-        {
-          "id": 3,
-          "question": "What is the Full Form of IEEE?",
-          "qtype": "oneline",
-          "options": null,
-        },
-        {
-          "id": 4,
-          "question": "What is the Full Form of IEEE?",
-          "qtype": "descr",
-          "options": null,
-        },
-        ];
         // this array holds the data corresponding to backend data of 
         // section answered.
         // update this array only when a section's answer is submitted to backend and 
         // success response is what we got
         var userDomainData;
-        $(document).ready(function () {
+        var userSectionData;
+        function startWithCollectingDomainData(){
+          console.log("Ajax: Domain Info");
           $.ajax({
             url: "/domaininfo",
             method: "GET",
@@ -207,39 +184,71 @@
               console.log(msg);
             },
           });
-        });
-        $( document ).ajaxComplete(function() {
-          setTimeout(() => {
-            timer("Please Wait for some time", 5);
-          }, 500);
-          // submitSection('Technical');
-          // loaderSwal();
-        });
-        function submitSection(nextSection){
+        }
+        function submitSection(){
           // Alert when user confirms submit section
           Swal.fire({
-            icon:'warning',
+            icon: 'warning',
             title:'Are You Sure?',
-            html:"Next Section is <b>"+nextSection+'</b>',
-            showCancelButton:true,
+            html:"<span>Want to submit this section?</span>",
+            showCancelButton: true,
             showConfirmButton:true,
-            confirmButtonText:'Submit and Move to Next Section',
+            confirmButtonText:'Confirm',
             allowOutsideClick:false,
-
           }).then((result) => {
-          if (result.isConfirmed) {
-            // Move to next section
-          }
-        });
+            if (result.isConfirmed) {
+              // Move to next section
+              endSection(userSectionData["domain"]);
+            }
+          });
+        }
+        function submitTest(){
+          // Alert when user confirms submit section
+          Swal.fire({
+            icon: 'warning',
+            title:'Are You Sure?',
+            html:"<span>Want to submit test?</span>",
+            showCancelButton: true,
+            showConfirmButton:true,
+            confirmButtonText:'Confirm',
+            allowOutsideClick:false,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Move to next section
+              endTest();
+            }
+          });
+        }
+        function infoSwal(message, func, time){
+          // Alert when user confirms submit section
+          Swal.fire({
+            icon: 'info',
+            title:'Notice!',
+            html:`<span>${message}</span>`,
+            showConfirmButton:true,
+            showCancelButton: false,
+            confirmButtonText:'Confirm',
+            allowOutsideClick:false,
+            timer: time * 1000,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Move to next section
+              if (func !== null) {
+                return func();
+              }
+            }
+          });
         }
         function loaderSwal(){
           Swal.fire({
             html:"<img id='loaderSwalsvg' src='/images/load.svg'/><h4 style='text-align:center'>Please Wait</h4> ",
-            // title:'Please Wait',
-            // text:'Your Test is Loading',
             showConfirmButton:false,
             allowOutsideClick:false,
           })
+        }
+        function endTest() {
+          infoSwal("Thankyou for taking this test!", null, 5);
+          window.location.href = "/thanks";
         }
         function mainFunc() {
           // false: Not attempted
@@ -260,36 +269,35 @@
                 domainSelector[i].classList.add('ongoing');
                 mobileFirstSection = domainNameArray[i];
               } else {
+                domainSelector[i].classList.remove('ongoing');
                 domainSelector[i].classList.add('domain-attempted');
                 mobileSectionNumber += 1;
               }
             }
-            // else if(!domains[i] && !firstSectionFlag){
-            //   // Highlights only the first section selected by user
-            //   domainSelector[i].classList.add('ongoing');
-            //   firstSectionFlag++;
-            //   mobileFirstSection=i;
-            // }
-            // if(domains[i]!==null){
-            //   mobileSectionCount++;
-            //   // console.log(domains[i]);
-            //   // mobileSectionList[i]=i; Tech, Mgmt, Design, Doc (0,1,2,3)
-            // }
           }
           if (mobileFirstSection !== null) {
             mobileDomainSelector.textContent = `Section ${mobileSectionNumber} of ${mobileSectionCount}: ${mobileFirstSection}`;
+            let spanData = document.getElementById("submit-test-section");
+            if(mobileSectionCount === mobileSectionNumber) {
+              spanData.innerText = "Submit Test";
+              mainSubmit = submitTest;
+            } else {
+              spanData.innerText = "Submit Section";
+              mainSubmit = submitSection;
+            }
             var domainChoosedName = mobileFirstSection.toLowerCase();
-            // we got the name of section to start now and we can proceed further
-            // this function contains all the related data about a section
             domainFunc(domainChoosedName);
-            // timer("Please Wait for some time", 5);
           } else {
             // All domains Answered
-            // do end test
+            // fire an end message
+            endTest();
           }
         }
         function domainFunc(domain) {
           // first fetch all questions from backend
+          // add a loader here
+          loaderSwal();
+          console.log("Ajax: Questions for " + domain);
           $.ajax({
             url: `/question/${domain}`,
             method: "GET",
@@ -310,6 +318,8 @@
           function prepareAll(questions) {
             let qDivision = document.getElementsByClassName("question-area")[0];
             let qNavig = document.getElementsByClassName("nav-container-ul")[0];
+            qDivision.innerHTML = "";
+            qNavig.innerHTML = "";
             let qArray = [];
             let navArray = [];
             var len = 0;
@@ -347,20 +357,14 @@
             loadQues = changeTo;
             changeTo(current);
           }
-          // Sample Question Structure
-          // res.data is array of following type
-          /*
-          {
-              _id: // contains questionId which is mongoose id of question
-                   // the candidate for name field of each question
-              ,
-              options: [String] // may be empty for descr and oneline type
-              ,
-              qType: String Enum { multic, descr, oneline, singlec } // one of 4 types
-              ,
-              question: String // string containing actual question 
+          var form = document.forms[0];
+          userSectionData = Object.create(null);
+          form.onsubmit = function onsubmit(e){
+            e.preventDefault();
           }
-          */
+          userSectionData["domain"] = domain;
+          userSectionData["form"] = form;
+          timer(5);
         }
         function createNavigation(no, func) {
           let liE = document.createElement("li");
@@ -467,43 +471,126 @@
           containerDiv.appendChild(inputElement);
           return containerDiv;
         }
-        function timer(message, time) {
+        function startSection(domain) {
+          // Set Timer 
+          // Record startTime and endTime
+          if(userSectionData === undefined) {
+            return;
+          }
+          userSectionData["startTime"] = Date.now();
+          var timer = 30  // 15 minutes
+          function myTimer()  { 
+            document.getElementById("section-time").innerText = "00:" + parseInt((timer) / (60)) + ":" + ((timer % 60) < 10 ? ("0" + timer%60) : timer%60);
+            timer--;
+            if (timer <= 0) {
+              document.getElementById("section-time").innerText = "Time's Up";
+              endSection(domain);
+            }
+          } 
+          userSectionData["intervalData"] = setInterval(myTimer, 990);
+        }
+        function endSection(domain){
+          if (userSectionData === undefined){
+            return;
+          }
+          userSectionData["endTime"] = Date.now();
+          if(userSectionData["intervalData"]) {
+            clearInterval(userSectionData["intervalData"]);
+          }
+          // Parse and Submit Answers
+          // Call mainFunc To Begin NextSection
+          var formData = new FormData(userSectionData["form"]);
+          var solutions = [];
+          var lastData;
+          formData.forEach((val,key)=>{
+            if (lastData && lastData.questionId === key) {
+              lastData.solution += "$$##$$";
+              lastData.solution += val;
+            } else {
+              lastData = {
+                "questionId" : key,
+                "solution": val,
+              };
+              solutions.push(lastData);
+            }
+          });
+          console.log(solutions);
+          console.log("Ajax: Post Answers for " + domain);
+          $.ajax({
+            url: `/question/${domain}`,
+            method: "POST",
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            data: {
+              endTime: userSectionData["endTime"],
+              startTime: userSectionData["startTime"],
+              solutions: solutions,
+            },
+            success: function (res) {
+              if (res.success == true) {
+                // update the data
+                updateDomainDataForDomain(domain, true);
+                console.log(userDomainData);
+                mainFunc();
+              } else {
+                // We can display this error as a 
+                // sweet alert and tell to refresh page
+                console.log(res.message);
+              }
+            },
+            error: function (msg) {
+              console.log(msg);
+            },
+          });
+        }
+        function timer(time) {
           // Pre section timer using Sweetalert2
           Swal.fire({
-            // title: 'Get Ready!',
-            html:"<h2 id='sw-timer-count' style='text-align: center'>"+time+"</h2><h4 style='text-align: center'>Get Ready!</h4>",
-            // html:  `${message}`,
-            allowOutsideClick: false,
-            timer: (time + 1) * 1000,
+            title: 'Get Ready!',
+            html: `The section will start in <b>${time*1000}</b> milliseconds.`,
+            timer: time * 1000,
+            timerProgressBar: true,
             showCloseButton: false,
             showCancelButton: false,
             showConfirmButton: false,
+            allowOutsideClick: false,
             focusConfirm: false,
-            timerProgressBar: true,
-            imageWidth: "100%",
-            imageHeight: "100%",
-            showLoaderOnConfirm: true,
-          });
-
-          // SW Timer DOM
-          var swTimer = document.getElementById('sw-timer-count');
-          var i = time-1;
-          var timerVal;
-          var clearMyTimer = function clearMyTimer() {
-            if (timerVal !== undefined) {
-              clearInterval(timerVal);
+            didOpen: () => {
+                Swal.showLoading()
+                timerInterval = setInterval(() => {
+                  const content = Swal.getContent();
+                  if (content) {
+                    const b = content.querySelector('b');
+                    if (b) {
+                      b.textContent = Swal.getTimerLeft();
+                    }
+                  }
+                }, 1000)
+             },
+             willClose: () => {
+              clearInterval(timerInterval);
+              startSection(userSectionData["domain"]);
             }
-          }
-          timerVal = setInterval(function () {
-            if (i <= 0) {
-              swTimer.innerHTML = 0;
-              clearMyTimer();
-            } else {
-              swTimer.innerHTML = i;
-              i--;
-            }
-          }, 1000);
+          })
         }
+        function updateDomainDataForDomain(domain, val) {
+          if (val !== null && val !== false && val !== true) {
+            val = false;
+          }
+          console.log(domain + ":" + val);
+          switch (domain) {
+            case "technical": userDomainData[0] = val;
+                              break;
+            case "management": userDomainData[1] = val;
+                              break; 
+            case "design":  userDomainData[2] = val;
+                              break; 
+            case "documentation": userDomainData[3]= val;
+                                  break;
+          }
+          return;
+        }
+        startWithCollectingDomainData();
       })()
     });
   </script>

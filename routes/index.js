@@ -89,8 +89,7 @@ router.get("/logout", auth.isLoggedIn, (req, res) => {
 });
 
 /* GET thanks page */
-router.get("/thanks", (req, res, next) => {
-  req.logout();
+router.get("/thanks", auth.isAuthenticated, (req, res, next) => {
   res.render("thanks");
 });
 
@@ -273,7 +272,5 @@ router.post(
     }
   }
 );
-
-
 
 module.exports = router;
