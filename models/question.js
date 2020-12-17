@@ -4,7 +4,6 @@ const questionSchema = new mongoose.Schema({
   question: String,
   options: {
     type: [String],
-    minlength: 4,
   },
   answer: {
     type: String,
