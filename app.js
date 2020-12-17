@@ -11,13 +11,13 @@ const flash = require("connect-flash");
 require("dotenv").config();
 
 
-mongoose.connect(
-  process.env.MONGO_URI,
-  { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true },
-  err => {
-    if (!err) console.log("Connection successful");
-  }
-);
+// mongoose.connect(
+//   process.env.MONGO_URI,
+//   { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true },
+//   err => {
+//     if (!err) console.log("Connection successful");
+//   }
+// );
 
 app.use("/.well-known", express.static(path.join(__dirname, "certbot")));
 
@@ -44,19 +44,19 @@ app.use(express.static(path.join(__dirname, "public")));
 //   res.render("countDown"); 
 // });
 
-const expiryDate = new Date(5 * Date.now() + 60 * 60 * 1000); // 5 hours
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-      secure: true,
-      expires: expiryDate
-    },
-    keys: process.env.SESSION_KEYS.split()
-  })
-);
+// const expiryDate = new Date(5 * Date.now() + 60 * 60 * 1000); // 5 hours
+// app.use(
+//   session({
+//     secret: process.env.SESSION_SECRET,
+//     resave: true,
+//     saveUninitialized: true,
+//     cookie: {
+//       secure: true,
+//       expires: expiryDate
+//     },
+//     keys: process.env.SESSION_KEYS.split()
+//   })
+// );
 
 app.use(passport.initialize());
 app.use(passport.session());
