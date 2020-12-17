@@ -38,11 +38,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 
-// // GET CountDown Page
-// // For all the routes
-// app.use("/", (req,res) => {
-//   res.render("countDown"); 
-// });
+// GET CountDown Page
+// For all the routes
+app.use("/", (req,res) => {
+  res.render("countDown"); 
+});
 
 // const expiryDate = new Date(5 * Date.now() + 60 * 60 * 1000); // 5 hours
 // app.use(
