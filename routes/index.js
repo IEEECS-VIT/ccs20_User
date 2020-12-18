@@ -109,7 +109,7 @@ router.get("/thanks", auth.isAuthenticated, auth.isCompleted ,async (req, res, n
     });
     return {
       timeLeft: timeLeft,
-      sectionName: domain,
+      sectionName: domain.substr(0,1).toUpperCase() + domain.substr(1),
       qAnswered: ans,
       qUnanswered: rObj.data.length - ans,
     };
