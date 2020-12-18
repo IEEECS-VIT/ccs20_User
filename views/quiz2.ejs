@@ -240,7 +240,7 @@
             html:`<span>${message}</span>`,
             showConfirmButton:true,
             showCancelButton: false,
-            confirmButtonText:'Confirm',
+            confirmButtonText:'Continue',
             allowOutsideClick:false,
             timer: time * 1000,
             willClose: () => {
@@ -255,6 +255,8 @@
               // Move to next section
               if (func !== null) {
                 return func();
+              } else {
+                return window.location.reload();
               }
             }
           });
@@ -303,8 +305,10 @@
           })
         }
         function endTest() {
-          infoSwal("Thankyou for taking this test!", null, 5);
-          window.location.href = "/thanks";
+          infoSwal("Thankyou for taking this test!", goToComplete, 5);
+          function goToComplete() {
+            window.location.href = "/thanks";
+          }
         }
         function mainFunc() {
           // false: Not attempted
