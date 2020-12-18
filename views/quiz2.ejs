@@ -178,10 +178,13 @@
                 userDomainData = res.data;
                 console.log(userDomainData);
                 mainFunc();
+              } else {
+                console.log(res.message);
               }
             },
             error: function (msg) {
               console.log(msg);
+              infoSwal("Unexpected Error Occurred. <br/> Refresh the page!!", window.location.reload, 10);
             },
           });
         }
@@ -230,11 +233,54 @@
             confirmButtonText:'Confirm',
             allowOutsideClick:false,
             timer: time * 1000,
+            willClose: () => {
+              if (func !== null) {
+                return func();
+              } else {
+                window.location.reload();
+              }
+            }
           }).then((result) => {
             if (result.isConfirmed) {
               // Move to next section
               if (func !== null) {
                 return func();
+              }
+            }
+          });
+        }
+        function confirmCancelSwal(message, confirmFunc, cancelFunc, time){
+          // Alert when user confirms submit section
+          Swal.fire({
+            icon: 'info',
+            title:'Notice!',
+            html:`<span>${message}</span>`,
+            showConfirmButton:true,
+            showCancelButton: true,
+            cancelButtonText:"Cancel",
+            confirmButtonText:'Confirm',
+            allowOutsideClick:false,
+            timer: time * 1000,
+            willClose: () => {
+              if (cancelFunc !== null) {
+                return cancelFunc();
+              } else {
+                window.location.reload();
+              }
+            }
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Move to next section
+              if (confirmFunc !== null) {
+                return confirmFunc();
+              } else {
+                window.location.reload();
+              }
+            } else {
+              if (cancelFunc !== null) {
+                return cancelFunc();
+              } else {
+                window.location.reload();
               }
             }
           });
@@ -309,10 +355,19 @@
                 // We can display this error as a 
                 // sweet alert and tell to refresh page
                 console.log(res.message);
+                if (res.code === "er") {
+                  infoSwal("Unexpected Server Error. <br/> Refresh the page!!", window.location.reload, 10);
+                } else if (res.code === "ua" || res.code === "ns") {
+                  infoSwal("Unexpected Access Tried. <br/> Refresh the page!!", window.location.reload, 10);
+                } else if (res.code === "as") {
+                  updateDomainDataForDomain(domain, true);
+                  mainFunc();
+                }
               }
             },
             error: function (msg) {
               console.log(msg);
+              infoSwal("Unexpected Error Occurred. <br/> Refresh the page!!", window.location.reload, 10);
             },
           });
           function prepareAll(questions) {
@@ -514,34 +569,46 @@
               solutions.push(lastData);
             }
           });
-          console.log(solutions);
-          console.log("Ajax: Post Answers for " + domain);
-          $.ajax({
-            url: `/question/${domain}`,
-            method: "POST",
-            dataType: "json",
-            contentType: "application/x-www-form-urlencoded",
-            data: {
-              endTime: userSectionData["endTime"],
-              startTime: userSectionData["startTime"],
-              solutions: solutions,
-            },
-            success: function (res) {
-              if (res.success == true) {
-                // update the data
-                updateDomainDataForDomain(domain, true);
-                console.log(userDomainData);
-                mainFunc();
-              } else {
-                // We can display this error as a 
-                // sweet alert and tell to refresh page
-                console.log(res.message);
-              }
-            },
-            error: function (msg) {
-              console.log(msg);
-            },
-          });
+          function actualAnswerPost() {
+            console.log("Ajax: Post Answers for " + domain);
+            $.ajax({
+              url: `/question/${domain}`,
+              method: "POST",
+              dataType: "json",
+              contentType: "application/x-www-form-urlencoded",
+              data: {
+                endTime: userSectionData["endTime"],
+                startTime: userSectionData["startTime"],
+                solutions: solutions,
+              },
+              success: function (res) {
+                if (res.success == true) {
+                  // update the data
+                  updateDomainDataForDomain(domain, true);
+                  mainFunc();
+                } else {
+                  // We can display this error as a 
+                  // sweet alert and tell to refresh page
+                  console.log(res.message);
+                  if (res.code === "er") {
+                    // some server error either refresh and restart section
+                    // or give resubmit option
+                   confirmCancelSwal("Unexpected Server Error. <br/> Should we try submitting again? <br /> or page will reload", actualAnswerPost, window.location.reload, 10);
+                  } else if (res.code === "ua" || res.code === "ns") {
+                    infoSwal("Unexpected Access Tried. <br/> Refresh the page!!", window.location.reload, 10);
+                  } else if (res.code === "as") {
+                    updateDomainDataForDomain(domain, true);
+                    mainFunc();
+                  }
+                }
+              },
+              error: function (msg) {
+                console.log(msg);
+                infoSwal("Unexpected Error Occurred. <br/> Refresh the page!!", window.location.reload, 10);
+              },
+            });
+          }
+          actualAnswerPost();
         }
         function timer(time) {
           // Pre section timer using Sweetalert2

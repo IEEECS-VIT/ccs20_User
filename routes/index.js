@@ -185,7 +185,7 @@ router.get(
   async (req, res, next) => {
     try {
       if (!req.xhr) {
-        return res.json({success: false, message: "Unauthorized to access"});
+        return res.json({success: false, message: "Unauthorized to access", code:"ua"});
       }
       var domain = req.params.domain;
       var domains = req.user.domains;
@@ -197,6 +197,7 @@ router.get(
             return res.json({
               success: false,
               message: "Already submitted for this domain",
+              code:"as"
             });
           }
           let questions = await R_Database.findById(domains[domain], "data")
@@ -210,16 +211,17 @@ router.get(
           res.json({success:true, data: questions.data});
         } catch (err) {
           console.log(err.message);
-          return res.json({ success: false, message: err.message });
+          return res.json({ success: false, message: err.message, code:"er"});
         }
       } else {
         return res.json({
           success: false,
           message: "No such domain selected!",
+          code: "ns"
         });
       }
     } catch (error) {
-      return next(error);
+      return res.json({success: false, message: error.message, code:"er"});
     }
   }
 );
@@ -231,7 +233,7 @@ router.post(
   async (req, res, next) => {
     try {
       if (!req.xhr) {
-        return res.json({success: false, message: "Unauthorized to access"});
+        return res.json({success: false, message: "Unauthorized to access", code:"ua"});
       }
       var domain = req.params.domain;
       var domains = req.user.domains;
@@ -240,6 +242,7 @@ router.post(
           return res.json({
             success: false,
             message: "Already submitted for this domain",
+            code: "as"
           });
         }
         let responseObj = await R_Database.findById(domains[domain]);
@@ -265,10 +268,11 @@ router.post(
         return res.json({
           success: false,
           message: "No such domain selected!",
+          code: "ns"
         });
       }
     } catch (error) {
-      return next(error);
+      return res.json({success: false, message: error.message, code:"er"});
     }
   }
 );
