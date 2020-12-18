@@ -5,6 +5,7 @@
     <title>Thank you for participating</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/domain.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700" rel="stylesheet" />
@@ -15,26 +16,98 @@
             left: 50% !important;
             transform: translate(-50%, -50%) !important;
         }
+        .outer-container{
+            border: solid 2px #FAA41A;
+            border-radius: 20px;
+            background-color: #262626;
+            margin-bottom: 4%;
+            padding: 1% 1% 1% 1%;
+        }
+        .logout-icon{
+            color: #fff;
+            font-size: 30px;
+            margin-top: 1%;
+        }
+        a, i 
+        {
+            color: #fff;
+            text-decoration: none;
+        }
+        /* i
+        {
+            color: #fff;
+        } */
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
 
 <body class="colour1">
-    <% data.forEach((section)=> { %>
-        <h2><%= JSON.stringify(section) %></h2>
-    <% }); %>
     <div class="container">
-        <div class="row" style="text-align: center;">  
+        <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">  
             <div class="col12 top">
                 <img src="images/ieeecs.png" alt="logo" class="logo" />
             </div>
+            <span class="logout-icon"><a href=""><i class="fa fa-sign-out" aria-hidden="true"></i></a></span>
         </div>
         <div class="row" style="text-align: center; margin-top: 5%;">
-            <h2>Thank you</h2>
-            <p class="th">Hope to see you for the next phase!</p>
+            <h2>Thank You!</h2>
+            <p class="th">Hope to See You in the Next Phase!</p>
         </div>
-        
-        <div class="flex-container" style="display: flex; flex-wrap: wrap; justify-content: center;
+        <% data.forEach((section)=> { %>
+            <!-- <h2><%= JSON.stringify(section) %></h2> -->
+            <div class="outer-container">
+                <p style="text-align: center; font-size: 22px; color: #FAA41A;">Section : <%= section.sectionName %> </p>
+                <div class="flex-container" style="display: flex; flex-wrap: wrap; justify-content: center;
+                align-items: center; align-content: space-between; text-align: center; padding: 20px 0px;">    
+                <div class="column1" > 
+                    <canvas id="<%= section.sectionName %>"></canvas>
+                </div>
+                <div class="column1"  > 
+                    <h2>Time Left: </h2>
+                    <p><%= (section.timeLeft) + ' Seconds' %></p>
+                </div>
+                <script>                    
+                    var ctx = document.getElementById('<%= section.sectionName %>').getContext('2d');
+                    
+                    Chart.defaults.global.defaultFontColor = 'white';
+                    
+                    Chart.defaults.global.legend.position='bottom' 
+                    var data = {
+                        datasets: [{
+                            borderWidth: 1,
+                            borderColor: '#222222',
+                            backgroundColor: ['#00b33c','#ff1a1a'],
+                            data: [<%= section.qAnswered %>, <%= section.qUnanswered %>],
+                            hoverBackgroundColor: ['#00e64d','#ff3333'],
+                            hoverBorderWidth: 4
+                        }],
+
+                            // These labels appear in the legend and in the tooltips when hovering different arcs
+                        labels: [
+                            'No. of questions attempted',
+                            'No. of questions not attempted'
+                        ]
+                    };
+                    var myPieChart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: data,
+                        options: {
+                            animation: {
+                                duration: 1000,
+                                easing: 'easeOutBounce',  
+                                animateScale: true
+                            },
+                            hover: {
+                                animationDuration: 1000
+                            }
+            
+                        }
+                    });                    
+                </script>
+            </div>
+        </div>       
+        <% }); %>
+        <!-- <div class="flex-container" style="display: flex; flex-wrap: wrap; justify-content: center;
             align-items: center; align-content: space-between; text-align: center; padding: 20px 0px;">    
             <div class="column1" > 
                 <canvas id="myChart"></canvas>
@@ -80,7 +153,7 @@
                     }
                 });                    
             </script>
-        </div>       
+        </div>        -->
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>

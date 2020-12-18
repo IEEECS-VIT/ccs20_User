@@ -19,7 +19,6 @@
     display: none;
     order: 2;
   }
-
   #phone {
     order: 1;
     /* z-index: 10; */
@@ -102,6 +101,12 @@
   /* box-shadow:none;
   border-color:transparent; */
   
+}
+input,button{
+  outline: none !important;
+}
+input:focus{
+  text-decoration: none !important;
 }
 body {
 	/* background-image: url(bg-clouds.png); */

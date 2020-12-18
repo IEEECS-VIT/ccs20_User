@@ -138,6 +138,12 @@ textarea:focus:not([readonly]) {
   border: 0px;
   border-radius: 5px;
 }
+input, textarea,button{
+  outline: none !important;
+}
+input:focus{
+  text-decoration: none !important;
+}
 
 .pc-submit:hover {
   color: #faa41a !important;
