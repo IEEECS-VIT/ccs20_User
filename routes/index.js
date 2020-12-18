@@ -89,8 +89,38 @@ router.get("/logout", auth.isLoggedIn, (req, res) => {
 });
 
 /* GET thanks page */
-router.get("/thanks", auth.isAuthenticated, (req, res, next) => {
-  res.render("thanks");
+router.get("/thanks", auth.isAuthenticated, async (req, res, next) => {
+  let responses = req.user.domains;
+  let data = [];
+  async function fetchData(domain) {
+    let rObj = await R_Database.findById(responses[domain]).lean();
+    let timeLeft = (rObj.endTime - rObj.startTime) / 1000;
+    let ans = rObj.data.length;
+    rObj.data.forEach((subData)=>{
+      if (!subData.solution || subData.solution === ""){
+        ans -=1;
+      }
+    })
+    timeLeft -= (15*60);
+    timeLeft= Math.max(timeLeft, 0);
+    return {
+      timeLeft: timeLeft,
+      sectionName: domain,
+      qAnswered: ans,
+      qUnanswered: rObj.data.length - ans,
+    };
+  }
+  let promises = [];
+  Object.keys(responses).forEach((domain) => {
+    promises.push(fetchData(domain).then((subData)=>{
+      data.push(subData);
+    }));
+  });
+  Promise.all(promises).then(()=>{
+    res.render("thanks", {data:data});
+  }).catch((error)=>{
+    next(error);
+  })
 });
 
 /* GET instructions */

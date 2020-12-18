@@ -324,6 +324,8 @@
           if (mobileFirstSection !== null) {
             mobileDomainSelector.textContent = `Section ${mobileSectionNumber} of ${mobileSectionCount}: ${mobileFirstSection}`;
             let spanData = document.getElementById("submit-test-section");
+            let timeData = document.getElementById("section-time");
+            timeData.innerText = "HH:MM:SS";
             if(mobileSectionCount === mobileSectionNumber) {
               spanData.innerText = "Submit Test";
               mainSubmit = submitTest;
@@ -614,7 +616,7 @@
           // Pre section timer using Sweetalert2
           Swal.fire({
             title: 'Get Ready!',
-            html: `The section will start in <b>${time*1000}</b> seconds.`,
+            html: `The section will start in <b>${time}</b> seconds.`,
             timer: time * 1000,
             timerProgressBar: true,
             showCloseButton: false,

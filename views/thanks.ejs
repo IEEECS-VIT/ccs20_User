@@ -20,6 +20,9 @@
 </head>
 
 <body class="colour1">
+    <% data.forEach((section)=> { %>
+        <h2><%= JSON.stringify(section) %></h2>
+    <% }); %>
     <div class="container">
         <div class="row" style="text-align: center;">  
             <div class="col12 top">
