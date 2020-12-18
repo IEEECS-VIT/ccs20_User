@@ -614,7 +614,7 @@
           // Pre section timer using Sweetalert2
           Swal.fire({
             title: 'Get Ready!',
-            html: `The section will start in <b>${time*1000}</b> milliseconds.`,
+            html: `The section will start in <b>${time*1000}</b> seconds.`,
             timer: time * 1000,
             timerProgressBar: true,
             showCloseButton: false,
@@ -623,13 +623,12 @@
             allowOutsideClick: false,
             focusConfirm: false,
             didOpen: () => {
-                Swal.showLoading()
                 timerInterval = setInterval(() => {
                   const content = Swal.getContent();
                   if (content) {
                     const b = content.querySelector('b');
                     if (b) {
-                      b.textContent = Swal.getTimerLeft();
+                      b.textContent = Math.round(Swal.getTimerLeft() / 1000);
                     }
                   }
                 }, 1000)
