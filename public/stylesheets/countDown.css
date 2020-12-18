@@ -10,6 +10,8 @@ body{
     background-position: center;
     background-size: cover;
     font-family: 'Poppins', sans-serif;
+    overflow: scroll;
+    /* max-height: 90vh; */
 }
 
 header{
@@ -117,6 +119,7 @@ section .contentBx a{
     margin-top: 10px;
     display: inline-block;
     background: #FAA41A;
+    text-align: center;
     color:black;
     font-size: 20px;
     letter-spacing: 2px;
