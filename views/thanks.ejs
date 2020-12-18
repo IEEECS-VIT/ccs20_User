@@ -35,6 +35,11 @@
             color: #fff;
             text-decoration: none;
         }
+        span img
+        {
+            height: 25px;
+            width: 25px;
+        }
         /* i
         {
             color: #fff;
@@ -49,7 +54,7 @@
             <div class="col12 top">
                 <img src="images/ieeecs.png" alt="logo" class="logo" />
             </div>
-            <span class="logout-icon"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></span>
+            <span class="logout-icon"><a href="/logout"><img src="./images/exit.png" alt=""></a></span>
         </div>
         <div class="row" style="text-align: center; margin-top: 5%;">
             <h2>Thank You!</h2>
@@ -58,7 +63,7 @@
         <% data.forEach((section)=> { %>
             <!-- <h2><%= JSON.stringify(section) %></h2> -->
             <div class="outer-container">
-                <p style="text-align: center; font-size: 22px; color: #FAA41A;">Section : <%= section.sectionName %> </p>
+                <p style="text-align: center; font-size: 22px; color: #FAA41A;">Section : <span style="color: #fff;"><%= section.sectionName %></span></p>
                 <div class="flex-container" style="display: flex; flex-wrap: wrap; justify-content: center;
                 align-items: center; align-content: space-between; text-align: center; padding: 20px 0px;">    
                 <div class="column1" > 
@@ -76,12 +81,11 @@
                     Chart.defaults.global.legend.position='bottom' 
                     var data = {
                         datasets: [{
-                            borderWidth: 1,
-                            borderColor: '#222222',
+                            borderWidth: 0,
                             backgroundColor: ['#00b33c','#ff1a1a'],
                             data: [<%= section.qAnswered %>, <%= section.qUnanswered %>],
                             hoverBackgroundColor: ['#00e64d','#ff3333'],
-                            hoverBorderWidth: 4
+                            hoverBorderWidth: 1
                         }],
 
                             // These labels appear in the legend and in the tooltips when hovering different arcs
