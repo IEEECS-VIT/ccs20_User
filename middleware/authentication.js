@@ -12,10 +12,16 @@ module.exports = {
     if (!req.user.questionSelected) return next();
     res.redirect("/quiz");
   },
+  isCompleted: (req,res,next) => {
+    if(req.user.domainsLeft.length !== 0){
+      return res.redirect("/quiz");
+    } 
+    next();
+  },
   check:(req,res,next)=>{
     if (req.user.questionSelected) {
       if(req.user.domainsLeft.length === 0){
-        return res.redirect("/completed");
+        return res.redirect("/thanks");
       }
       return res.redirect("/quiz");
     } 

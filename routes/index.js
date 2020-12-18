@@ -8,7 +8,6 @@ var passport = require("passport");
 const auth = require("../middleware/authentication");
 const request = require("request-promise");
 
-
 /* GET index page */
 router.get("/", auth.isUser, (req, res) => {
   res.render("index", { message: req.flash("message") || "" });
@@ -89,20 +88,25 @@ router.get("/logout", auth.isLoggedIn, (req, res) => {
 });
 
 /* GET thanks page */
-router.get("/thanks", auth.isAuthenticated, async (req, res, next) => {
+router.get("/thanks", auth.isAuthenticated, auth.isCompleted ,async (req, res, next) => {
   let responses = req.user.domains;
   let data = [];
   async function fetchData(domain) {
     let rObj = await R_Database.findById(responses[domain]).lean();
-    let timeLeft = (rObj.endTime - rObj.startTime) / 1000;
+    let timeLeft;
+    if (rObj.endTime === undefined || rObj.startTime === undefined) {
+      timeLeft = 0;
+    } else {
+      timeLeft = (rObj.endTime - rObj.startTime) / 1000;
+    }
     let ans = rObj.data.length;
-    rObj.data.forEach((subData)=>{
-      if (!subData.solution || subData.solution === ""){
-        ans -=1;
+    timeLeft = 30 - timeLeft; // 30 seconds as per backend
+    timeLeft = Math.round(Math.max(timeLeft, 0));
+    rObj.data.forEach((subData) => {
+      if (!subData.solution || subData.solution === "") {
+        ans -= 1;
       }
-    })
-    timeLeft -= (15*60);
-    timeLeft= Math.max(timeLeft, 0);
+    });
     return {
       timeLeft: timeLeft,
       sectionName: domain,
@@ -112,15 +116,19 @@ router.get("/thanks", auth.isAuthenticated, async (req, res, next) => {
   }
   let promises = [];
   Object.keys(responses).forEach((domain) => {
-    promises.push(fetchData(domain).then((subData)=>{
-      data.push(subData);
-    }));
+    promises.push(
+      fetchData(domain).then((subData) => {
+        data.push(subData);
+      })
+    );
   });
-  Promise.all(promises).then(()=>{
-    res.render("thanks", {data:data});
-  }).catch((error)=>{
-    next(error);
-  })
+  Promise.all(promises)
+    .then(() => {
+      res.render("thanks", { data: data });
+    })
+    .catch((error) => {
+      next(error);
+    });
 });
 
 /* GET instructions */
@@ -190,21 +198,20 @@ router.get(
 );
 
 /* Get User's Domain Info */
-router.get("/domaininfo", auth.isAuthenticated, (req,res,next)=>{
+router.get("/domaininfo", auth.isAuthenticated, (req, res, next) => {
   if (!req.xhr) {
-    return res.json({success: false, message: "Unauthorized to access"});
-  }
-  else {
+    return res.json({ success: false, message: "Unauthorized to access" });
+  } else {
     var domains = ["technical", "management", "design", "documentation"];
     var response = [];
-    domains.forEach((domain)=>{
-      if (req.user.domains.hasOwnProperty(domain)){
+    domains.forEach((domain) => {
+      if (req.user.domains.hasOwnProperty(domain)) {
         response.push(!req.user.domainsLeft.includes(domain));
       } else {
         response.push(null);
       }
     });
-    res.json({success:true, data: response});
+    res.json({ success: true, data: response });
   }
 });
 
@@ -215,7 +222,11 @@ router.get(
   async (req, res, next) => {
     try {
       if (!req.xhr) {
-        return res.json({success: false, message: "Unauthorized to access", code:"ua"});
+        return res.json({
+          success: false,
+          message: "Unauthorized to access",
+          code: "ua",
+        });
       }
       var domain = req.params.domain;
       var domains = req.user.domains;
@@ -227,7 +238,7 @@ router.get(
             return res.json({
               success: false,
               message: "Already submitted for this domain",
-              code:"as"
+              code: "as",
             });
           }
           let questions = await R_Database.findById(domains[domain], "data")
@@ -238,20 +249,20 @@ router.get(
             --length;
             questions.data[length] = questions.data[length].questionId;
           }
-          res.json({success:true, data: questions.data});
+          res.json({ success: true, data: questions.data });
         } catch (err) {
           console.log(err.message);
-          return res.json({ success: false, message: err.message, code:"er"});
+          return res.json({ success: false, message: err.message, code: "er" });
         }
       } else {
         return res.json({
           success: false,
           message: "No such domain selected!",
-          code: "ns"
+          code: "ns",
         });
       }
     } catch (error) {
-      return res.json({success: false, message: error.message, code:"er"});
+      return res.json({ success: false, message: error.message, code: "er" });
     }
   }
 );
@@ -263,7 +274,11 @@ router.post(
   async (req, res, next) => {
     try {
       if (!req.xhr) {
-        return res.json({success: false, message: "Unauthorized to access", code:"ua"});
+        return res.json({
+          success: false,
+          message: "Unauthorized to access",
+          code: "ua",
+        });
       }
       var domain = req.params.domain;
       var domains = req.user.domains;
@@ -272,7 +287,7 @@ router.post(
           return res.json({
             success: false,
             message: "Already submitted for this domain",
-            code: "as"
+            code: "as",
           });
         }
         let responseObj = await R_Database.findById(domains[domain]);
@@ -298,11 +313,11 @@ router.post(
         return res.json({
           success: false,
           message: "No such domain selected!",
-          code: "ns"
+          code: "ns",
         });
       }
     } catch (error) {
-      return res.json({success: false, message: error.message, code:"er"});
+      return res.json({ success: false, message: error.message, code: "er" });
     }
   }
 );
