@@ -225,7 +225,7 @@
             if (result.isConfirmed) {
               // Move to next section
               if (userSectionData !== undefined) {
-                return endTest();
+                return endSection(userSectionData["domain"]);
               } else {
                 return mainFunc();
               }
