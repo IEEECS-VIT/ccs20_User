@@ -15,6 +15,8 @@
       href="https://fonts.googleapis.com/css?family=Montserrat"
       rel="stylesheet"
     />
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="/scripts/script.js"></script>
     <style>
       ul {
         list-style-type: none;
@@ -28,7 +30,7 @@
     </style>
   </head>
 
-  <body>
+  <body onload="check();">
     <div class="row" style="text-align: center">
       <img src="images/ieeecsnew.png" id="mainlogo" , alt="IEECS-Logo" />
     </div>
@@ -40,7 +42,6 @@
           <h2 class="Sheading">Register</h2>
           <form
             autocomplete="off"
-            action="/login"
             method="POST"
             name="reg_form"
           >
@@ -107,6 +108,7 @@
                 margin: auto;
                 border-radius: 100px;
               "
+              onclick="check();"
             >
               Submit
             </button>
@@ -136,6 +138,18 @@
       function setResponse(response) {
         document.querySelector(".g-recaptcha-response").value = response;
         console.log(document.querySelector(".g-recaptcha-response").value);
+      }
+    </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+      function check() {
+        if ("<%=message%>") {
+          if ("<%=message%>" != "ok") {
+            swal("Oops!", "<%= message %>", "error");
+          } else {
+            swal("Successfully Registered", "One Step Closer!!", "success");
+          }
+        }
       }
     </script>
   </body>
