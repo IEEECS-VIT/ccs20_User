@@ -464,6 +464,11 @@ a {
   .container {
     width: 100% !important;
   }
+  #phone
+  {
+    /* left: 0 !important; */
+    margin-left: -2.3% !important;
+  }
 }
 @media (max-width: 330px) {
   .Lheading {
@@ -508,8 +513,9 @@ a {
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%); */
+  border: solid 1px white;
   margin: auto;
-  margin-left: -2.6%;
+  /* margin-left: -2.6%; */
 }
 .Lheading {
   margin: 3% !important;
