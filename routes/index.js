@@ -34,52 +34,52 @@ router.get("/register", auth.isUser, (req, res) => {
 //Register with recaptcha
 
 // /* POST register details with captcha */
-// router.post("/register", async (req, res, next) => {
-//   // req.logout();
-//   // return res.render("closed")
-//   console.log(req.body)
-//   const options = {
-//     method: "POST",
-//     uri: "https://www.google.com/recaptcha/api/siteverify",
-//     formData: {
-//       secret: process.env.RECAPTCHA_SECRET,
-//       response: req.body["g-recaptcha-response"]
-//     }
-//   };
-//   request(options)
-//     .then(response => {
-//       let cResponse = JSON.parse(response);
-//       if (!cResponse.success) {
-//         return res.render("register", { message: "Invalid Captcha" });
-//       }
-//       return userFunctions
-//         .addUser(req.body)
-//         .then(function (message) {
-//           if (message === "ok") return res.render("index", { message: "ok" });
-//           return res.render("index", { message: message });
-//         })
-//         .catch(err => {
-//           console.log(err);
-//           next(err);
-//         });
-//     })
-//     .catch(err => next(err));
-// });
+router.post("/register", async (req, res, next) => {
+  // req.logout();
+  // return res.render("closed")
+  console.log(req.body)
+  const options = {
+    method: "POST",
+    uri: "https://www.google.com/recaptcha/api/siteverify",
+    formData: {
+      secret: process.env.RECAPTCHA_SECRET,
+      response: req.body["g-recaptcha-response"]
+    }
+  };
+  request(options)
+    .then(response => {
+      let cResponse = JSON.parse(response);
+      if (!cResponse.success) {
+        return res.render("register", { message: "Invalid Captcha" });
+      }
+      return userFunctions
+        .addUser(req.body)
+        .then(function (message) {
+          if (message === "ok") return res.render("index", { message: "ok" });
+          return res.render("index", { message: message });
+        })
+        .catch(err => {
+          console.log(err);
+          next(err);
+        });
+    })
+    .catch(err => next(err));
+});
 
 // Register without recaptcha
 
 /* POST register details */
-router.post("/register", async (req, res, next) => {
-  try {
-    let message = await userFunctions.addUser(req.body);
-    // console.log(req.body);
-    console.log(message);
-    if (message === "ok") return res.render("index", { message: "ok" });
-    return res.render("index", { message: message });
-  } catch (err) {
-    next(err);
-  }
-});
+// router.post("/register", async (req, res, next) => {
+//   try {
+//     let message = await userFunctions.addUser(req.body);
+//     // console.log(req.body);
+//     console.log(message);
+//     if (message === "ok") return res.render("index", { message: "ok" });
+//     return res.render("index", { message: message });
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 /* GET user logout */
 router.get("/logout", auth.isLoggedIn, (req, res) => {
