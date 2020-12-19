@@ -513,7 +513,7 @@ a {
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%); */
-  border: solid 1px white;
+  /* border: solid 1px white; */
   margin: auto;
   /* margin-left: -2.6%; */
 }
