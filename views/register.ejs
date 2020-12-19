@@ -72,32 +72,41 @@
               autocomplete="off"
               required
             /><input
-            name="email"
-            placeholder="Email"
-            type="email"
-            autocomplete="off"
-            required
-          /><input
+              name="email"
+              placeholder="Email"
+              type="text"
+              autocomplete="off"
+              required
+            /><input
               id="pwd-reg-2"
               name="Password"
               placeholder="Password"
               type="Password"
-              pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
               autocomplete="off"
               required
               title="Minimum 8 characters. Must contain a Special character, a
                           Digit and Upper & Lowercase letters."
             />
-            <input id="pwd-reg-repeat-2" type="password" placeholder="Confirm Password">
             <input
-            name="phone"
-            placeholder="Phone Number"
-            type="number"
-            pattern="[0-9]{9}[0-9]$"
-            autocomplete="off"
-            title="Use 10 Digit Mobile Number"
-            required
-          />
+              id="pwd-reg-repeat-2"
+              type="password"
+              placeholder="Confirm Password"
+            />
+            <input
+              name="phone"
+              placeholder="Phone Number"
+              type="number"
+              autocomplete="off"
+              title="Use 10 Digit Mobile Number"
+              required
+            />
+            <input
+              type="text"
+              for="g-recaptcha-response"
+              class="g-recaptcha-response"
+              name="g-recaptcha-response"
+              style="display: none"
+            />
             <br />
             <button
               style="
@@ -144,28 +153,59 @@
         console.log(document.querySelector(".g-recaptcha-response").value);
       }
     </script>
-    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
-        function pwdValidate()
-        {
-          var pwd1=document.getElementById('pwd-reg-2').value;
-          var pwd2=document.getElementById('pwd-reg-repeat-2').value;
-          if(pwd1===pwd2)
-            return true;
-          Swal.fire({
-            icon:'error',
-            title:'Oops',
-            text:'Passwords Do Not Match!',
-          });
-          return false;
+      function pwdValidate(){
+        var regno = document.getElementsByName('regno')[0];
+        var name = document.getElementsByName('name')[0];
+        var phone = document.getElementsByName('phone')[0];
+        var email = document.getElementsByName('email')[0];
+        var pwd1=document.getElementById('pwd-reg-1').value;
+        var pwd2=document.getElementById('pwd-repeat').value;
+        var message = undefined;
+        var nameRegex = new RegExp("^[a-zA-Z][a-zA-Z ]+[a-zA-Z]$");
+        if (!nameRegex.test(name)) {
+          message = message || "Name should only have alphabets!";
+        }
+        var academicYear = "20";
+        var regNoRegex = new RegExp(`${academicYear}[A-Z]{3}[0-9]{3}[0-9]\$`);
+        if (!regNoRegex.test(regno)) {
+          message = message || "Invalid Reg No.";
+        } 
+        var emailRegex = new RegExp("^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$");
+        if (!emailRegex.test(email)) {
+          message = message || "Invalid Email Added";
+        }
+        if(!new RegExp("[A-Z]+").test(pwd1) || !new RegExp("[a-z]+").test(pwd1) || !new RegExp("\W").test(pwd1) || !new RegExp("[0-9]+").test(pwd1)) {
+          message = message || "Password Not Strong Enough";
+        }
+        if(pwd1!==pwd2){
+          message = message || "Passwords Doesn't Match";
+        }
+        var phoneRegex = new RegExp("[1-9]{1}[0-9]{9}");
+        if (!phoneRegex.test(phone)) {
+          message = message || "Phone number format invalid";
+        }
+        if (message=== undefined){
+          return true;
+        }
+        Swal.fire({
+          icon: "error",
+          title: "Oops",
+          text: message,
+        });
+        return false;
       }
       function check() {
         if ("<%=message%>") {
           if ("<%=message%>" != "ok") {
             Swal.fire("Oops!", "<%= message %>", "error");
           } else {
-            Swal.fire("Successfully Registered", "One Step Closer!!", "success");
+            Swal.fire(
+              "Successfully Registered",
+              "One Step Closer!!",
+              "success"
+            );
           }
         }
       }

@@ -117,31 +117,29 @@ module.exports.validate = (userDetails) => {
   var regno = userDetails.regno;
   var phone = userDetails.phone;
   var name = userDetails.name;
-  var password = userDetails.Password;
-  password = password.length;
+  var pwd1 = userDetails.Password;
+  var email = userDetails.email;
   var message = "ok";
-  // change it for the upcoming years
-  var academicYear = "20";
-  console.log("validating user input for :" + regno);
-  var regNoRegex = new RegExp(`${academicYear}[A-Z]{3}[0-9]{3}[0-9]\$`);
-  if (!regNoRegex.test(regno)) {
-    message = "Invalid Reg No.";
-    console.log("reg");
-    return message;
-  }
   var nameRegex = new RegExp("^[a-zA-Z][a-zA-Z ]+[a-zA-Z]$");
   if (!nameRegex.test(name)) {
-    message = "Name should only have alphabets!";
-    return message;
+    message = message || "Name should only have alphabets!";
+  }
+  // change it for the upcoming years
+  var academicYear = "20";
+  var regNoRegex = new RegExp(`${academicYear}[A-Z]{3}[0-9]{3}[0-9]\$`);
+  if (!regNoRegex.test(regno)) {
+    return "Invalid Reg No.";
+  } 
+  var emailRegex = new RegExp("^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$");
+  if (!emailRegex.test(email)) {
+    return "Invalid Email Added";
+  }
+  if(!new RegExp("[A-Z]+").test(pwd1) || !new RegExp("[a-z]+").test(pwd1) || !new RegExp("\W").test(pwd1) || !new RegExp("[0-9]+").test(pwd1)) {
+    return "Password Not Strong Enough";
   }
   var phoneRegex = new RegExp("[1-9]{1}[0-9]{9}");
   if (!phoneRegex.test(phone)) {
-    message = "Phone number format invalid";
-    return message;
-  }
-  if (password < 8) {
-    message = "Password length must be greater than 8 letters ";
-    return message;
+    return "Phone number format invalid";
   }
   return message;
 };
