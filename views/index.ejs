@@ -107,6 +107,7 @@
                         action="/register"
                         method="POST"
                         name="reg_form"
+                        onsubmit="return pwdValidate();"
                       >
                         <input
                           autocomplete="false"
@@ -133,7 +134,8 @@
                           type="email"
                           autocomplete="off"
                           required
-                        /><input
+                        /><input 
+                          id="pwd-reg-1"
                           name="Password"
                           placeholder="Password"
                           type="Password"
@@ -142,7 +144,9 @@
                           required
                           title="Minimum 8 characters. Must contain a Special character, a
                           Digit and Upper & Lowercase letters."
-                        /><input
+                        />
+                        <input id="pwd-repeat" type="password" placeholder="Confirm Password">
+                        <input
                           name="phone"
                           placeholder="Phone Number"
                           type="number"
@@ -282,6 +286,19 @@
     <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
+      function pwdValidate()
+      {
+        var pwd1=document.getElementById('pwd-reg-1').value;
+        var pwd2=document.getElementById('pwd-repeat').value;
+        if(pwd1===pwd2)
+          return true;
+        Swal.fire({
+          icon:'error',
+          title:'Oops',
+          text:'Passwords Do Not Match!',
+        });
+        return false;
+      }
       function check() {
         if ("<%=message%>") {
           if ("<%=message%>" != "ok") {

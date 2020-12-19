@@ -97,6 +97,12 @@ body {
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
+input,button{
+  outline: none !important;
+}
+input:focus{
+  text-decoration: none !important;
+}
 /*ARTIFACT TO BE REMOVED
 .container .box:after {
   background-color: black;
@@ -229,7 +235,7 @@ body {
   color: white;
   font-size: 26px;
   text-align: center;
-  margin-top: 50px;
+  margin-top: 5%;
 }
 .phone_login
 {
