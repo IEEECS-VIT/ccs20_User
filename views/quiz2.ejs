@@ -12,30 +12,11 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" /> -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
     integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
   <link rel="stylesheet" href="/stylesheets/quiz.css" />
   <link rel="icon" href="images/logoicon.png" />
-
   <title>IEEECS | QUIZ</title>
-  <!-- <style>
-    [type="radio"]:checked+span:after,
-    [type="radio"].with-gap:checked+span:after {
-      background-color: #faa41a;
-    }
-
-    [type="radio"]:checked+span:after,
-    [type="radio"].with-gap:checked+span:before,
-    [type="radio"].with-gap:checked+span:after {
-      border: 2px solid #faa41a;
-    }
-  </style> -->
-  <!-- <style>
-    .swal-button {
-      background-color: #faa41a !important;
-    }
-  </style> -->
 </head>
 
 <body>
@@ -73,71 +54,12 @@
     <form>
     <div class="second-content-container">
       <div class="question-area">
-        <!-- <div class="actual-question hidden">
-                  <div class="question-txt">Q1. What is the full form of IEEE?</div>
-                  <div class="option-container">
-                    <label for="answer">Answer: </label>
-                    <input class="input-field-style" type="text" name="answer" placeholder="In a Sentence or Two">
-                  </div>
-              </div>
-              <div class="actual-question hidden">
-                <div class="question-txt">Q1. What is the full form of IEEE?</div>
-                  <div class="option-container">
-                    <textarea name="longAnswer" class="long-input-field-style" cols="60" rows="30" placeholder="Answer in Brief" ></textarea>
-                  </div>
-              </div>
-              <div class="actual-question">
-                <div class="question-txt">Q1. What is the full form of IEEE?</div>
-                  <div class="option-container">
-                    <label class="option">
-                        <input name="group1" type="radio" />
-                        <span class="option-txt">Wrong Answer</span>
-                    </label><br>
-                    <label class="option">
-                        <input name="group1" type="radio" />
-                        <span class="option-txt">Wrong Answer</span>
-                    </label><br>
-                    <label class="option">
-                        <input name="group1" type="radio" />
-                        <span class="option-txt">Correct Answer</span>
-                    </label><br>
-                    <label class="option">
-                        <input name="group1" type="radio" />
-                        <span class="option-txt">Wrong Answer</span>
-                    </label><br>
-                  </div>
-              </div>
-              <div class="actual-question">
-                <div class="question-txt">Q1. What is the full form of IEEE?</div>
-                  <div class="option-container">
-                    <label class="option">
-                      <input name="group1" type="checkbox" class="filled-in checkbox-style" />
-                      <span class="option-txt">Wrong Answer</span>
-                  </label><br>
-                  <label class="option">
-                      <input name="group1" type="checkbox" class="filled-in checkbox-style" />
-                      <span class="option-txt">Wrong Answer</span>
-                  </label><br>
-                  <label class="option">
-                      <input name="group1" type="checkbox" class="filled-in checkbox-style" />
-                      <span class="option-txt">Correct Answer</span>
-                  </label><br>
-                  <label class="option">
-                      <input name="group1" type="checkbox" class="filled-in checkbox-style" />
-                      <span class="option-txt">Wrong Answer</span>
-                  </label><br>
-                  </div>
-              </div> -->
+        <!-- Question Area -->
       </div>
       <div class="question-navigation">
         <div class="nav-container">
           <ul class="nav-container-ul">
-              <!-- <li class="navigation-txt"><button onclick="loadQues(parseInt(this.innerText)-1);" type="submit" class="btn-nav ongoing">1</button></li> 
-                    <li class="navigation-txt"><button onclick="loadQues(parseInt(this.innerText)-1);" type="submit" class="btn-nav">2</button></li>
-                    <li class="navigation-txt"><button onclick="loadQues(parseInt(this.innerText)-1);" type="submit" class="btn-nav">3</button></li>
-                    <li class="navigation-txt"><button onclick="loadQues(parseInt(this.innerText)-1);" type="submit" class="btn-nav">4</button></li>
-                    <li class="navigation-txt"><button onclick="loadQues(parseInt(this.innerText)-1);" type="submit" class="btn-nav">5</button></li>
-                    <li class="navigation-txt"><button onclick="loadQues(parseInt(this.innerText)-1);" type="submit" class="btn-nav">6</button></li> -->
+            <!-- Navigation Area -->
           </ul>
         </div>
       </div>
@@ -152,7 +74,6 @@
         <div class="col l4 s6">
           <button type="submit" class="btn-def btn-quiz" onclick="loadNext()"><span class="quiz-nav-btn">Next</span><em
               class="fas fa-chevron-right"></em></button>
-          <!-- <input type="submit" class="btn-quiz btn-submit" value="Submit Test"> -->
         </div>
         <div class="col l4 s12">
           <button type="submit" class="btn-def btn-submit" onclick="mainSubmit()"><span id="submit-test-section">Submit Test</span></button>
@@ -171,21 +92,30 @@
         var userDomainData;
         var userSectionData;
         function startWithCollectingDomainData(){
+          /* Ajax Console
           console.log("Ajax: Domain Info");
+          */
           $.ajax({
             url: "/domaininfo",
             method: "GET",
             success: function (res) {
               if (res.success == true) {
                 userDomainData = res.data;
+                /* User Domain Data
                 console.log(userDomainData);
+                */
                 mainFunc();
               } else {
+                /* res.success == false
                 console.log(res.message);
+                */
+               infoSwal("Unexpected Acess Tried!! <br/> Refresh the page!!", window.location.reload, 10);
               }
             },
             error: function (msg) {
+              /* Ajax Error
               console.log(msg);
+              */
               infoSwal("Unexpected Error Occurred. <br/> Refresh the page!!", window.location.reload, 10);
             },
           });
@@ -359,18 +289,24 @@
           // first fetch all questions from backend
           // add a loader here
           loaderSwal();
+          /*  Ajax Console
           console.log("Ajax: Questions for " + domain);
+          */
           $.ajax({
             url: `/question/${domain}`,
             method: "GET",
             success: function (res) {
               if (res.success == true) {
+                /* questions data
                 console.log(res.data);
+                */
                 prepareAll(res.data);
               } else {
                 // We can display this error as a 
                 // sweet alert and tell to refresh page
+                /* res.success = false 
                 console.log(res.message);
+                */
                 if (res.code === "er") {
                   infoSwal("Unexpected Server Error. <br/> Refresh the page!!", window.location.reload, 10);
                 } else if (res.code === "ua" || res.code === "ns") {
@@ -382,7 +318,9 @@
               }
             },
             error: function (msg) {
+              /* Ajax Console Error
               console.log(msg);
+              */
               infoSwal("Unexpected Error Occurred. <br/> Refresh the page!!", window.location.reload, 10);
             },
           });
@@ -407,7 +345,9 @@
             });
             var current = 0;
             --len;
+            /* no of question for this domain
             console.log(len);
+            */
             changeTo = function changeTo(no) {
               if (no <= len && no >= 0) {
                 qArray[current].classList.add("hidden");
@@ -551,7 +491,7 @@
             return;
           }
           userSectionData["startTime"] = Date.now();
-          var timer = 30  // 15 minutes
+          var timer = 30  // 15 minutes maxTime
           function myTimer()  { 
             document.getElementById("section-time").innerText = "00:" + ((timer / 60) < 10 ? ("0"+Math.floor(timer/60)) : Math.floor(timer/60)) + ":" + ((timer % 60) < 10 ? ("0" + timer%60) : timer%60);
             timer--;
@@ -566,18 +506,21 @@
           if (userSectionData === undefined){
             return;
           }
+          // preparing multiple submit
+          mainSubmit = function mainSubmit () {};
           userSectionData["endTime"] = Date.now();
           if(userSectionData["intervalData"]) {
             clearInterval(userSectionData["intervalData"]);
           }
           // Parse and Submit Answers
           // Call mainFunc To Begin NextSection
+          var multiCSep = "$$##$$"; // 4 dollar symbols concatenated with 2 # in middle
           var formData = new FormData(userSectionData["form"]);
           var solutions = [];
           var lastData;
           formData.forEach((val,key)=>{
             if (lastData && lastData.questionId === key) {
-              lastData.solution += "$$##$$";
+              lastData.solution += multiCSep;
               lastData.solution += val;
             } else {
               lastData = {
@@ -588,7 +531,9 @@
             }
           });
           function actualAnswerPost() {
+            /* Ajax Console
             console.log("Ajax: Post Answers for " + domain);
+            */
             $.ajax({
               url: `/question/${domain}`,
               method: "POST",
@@ -608,7 +553,9 @@
                 } else {
                   // We can display this error as a 
                   // sweet alert and tell to refresh page
+                  /* Error Message for res.success = false
                   console.log(res.message);
+                  */
                   if (res.code === "er") {
                     // some server error either refresh and restart section
                     // or give resubmit option
@@ -623,7 +570,9 @@
                 }
               },
               error: function (msg) {
+                /* Ajax Error Message
                 console.log(msg);
+                */
                 infoSwal("Unexpected Error Occurred. <br/> Refresh the page!!", window.location.reload, 10);
               },
             });
@@ -663,7 +612,9 @@
           if (val !== null && val !== false && val !== true) {
             val = false;
           }
+          /* update Domain Args
           console.log(domain + ":" + val);
+          */
           switch (domain) {
             case "technical": userDomainData[0] = val;
                               break;

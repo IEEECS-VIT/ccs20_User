@@ -26,18 +26,18 @@ module.exports.addUser = async userDetails => {
       return "User Already Registered";
     }
     var message = userService.validate(userDetails);
-    console.log(message);
+    // console.log(message);
     if (message !== "ok") return message;
-    console.log("Adding User:" + userDetails);
+    // console.log("Adding User:" + userDetails);
     let newUser = new User(userDetails);
     newUser.password = newUser.generateHash(userDetails.Password);
-    console.log("password hashed");
+    // console.log("password hashed");
     let savedUser = await newUser.save();
     if (savedUser) {
       return "ok";
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return error;
   }
 };
