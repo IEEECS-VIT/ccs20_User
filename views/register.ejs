@@ -140,14 +140,15 @@
         console.log(document.querySelector(".g-recaptcha-response").value);
       }
     </script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
       function check() {
         if ("<%=message%>") {
           if ("<%=message%>" != "ok") {
-            swal("Oops!", "<%= message %>", "error");
+            Swal.fire("Oops!", "<%= message %>", "error");
           } else {
-            swal("Successfully Registered", "One Step Closer!!", "success");
+            Swal.fire("Successfully Registered", "One Step Closer!!", "success");
           }
         }
       }

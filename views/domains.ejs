@@ -13,6 +13,10 @@
     .swal-button {
       background-color: #faa41a !important;
     }
+    #swal2-title
+    {
+      color: #333 !important;
+    }
   </style>
 </head>
 
@@ -211,7 +215,8 @@
   </div>
 
 
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script>
@@ -227,7 +232,7 @@
       if (f == 0) {
         if (e.value == "competitive") {
           console.log(e.value);
-          swal({
+          swal.fire({
             title: "Note:",
             text:
               "There will be no quiz for the competitive section. An invite will be sent to you for the same in your registered e-mails.",
@@ -253,18 +258,24 @@
     function start() {
       var numOfDom = domain.length;
       console.log(numOfDom);
+      domainCopy=[];
+      for(var i=0;i<numOfDom;i++)
+      {
+       domainCopy.push(new String(domain[i])); domainCopy[i]=domainCopy[i].charAt(0).toUpperCase()+domainCopy[i].slice(1);
+      }
       if (numOfDom > 0) {
-        swal({
+        Swal.fire({
           title: "Do you want to proceed?",
           text:
             "Currently, the domains selected are: " +
-            domain +
+            domainCopy +
             ". (Once you click OK, you cannot edit the list of domains)",
           icon: "info",
-          buttons: true,
+          showConfirmButton: true,
+          showCancelButton:true,
           dangerMode: true,
         }).then((willSend) => {
-          if (willSend) {
+          if (willSend.isConfirmed) {
             $.ajax({
               url: "/domain",
               method: "POST",
@@ -284,7 +295,10 @@
           }
         });
       } else {
-        swal("Please Select a Domain!");
+        Swal.fire({
+           title: "Please Select a Domain!",
+           icon:'warning',
+        });
       }
     }
   </script>

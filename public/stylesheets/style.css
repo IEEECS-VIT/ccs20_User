@@ -439,10 +439,10 @@ body {
   margin-top: 50px;
 }
 .phone_login {
-  position: relative;
+  /* position: relative; */
   z-index: 10;
-  width: 250px;
-  height: 320px;
+  min-width: 250px;
+  min-height: 320px;
   border-style: solid;
   border-color: #faa41a;
   background-color: #333;
@@ -504,10 +504,12 @@ a {
 
 #phone {
   /* display: none; */
-  position: absolute;
+  /* position: absolute;
   top: 40%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
+  margin: auto;
+  margin-left: -2.6%;
 }
 .Lheading {
   margin: 3% !important;
