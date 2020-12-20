@@ -304,7 +304,7 @@ router.post(
             code: "as",
           });
         }
-        if (!req.body.solutions) {
+        if (req.body.solutions === undefined) {
           req.body.solutions = [];
         }
         let responseObj = await R_Database.findById(domains[domain]);

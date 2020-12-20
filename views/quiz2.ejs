@@ -52,19 +52,19 @@
       <span id="mobile-domain-text">Section 1 of 4: Technical</span>
     </div>
     <form>
-    <div class="second-content-container">
-      <div class="question-area">
-        <!-- Question Area -->
-      </div>
-      <div class="question-navigation">
-        <div class="nav-container">
-          <ul class="nav-container-ul">
-            <!-- Navigation Area -->
-          </ul>
+      <div class="second-content-container">
+        <div class="question-area">
+          <!-- Question Area -->
+        </div>
+        <div class="question-navigation">
+          <div class="nav-container">
+            <ul class="nav-container-ul">
+              <!-- Navigation Area -->
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
     <div class="button-content">
       <div class="row button-container">
         <div class="col l4 s6">
@@ -76,7 +76,8 @@
               class="fas fa-chevron-right"></em></button>
         </div>
         <div class="col l4 s12">
-          <button type="submit" class="btn-def btn-submit" onclick="mainSubmit()"><span id="submit-test-section">Submit Test</span></button>
+          <button type="submit" class="btn-def btn-submit" onclick="mainSubmit()"><span id="submit-test-section">Submit
+              Test</span></button>
         </div>
       </div>
     </div>
@@ -91,7 +92,7 @@
         // success response is what we got
         var userDomainData;
         var userSectionData;
-        function startWithCollectingDomainData(){
+        function startWithCollectingDomainData() {
           /* Ajax Console
           console.log("Ajax: Domain Info");
           */
@@ -109,7 +110,7 @@
                 /* res.success == false
                 console.log(res.message);
                 */
-               infoSwal("Unexpected Acess Tried!! <br/> Refresh the page!!", window.location.reload, 10);
+                infoSwal("Unexpected Acess Tried!! <br/> Refresh the page!!", window.location.reload, 10);
               }
             },
             error: function (msg) {
@@ -120,16 +121,16 @@
             },
           });
         }
-        function submitSection(){
+        function submitSection() {
           // Alert when user confirms submit section
           Swal.fire({
             icon: 'warning',
-            title:'Are You Sure?',
-            html:"<span>Want to submit this section?</span>",
+            title: 'Are You Sure?',
+            html: "<span>Want to submit this section?</span>",
             showCancelButton: true,
-            showConfirmButton:true,
-            confirmButtonText:'Confirm',
-            allowOutsideClick:false,
+            showConfirmButton: true,
+            confirmButtonText: 'Confirm',
+            allowOutsideClick: false,
           }).then((result) => {
             if (result.isConfirmed) {
               // Move to next section
@@ -141,16 +142,16 @@
             }
           });
         }
-        function submitTest(){
+        function submitTest() {
           // Alert when user confirms submit section
           Swal.fire({
             icon: 'warning',
-            title:'Are You Sure?',
-            html:"<span>Want to submit test?</span>",
+            title: 'Are You Sure?',
+            html: "<span>Want to submit test?</span>",
             showCancelButton: true,
-            showConfirmButton:true,
-            confirmButtonText:'Confirm',
-            allowOutsideClick:false,
+            showConfirmButton: true,
+            confirmButtonText: 'Confirm',
+            allowOutsideClick: false,
           }).then((result) => {
             if (result.isConfirmed) {
               // Move to next section
@@ -162,16 +163,16 @@
             }
           });
         }
-        function infoSwal(message, func, time){
+        function infoSwal(message, func, time) {
           // Alert when user confirms submit section
           Swal.fire({
             icon: 'info',
-            title:'Notice!',
-            html:`<span>${message}</span>`,
-            showConfirmButton:true,
+            title: 'Notice!',
+            html: `<span>${message}</span>`,
+            showConfirmButton: true,
             showCancelButton: false,
-            confirmButtonText:'Continue',
-            allowOutsideClick:false,
+            confirmButtonText: 'Continue',
+            allowOutsideClick: false,
             timer: time * 1000,
             willClose: () => {
               if (func !== null) {
@@ -191,17 +192,17 @@
             }
           });
         }
-        function confirmCancelSwal(message, confirmFunc, cancelFunc, time){
+        function confirmCancelSwal(message, confirmFunc, cancelFunc, time) {
           // Alert when user confirms submit section
           Swal.fire({
             icon: 'info',
-            title:'Notice!',
-            html:`<span>${message}</span>`,
-            showConfirmButton:true,
+            title: 'Notice!',
+            html: `<span>${message}</span>`,
+            showConfirmButton: true,
             showCancelButton: true,
-            cancelButtonText:"Cancel",
-            confirmButtonText:'Confirm',
-            allowOutsideClick:false,
+            cancelButtonText: "Cancel",
+            confirmButtonText: 'Confirm',
+            allowOutsideClick: false,
             timer: time * 1000,
             willClose: () => {
               if (cancelFunc !== null) {
@@ -227,11 +228,11 @@
             }
           });
         }
-        function loaderSwal(){
+        function loaderSwal() {
           Swal.fire({
-            html:"<img id='loaderSwalsvg' src='/images/load.svg'/><h4 style='text-align:center'>Please Wait</h4> ",
-            showConfirmButton:false,
-            allowOutsideClick:false,
+            html: "<img id='loaderSwalsvg' src='/images/load.svg'/><h4 style='text-align:center'>Please Wait</h4> ",
+            showConfirmButton: false,
+            allowOutsideClick: false,
           })
         }
         function endTest() {
@@ -270,7 +271,7 @@
             let spanData = document.getElementById("submit-test-section");
             let timeData = document.getElementById("section-time");
             timeData.innerText = "HH:MM:SS";
-            if(mobileSectionCount === mobileSectionNumber) {
+            if (mobileSectionCount === mobileSectionNumber) {
               spanData.innerText = "Submit Test";
               mainSubmit = submitTest;
             } else {
@@ -370,7 +371,7 @@
           }
           var form = document.forms[0];
           userSectionData = Object.create(null);
-          form.onsubmit = function onsubmit(e){
+          form.onsubmit = function onsubmit(e) {
             e.preventDefault();
           }
           userSectionData["domain"] = domain;
@@ -487,29 +488,29 @@
         function startSection(domain) {
           // Set Timer 
           // Record startTime and endTime
-          if(userSectionData === undefined) {
+          if (userSectionData === undefined) {
             return;
           }
           userSectionData["startTime"] = Date.now();
           var timer = 60 * 10; // 15 minutes maxTime
-          function myTimer()  { 
-            document.getElementById("section-time").innerText = "00:" + ((timer / 60) < 10 ? ("0"+Math.floor(timer/60)) : Math.floor(timer/60)) + ":" + ((timer % 60) < 10 ? ("0" + timer%60) : timer%60);
+          function myTimer() {
+            document.getElementById("section-time").innerText = "00:" + ((timer / 60) < 10 ? ("0" + Math.floor(timer / 60)) : Math.floor(timer / 60)) + ":" + ((timer % 60) < 10 ? ("0" + timer % 60) : timer % 60);
             timer--;
             if (timer <= 0) {
               document.getElementById("section-time").innerText = "Time's Up";
               endSection(domain);
             }
-          } 
+          }
           userSectionData["intervalData"] = setInterval(myTimer, 990);
         }
-        function endSection(domain){
-          if (userSectionData === undefined){
+        function endSection(domain) {
+          if (userSectionData === undefined) {
             return;
           }
           // preparing multiple submit
-          mainSubmit = function mainSubmit () {};
+          mainSubmit = function mainSubmit() { };
           userSectionData["endTime"] = Date.now();
-          if(userSectionData["intervalData"]) {
+          if (userSectionData["intervalData"]) {
             clearInterval(userSectionData["intervalData"]);
           }
           // Parse and Submit Answers
@@ -519,17 +520,16 @@
           var solutions = [];
           var lastData;
           var callNo = 0;
-          formData.forEach((val,key)=>{
-            if (val !== "") {
-              if (lastData && lastData.questionId === key) {
-                lastData.solution.push(val);
-              } else {
-                lastData = {
-                  "questionId" : key,
-                  "solution": [val],
-                };
-                solutions.push(lastData);
-              }
+          formData.forEach((val, key) => {
+            if (lastData && lastData.questionId === key) {
+              lastData.solution.push(val);
+            } else {
+              lastData = {
+                "questionId": key,
+                "solution": [],
+              };
+              lastData.solution.push(val);
+              solutions.push(lastData);
             }
           });
           function actualAnswerPost() {
@@ -537,9 +537,9 @@
             /* Ajax Console
             console.log("Ajax: Post Answers for " + domain);
             */
-           if (callNo >= 3) {
-             window.location.reload();
-           }
+            if (callNo >= 3) {
+              window.location.reload();
+            }
             $.ajax({
               url: `/question/${domain}`,
               method: "POST",
@@ -565,7 +565,7 @@
                   if (res.code === "er") {
                     // some server error either refresh and restart section
                     // or give resubmit option
-                   confirmCancelSwal("Unexpected Server Error. <br/> Should we try submitting again? <br /> or page will reload", actualAnswerPost, window.location.reload, 10);
+                    confirmCancelSwal("Unexpected Server Error. <br/> Should we try submitting again? <br /> or page will reload", actualAnswerPost, window.location.reload, 10);
                   } else if (res.code === "ua" || res.code === "ns") {
                     infoSwal("Unexpected Access Tried. <br/> Refresh the page!!", window.location.reload, 10);
                   } else if (res.code === "as") {
@@ -598,17 +598,17 @@
             allowOutsideClick: false,
             focusConfirm: false,
             didOpen: () => {
-                timerInterval = setInterval(() => {
-                  const content = Swal.getContent();
-                  if (content) {
-                    const b = content.querySelector('b');
-                    if (b) {
-                      b.textContent = Math.round(Swal.getTimerLeft() / 1000);
-                    }
+              timerInterval = setInterval(() => {
+                const content = Swal.getContent();
+                if (content) {
+                  const b = content.querySelector('b');
+                  if (b) {
+                    b.textContent = Math.round(Swal.getTimerLeft() / 1000);
                   }
-                }, 1000)
-             },
-             willClose: () => {
+                }
+              }, 1000)
+            },
+            willClose: () => {
               clearInterval(timerInterval);
               startSection(userSectionData["domain"]);
             }
@@ -623,13 +623,13 @@
           */
           switch (domain) {
             case "technical": userDomainData[0] = val;
-                              break;
+              break;
             case "management": userDomainData[1] = val;
-                              break; 
-            case "design":  userDomainData[2] = val;
-                              break; 
-            case "documentation": userDomainData[3]= val;
-                                  break;
+              break;
+            case "design": userDomainData[2] = val;
+              break;
+            case "documentation": userDomainData[3] = val;
+              break;
           }
           return;
         }
