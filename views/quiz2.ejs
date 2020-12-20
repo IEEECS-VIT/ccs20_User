@@ -518,6 +518,7 @@
           var formData = new FormData(userSectionData["form"]);
           var solutions = [];
           var lastData;
+          var callNo = 0;
           formData.forEach((val,key)=>{
             if (lastData && lastData.questionId === key) {
               lastData.solution.push(val);
@@ -530,9 +531,13 @@
             }
           });
           function actualAnswerPost() {
+            ++callNo;
             /* Ajax Console
             console.log("Ajax: Post Answers for " + domain);
             */
+           if (callNo >= 2) {
+             window.location.reload();
+           }
             $.ajax({
               url: `/question/${domain}`,
               method: "POST",

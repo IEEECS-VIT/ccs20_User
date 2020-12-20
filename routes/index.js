@@ -103,7 +103,7 @@ router.get("/thanks", auth.isAuthenticated, auth.isCompleted ,async (req, res, n
     timeLeft = 60 * 10 - timeLeft; // 30 seconds as per backend
     timeLeft = Math.round(Math.max(timeLeft, 0));
     rObj.data.forEach((subData) => {
-      if (!subData.solution || subData.solution === "") {
+      if (!subData.solution || subData.solution === []) {
         ans -= 1;
       }
     });
@@ -294,7 +294,11 @@ router.post(
         responseObj.data.forEach((que) => {
           req.body.solutions.forEach((sol) => {
             if (sol.questionId == que.questionId) {
-              que.solution = sol.solution;
+              if (sol.solution.length === 0 && sol.solution[0] === "") {
+                que.solution = [];
+              } else {
+                que.solution = sol.solution;
+              }
             }
           });
         });
