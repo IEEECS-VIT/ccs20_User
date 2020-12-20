@@ -108,6 +108,13 @@ input,button{
 input:focus{
   text-decoration: none !important;
 }
+li
+{
+  font-size: 12px;
+  margin-left: -4%;
+  margin-right: 2%;
+  /* border: solid 1px white; */
+}
 body {
 	/* background-image: url(bg-clouds.png); */
   background-image: url('../images/line_pattern.png');
