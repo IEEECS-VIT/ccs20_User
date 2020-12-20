@@ -109,6 +109,14 @@ router.get(
       rObj.data.forEach((subData) => {
         if (!subData.solution || subData.solution === []) {
           ans -= 1;
+        } else if (Array.isArray(subData.solution)) {
+          ans -= 1;
+          for (let xx = 0; xx < subData.solution.length; xx++){
+            if (subData.solution[xx] !== "") {
+              ans += 1;
+              break;
+            }
+          }
         }
       });
       return {
@@ -295,6 +303,9 @@ router.post(
             message: "Already submitted for this domain",
             code: "as",
           });
+        }
+        if (!req.body.solutions) {
+          req.body.solutions = [];
         }
         let responseObj = await R_Database.findById(domains[domain]);
         responseObj.data.forEach((que) => {
