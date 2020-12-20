@@ -520,12 +520,11 @@
           var lastData;
           formData.forEach((val,key)=>{
             if (lastData && lastData.questionId === key) {
-              lastData.solution += multiCSep;
-              lastData.solution += val;
+              lastData.solution.push(val);
             } else {
               lastData = {
                 "questionId" : key,
-                "solution": val,
+                "solution": [val],
               };
               solutions.push(lastData);
             }

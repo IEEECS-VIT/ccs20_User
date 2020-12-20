@@ -5,7 +5,7 @@ const subSchema = new mongoose.Schema(
       type: mongoose.Types.ObjectId,
       ref: "question",
     },
-    solution: String,
+    solution: [String],
   },
   { _id: false }
 );
