@@ -114,19 +114,18 @@ module.exports.timeStatus = async (id) => {
 };
 
 module.exports.validate = (userDetails) => {
-  var regno = userDetails.regno;
-  var phone = userDetails.phone;
-  var name = userDetails.name;
-  var pwd1 = userDetails.Password;
-  var email = userDetails.email;
+  var regno = userDetails.regno.trim();
+  var phone = userDetails.phone.trim();
+  var name = userDetails.name.trim();
+  var pwd1 = userDetails.Password.trim();
+  var email = userDetails.email.trim();
   var message = "ok";
-  var nameRegex = new RegExp("^[a-zA-Z][a-zA-Z ]+[a-zA-Z]$");
+  var nameRegex = new RegExp(/^[a-zA-Z][a-zA-Z\s]+[a-zA-Z]$/);
   if (!nameRegex.test(name)) {
-    return "Name should only have alphabets!";
+    return "Name Should Only Consist of Letters!";
   }
   // change it for the upcoming years
-  var academicYear = "20";
-  var regNoRegex = new RegExp(`^${academicYear}[A-Z]{3}[0-9]{3}[0-9]$`);
+  var regNoRegex = new RegExp(/^20[A-Z]{3}[0-9]{3}[0-9]$/);
   if (!regNoRegex.test(regno)) {
     return "Invalid Reg No.";
   }

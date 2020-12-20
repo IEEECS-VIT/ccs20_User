@@ -156,19 +156,18 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
       function pwdValidate(){
-        var regno = document.getElementsByName('regno')[0].value;
-        var name = document.getElementsByName('name')[0].value;
-        var phone = document.getElementsByName('phone')[0].value;
-        var email = document.getElementsByName('email')[0].value;
-        var pwd1=document.getElementById('pwd-reg-1').value;
-        var pwd2=document.getElementById('pwd-repeat').value;
+        var regno = document.getElementsByName('regno')[0].value.trim();
+        var name = document.getElementsByName('name')[0].value.trim();
+        var phone = document.getElementsByName('phone')[0].value.trim();
+        var email = document.getElementsByName('email')[0].value.trim();
+        var pwd1=document.getElementById('pwd-reg-1').value.trim();
+        var pwd2=document.getElementById('pwd-repeat').value.trim();
         var message = undefined;
-        var nameRegex = new RegExp("^[a-zA-Z][a-zA-Z ]+[a-zA-Z]$");
+        var nameRegex = new RegExp(/^[a-zA-Z][a-zA-Z\s]+[a-zA-Z]$/);
         if (!nameRegex.test(name)) {
-          message = message || "Name should only have alphabets!";
+          message = message || "Name Should Only Consist of Letters!";
         }
-        var academicYear = "20";
-        var regNoRegex = new RegExp(`^${academicYear}[A-Z]{3}[0-9]{3}[0-9]$`);        
+        var regNoRegex = new RegExp(/^20[A-Z]{3}[0-9]{3}[0-9]$/);        
         if (!regNoRegex.test(regno)) {
           message = message || "Invalid Reg No.";
         } 
