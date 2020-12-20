@@ -294,11 +294,12 @@ router.post(
         responseObj.data.forEach((que) => {
           req.body.solutions.forEach((sol) => {
             if (sol.questionId == que.questionId) {
-              if (sol.solution.length === 0 && sol.solution[0] === "") {
-                que.solution = [];
-              } else {
-                que.solution = sol.solution;
-              }
+              que.solution = [];
+              sol.solution.forEach((opt)=>{
+                if (opt !== ""){
+                  que.solution.push(opt);
+                }
+              })
             }
           });
         });
