@@ -522,13 +522,17 @@
           var callNo = 0;
           formData.forEach((val, key) => {
             if (lastData && lastData.questionId === key) {
-              lastData.solution.push(val);
+              if (val !== "") {
+                lastData.solution.push(val);
+              }
             } else {
               lastData = {
                 "questionId": key,
                 "solution": [],
               };
-              lastData.solution.push(val);
+              if (val !== "") {
+                lastData.solution.push(val);
+              }
               solutions.push(lastData);
             }
           });

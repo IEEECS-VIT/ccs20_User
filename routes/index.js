@@ -136,7 +136,7 @@ router.get(
     });
     Promise.all(promises)
       .then(() => {
-        res.render("thanks", { data: data });
+        res.render("thanks", { user: req.user.regno, data: data });
       })
       .catch((error) => {
         next(error);
@@ -307,18 +307,14 @@ router.post(
         if (req.body.solutions === undefined) {
           req.body.solutions = [];
         }
+        console.log(req.body.solutions);
         let responseObj = await R_Database.findById(domains[domain]);
+        console.log(responseObj)
         responseObj.data.forEach((que) => {
           req.body.solutions.forEach((sol) => {
-            if (sol.questionId === que.questionId) {
-              que.solution = [];
-              if (Array.isArray(sol.solution) && sol.solution !== undefined) {
-                sol.solution.forEach((opt) => {
-                  if (opt !== "") {
-                    que.solution.push(opt);
-                  }
-                });
-              }
+            if (sol.questionId == que.questionId) {
+              console.log(sol.solution);
+              que.solution = sol.solution;
             }
           });
         });
