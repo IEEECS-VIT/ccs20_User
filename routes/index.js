@@ -301,7 +301,7 @@ router.post(
           req.body.solutions.forEach((sol) => {
             if (sol.questionId === que.questionId) {
               que.solution = [];
-              if (Array.isArray(sol.solution)) {
+              if (Array.isArray(sol.solution) && sol.solution !== undefined) {
                 sol.solution.forEach((opt) => {
                   if (opt !== "") {
                     que.solution.push(opt);
