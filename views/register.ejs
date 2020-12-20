@@ -156,10 +156,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
       function pwdValidate(){
-        var regno = document.getElementsByName('regno')[0];
-        var name = document.getElementsByName('name')[0];
-        var phone = document.getElementsByName('phone')[0];
-        var email = document.getElementsByName('email')[0];
+        var regno = document.getElementsByName('regno')[0].value;
+        var name = document.getElementsByName('name')[0].value;
+        var phone = document.getElementsByName('phone')[0].value;
+        var email = document.getElementsByName('email')[0].value;
         var pwd1=document.getElementById('pwd-reg-1').value;
         var pwd2=document.getElementById('pwd-repeat').value;
         var message = undefined;
