@@ -282,38 +282,38 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
       function pwdValidate(){
-        var regno = document.getElementsByName('regno')[0];
-        var name = document.getElementsByName('name')[0];
-        var phone = document.getElementsByName('phone')[0];
-        var email = document.getElementsByName('email')[0];
+        var regno = document.getElementsByName('regno')[1].value;
+        var name = document.getElementsByName('name')[0].value;
+        var phone = document.getElementsByName('phone')[0].value;
+        var email = document.getElementsByName('email')[0].value;
         var pwd1=document.getElementById('pwd-reg-1').value;
         var pwd2=document.getElementById('pwd-repeat').value;
+        console.log(name, email, regno, phone, pwd1);
         var message = undefined;
         var nameRegex = new RegExp("^[a-zA-Z][a-zA-Z ]+[a-zA-Z]$");
-        if (!nameRegex.test(name.value)) {
-          // console.log(name);
-          message = message || "Name should only have alphabets!";
+        if (!nameRegex.test(name)) {
+          message = message || "Name should only have alphabets";
         }
         var academicYear = "20";
-        var regNoRegex = new RegExp(`^20[A-Z]{3}[0-9]{4}$`);
-        if (!regNoRegex.test(regno.value)) {
+        var regNoRegex = new RegExp(`^${academicYear}[A-Z]{3}[0-9]{3}[0-9]$`);        
+        if (!regNoRegex.test(regno)) {
           message = message || "Invalid Reg No.";
         } 
-        var emailRegex = new RegExp("^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$");
-        if (!emailRegex.test(email.value)) {
-          message = message || "Invalid Email Added";
+        var emailRegex = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+        if (!emailRegex.test(email)) {
+          message = message || "Invalid Email Address";
         }
-        if(!new RegExp("[A-Z]+").test(pwd1.value) || !new RegExp("[a-z]+").test(pwd1.value) || !new RegExp("\W").test(pwd1.value) || !new RegExp("[0-9]+").test(pwd1.value)) {
-          message = message || "Password Not Strong Enough";
+        if(pwd1.length < 8 || !new RegExp(/[A-Z]+/).test(pwd1) || !new RegExp(/[a-z]+/).test(pwd1) || !new RegExp(/\W/).test(pwd1) || !new RegExp(/[0-9]+/).test(pwd1)) {
+          message = message || "Password Not Strong Enough! Must contain One Digit, LowerCase, UpperCase and Special Character and at least of length 8";
         }
         if(pwd1!==pwd2){
           message = message || "Passwords Doesn't Match";
         }
         var phoneRegex = new RegExp("[1-9]{1}[0-9]{9}");
-        if (!phoneRegex.test(phone.value)) {
+        if (!phoneRegex.test(phone)) {
           message = message || "Phone number format invalid";
         }
-        if (message=== undefined){
+        if (message===undefined){
           return true;
         }
         Swal.fire({

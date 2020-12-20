@@ -168,16 +168,16 @@
           message = message || "Name should only have alphabets!";
         }
         var academicYear = "20";
-        var regNoRegex = new RegExp(`${academicYear}[A-Z]{3}[0-9]{3}[0-9]\$`);
+        var regNoRegex = new RegExp(`^${academicYear}[A-Z]{3}[0-9]{3}[0-9]$`);        
         if (!regNoRegex.test(regno)) {
           message = message || "Invalid Reg No.";
         } 
-        var emailRegex = new RegExp("^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$");
+        var emailRegex = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
         if (!emailRegex.test(email)) {
-          message = message || "Invalid Email Added";
+          message = message || "Invalid Email Address";
         }
-        if(!new RegExp("[A-Z]+").test(pwd1) || !new RegExp("[a-z]+").test(pwd1) || !new RegExp("\W").test(pwd1) || !new RegExp("[0-9]+").test(pwd1)) {
-          message = message || "Password Not Strong Enough";
+        if(pwd1.length < 8 || !new RegExp(/[A-Z]+/).test(pwd1) || !new RegExp(/[a-z]+/).test(pwd1) || !new RegExp(/\W/).test(pwd1) || !new RegExp(/[0-9]+/).test(pwd1)) {
+          message = message || "Password Not Strong Enough! Must contain One Digit, LowerCase, UpperCase and Special Character and at least of length 8";
         }
         if(pwd1!==pwd2){
           message = message || "Passwords Doesn't Match";

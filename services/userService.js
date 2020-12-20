@@ -5,12 +5,12 @@ const R_Databse = require("../models/response");
 module.exports.setQuestions = async (id, domain) => {
   try {
     var user = await A_Database.findById(id);
-    if (user.domains){
+    if (user.domains) {
       var responseObjects = Object.values(user.domains);
       if (responseObjects.length != 0) {
         await R_Databse.deleteMany({ _id: { $in: responseObjects } });
       }
-    } 
+    }
     user["domains"] = Object.create(null);
     console.log(domain);
     var Ques = await Q_Database.find(
@@ -122,20 +122,28 @@ module.exports.validate = (userDetails) => {
   var message = "ok";
   var nameRegex = new RegExp("^[a-zA-Z][a-zA-Z ]+[a-zA-Z]$");
   if (!nameRegex.test(name)) {
-    message = message || "Name should only have alphabets!";
+    return "Name should only have alphabets!";
   }
   // change it for the upcoming years
   var academicYear = "20";
-  var regNoRegex = new RegExp(`${academicYear}[A-Z]{3}[0-9]{3}[0-9]\$`);
+  var regNoRegex = new RegExp(`^${academicYear}[A-Z]{3}[0-9]{3}[0-9]$`);
   if (!regNoRegex.test(regno)) {
     return "Invalid Reg No.";
-  } 
-  var emailRegex = new RegExp("^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$");
-  if (!emailRegex.test(email)) {
-    return "Invalid Email Added";
   }
-  if(!new RegExp("[A-Z]+").test(pwd1) || !new RegExp("[a-z]+").test(pwd1) || !new RegExp("\W").test(pwd1) || !new RegExp("[0-9]+").test(pwd1)) {
-    return "Password Not Strong Enough";
+  var emailRegex = new RegExp(
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  );
+  if (!emailRegex.test(email)) {
+    return "Invalid Email Address";
+  }
+  if (
+    pwd1.length < 8 ||
+    !new RegExp(/[A-Z]+/).test(pwd1) ||
+    !new RegExp(/[a-z]+/).test(pwd1) ||
+    !new RegExp(/\W/).test(pwd1) ||
+    !new RegExp(/[0-9]+/).test(pwd1)
+  ) {
+    return "Password Not Strong Enough! Must contain One Digit, LowerCase, UpperCase and Special Character and at least of length 8";
   }
   var phoneRegex = new RegExp("[1-9]{1}[0-9]{9}");
   if (!phoneRegex.test(phone)) {
