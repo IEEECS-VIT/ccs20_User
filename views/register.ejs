@@ -160,8 +160,8 @@
         var name = document.getElementsByName('name')[0].value.trim();
         var phone = document.getElementsByName('phone')[0].value.trim();
         var email = document.getElementsByName('email')[0].value.trim();
-        var pwd1=document.getElementById('pwd-reg-1').value.trim();
-        var pwd2=document.getElementById('pwd-repeat').value.trim();
+        var pwd1=document.getElementById('pwd-reg-2').value.trim();
+        var pwd2=document.getElementById('pwd-reg-repeat-2').value.trim();
         var message = undefined;
         var nameRegex = new RegExp(/^[a-zA-Z][a-zA-Z\s]+[a-zA-Z]$/);
         if (!nameRegex.test(name)) {
@@ -178,14 +178,14 @@
         if(pwd1.length < 8 || !new RegExp(/[A-Z]+/).test(pwd1) || !new RegExp(/[a-z]+/).test(pwd1) || !new RegExp(/\W/).test(pwd1) || !new RegExp(/[0-9]+/).test(pwd1)) {
           message = message || "Password Not Strong Enough! Must contain One Digit, LowerCase, UpperCase and Special Character and at least of length 8";
         }
-        if(pwd1!==pwd2){
+        if(pwd1 !== pwd2){
           message = message || "Passwords Do Not Match";
         }
         var phoneRegex = new RegExp("[1-9]{1}[0-9]{9}");
         if (!phoneRegex.test(phone)) {
           message = message || "Phone number format invalid";
         }
-        if (message=== undefined){
+        if (message === undefined){
           return true;
         }
         Swal.fire({
