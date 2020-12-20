@@ -88,48 +88,53 @@ router.get("/logout", auth.isLoggedIn, (req, res) => {
 });
 
 /* GET thanks page */
-router.get("/thanks", auth.isAuthenticated, auth.isCompleted ,async (req, res, next) => {
-  let responses = req.user.domains;
-  let data = [];
-  async function fetchData(domain) {
-    let rObj = await R_Database.findById(responses[domain]).lean();
-    let timeLeft;
-    if (rObj.endTime === undefined || rObj.startTime === undefined) {
-      timeLeft = 0;
-    } else {
-      timeLeft = (rObj.endTime - rObj.startTime) / 1000;
-    }
-    let ans = rObj.data.length;
-    timeLeft = 60 * 10 - timeLeft; // 30 seconds as per backend
-    timeLeft = Math.round(Math.max(timeLeft, 0));
-    rObj.data.forEach((subData) => {
-      if (!subData.solution || subData.solution === []) {
-        ans -= 1;
+router.get(
+  "/thanks",
+  auth.isAuthenticated,
+  auth.isCompleted,
+  async (req, res, next) => {
+    let responses = req.user.domains;
+    let data = [];
+    async function fetchData(domain) {
+      let rObj = await R_Database.findById(responses[domain]).lean();
+      let timeLeft;
+      if (rObj.endTime === undefined || rObj.startTime === undefined) {
+        timeLeft = 0;
+      } else {
+        timeLeft = (rObj.endTime - rObj.startTime) / 1000;
       }
+      let ans = rObj.data.length;
+      timeLeft = 60 * 10 - timeLeft; // 30 seconds as per backend
+      timeLeft = Math.round(Math.max(timeLeft, 0));
+      rObj.data.forEach((subData) => {
+        if (!subData.solution || subData.solution === []) {
+          ans -= 1;
+        }
+      });
+      return {
+        timeLeft: timeLeft,
+        sectionName: domain.substr(0, 1).toUpperCase() + domain.substr(1),
+        qAnswered: ans,
+        qUnanswered: rObj.data.length - ans,
+      };
+    }
+    let promises = [];
+    Object.keys(responses).forEach((domain) => {
+      promises.push(
+        fetchData(domain).then((subData) => {
+          data.push(subData);
+        })
+      );
     });
-    return {
-      timeLeft: timeLeft,
-      sectionName: domain.substr(0,1).toUpperCase() + domain.substr(1),
-      qAnswered: ans,
-      qUnanswered: rObj.data.length - ans,
-    };
-  }
-  let promises = [];
-  Object.keys(responses).forEach((domain) => {
-    promises.push(
-      fetchData(domain).then((subData) => {
-        data.push(subData);
+    Promise.all(promises)
+      .then(() => {
+        res.render("thanks", { data: data });
       })
-    );
-  });
-  Promise.all(promises)
-    .then(() => {
-      res.render("thanks", { data: data });
-    })
-    .catch((error) => {
-      next(error);
-    });
-});
+      .catch((error) => {
+        next(error);
+      });
+  }
+);
 
 /* GET instructions */
 router.get("/instructions", auth.check, async (req, res, next) => {
@@ -262,6 +267,7 @@ router.get(
         });
       }
     } catch (error) {
+      console.log(req.user.regno + " domain " + domain + " question get " + error.message);
       return res.json({ success: false, message: error.message, code: "er" });
     }
   }
@@ -293,13 +299,15 @@ router.post(
         let responseObj = await R_Database.findById(domains[domain]);
         responseObj.data.forEach((que) => {
           req.body.solutions.forEach((sol) => {
-            if (sol.questionId == que.questionId) {
+            if (sol.questionId === que.questionId) {
               que.solution = [];
-              sol.solution.forEach((opt)=>{
-                if (opt !== ""){
-                  que.solution.push(opt);
-                }
-              })
+              if (Array.isArray(sol.solution)) {
+                sol.solution.forEach((opt) => {
+                  if (opt !== "") {
+                    que.solution.push(opt);
+                  }
+                });
+              }
             }
           });
         });
@@ -322,6 +330,7 @@ router.post(
         });
       }
     } catch (error) {
+      console.log(req.user.regno + " domain " + domain + " question post " + error.message);
       return res.json({ success: false, message: error.message, code: "er" });
     }
   }
