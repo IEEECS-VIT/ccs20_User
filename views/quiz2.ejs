@@ -491,7 +491,7 @@
             return;
           }
           userSectionData["startTime"] = Date.now();
-          var timer = 30  // 15 minutes maxTime
+          var timer = 60 * 10; // 15 minutes maxTime
           function myTimer()  { 
             document.getElementById("section-time").innerText = "00:" + ((timer / 60) < 10 ? ("0"+Math.floor(timer/60)) : Math.floor(timer/60)) + ":" + ((timer % 60) < 10 ? ("0" + timer%60) : timer%60);
             timer--;

@@ -100,7 +100,7 @@ router.get("/thanks", auth.isAuthenticated, auth.isCompleted ,async (req, res, n
       timeLeft = (rObj.endTime - rObj.startTime) / 1000;
     }
     let ans = rObj.data.length;
-    timeLeft = 30 - timeLeft; // 30 seconds as per backend
+    timeLeft = 60 * 10 - timeLeft; // 30 seconds as per backend
     timeLeft = Math.round(Math.max(timeLeft, 0));
     rObj.data.forEach((subData) => {
       if (!subData.solution || subData.solution === "") {
