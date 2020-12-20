@@ -33,7 +33,7 @@ module.exports.setQuestions = async (id, domain) => {
       que = Ques[i];
       domainArray[que.qDomain][que.qType].push(que._id);
     }
-    var index, len;
+    var index, len, xlen;
     for (let ii = 0; ii < domain.length; ii++) {
       let newDomain = domain[ii];
       let response = new R_Databse();
@@ -44,65 +44,65 @@ module.exports.setQuestions = async (id, domain) => {
       let resultque = [];
       if (newDomain === "technical") {
         len = mque.length;
-        for (i = 0; i < 2; i++) {
+        xlen = Math.min(2,len);
+        for (i = 0; i < xlen; i++) {
           index = Math.floor(Math.random() * len);
           resultque.push(mque[index]);
           mque[index] = mque[len - 1];
           len -= 1;
         }
         len = sque.length;
-        for (i = 0; i < 3; i++) {
+        xlen = Math.min(3,len);
+        for (i = 0; i < xlen; i++) {
           index = Math.floor(Math.random() * len);
           resultque.push(sque[index]);
           sque[index] = sque[len - 1];
           len -= 1;
         }
         len = dque.length;
-        for (i = 0; i < 2; i++) {
+        xlen = Math.min(2,len);
+        for (i = 0; i < xlen; i++) {
           index = Math.floor(Math.random() * len);
           resultque.push(dque[index]);
           dque[index] = dque[len - 1];
           len -= 1;
         }
         len = oque.length;
-        for (i = 0; i < 3; i++) {
+        xlen = Math.min(3,len);
+        for (i = 0; i < xlen; i++) {
           index = Math.floor(Math.random() * len);
           resultque.push(oque[index]);
           oque[index] = oque[len - 1];
           len -= 1;
         }
-      } else if (newDomain === "management") {
-        len = dque.length;
-        for (i = 0; i < 3; i++) {
-          index = Math.floor(Math.random() * len);
-          resultque.push(dque[index]);
-          dque[index] = dque[len - 1];
-          len -= 1;
-        }
       } else if (newDomain === "design") {
         len = mque.length;
-        for (i = 0; i < 1; i++) {
+        xlen = Math.min(1,len);
+        for (i = 0; i < xlen; i++) {
           index = Math.floor(Math.random() * len);
           resultque.push(mque[index]);
           mque[index] = mque[len - 1];
           len -= 1;
         }
         len = sque.length;
-        for (i = 0; i < 1; i++) {
+        xlen = Math.min(1,len);
+        for (i = 0; i < xlen; i++) {
           index = Math.floor(Math.random() * len);
           resultque.push(sque[index]);
           sque[index] = sque[len - 1];
           len -= 1;
         }
         len = dque.length;
-        for (i = 0; i < 3; i++) {
+        xlen = Math.min(3,len);
+        for (i = 0; i < xlen; i++) {
           index = Math.floor(Math.random() * len);
           resultque.push(dque[index]);
           dque[index] = dque[len - 1];
           len -= 1;
         }
         len = oque.length;
-        for (i = 0; i < 1; i++) {
+        xlen = Math.min(1,len);
+        for (i = 0; i < xlen; i++) {
           index = Math.floor(Math.random() * len);
           resultque.push(oque[index]);
           oque[index] = oque[len - 1];
@@ -110,7 +110,8 @@ module.exports.setQuestions = async (id, domain) => {
         }
       } else {
         len = dque.length;
-        for (i = 0; i < 3; i++) {
+        xlen = Math.min(3,len);
+        for (i = 0; i < xlen; i++) {
           index = Math.floor(Math.random() * len);
           resultque.push(dque[index]);
           dque[index] = dque[len - 1];
