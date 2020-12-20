@@ -292,7 +292,7 @@
         var message = undefined;
         var nameRegex = new RegExp("^[a-zA-Z][a-zA-Z ]+[a-zA-Z]$");
         if (!nameRegex.test(name)) {
-          message = message || "Name should only have alphabets";
+          message = message || "Name Should Only Consist of Letters!";
         }
         var academicYear = "20";
         var regNoRegex = new RegExp(`^${academicYear}[A-Z]{3}[0-9]{3}[0-9]$`);        
@@ -304,14 +304,14 @@
           message = message || "Invalid Email Address";
         }
         if(pwd1.length < 8 || !new RegExp(/[A-Z]+/).test(pwd1) || !new RegExp(/[a-z]+/).test(pwd1) || !new RegExp(/\W/).test(pwd1) || !new RegExp(/[0-9]+/).test(pwd1)) {
-          message = message || "Password Not Strong Enough! Must contain One Digit, LowerCase, UpperCase and Special Character and at least of length 8";
+          message = message || "Password Not Strong Enough! Must contain One Digit, One LowerCase, One UpperCase and One Special Character and be atleast 8 characters long.";
         }
         if(pwd1!==pwd2){
-          message = message || "Passwords Doesn't Match";
+          message = message || "Passwords Do Not Match";
         }
         var phoneRegex = new RegExp("[1-9]{1}[0-9]{9}");
         if (!phoneRegex.test(phone)) {
-          message = message || "Phone number format invalid";
+          message = message || "Enter a Valid Phone Number";
         }
         if (message===undefined){
           return true;

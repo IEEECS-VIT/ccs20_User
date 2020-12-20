@@ -180,7 +180,7 @@
           message = message || "Password Not Strong Enough! Must contain One Digit, LowerCase, UpperCase and Special Character and at least of length 8";
         }
         if(pwd1!==pwd2){
-          message = message || "Passwords Doesn't Match";
+          message = message || "Passwords Do Not Match";
         }
         var phoneRegex = new RegExp("[1-9]{1}[0-9]{9}");
         if (!phoneRegex.test(phone)) {
