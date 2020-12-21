@@ -92,6 +92,9 @@
         // success response is what we got
         var userDomainData;
         var userSectionData;
+        function reloadPage() {
+          window.location.reload();
+        }
         function startWithCollectingDomainData() {
           /* Ajax Console
           console.log("Ajax: Domain Info");
@@ -110,14 +113,14 @@
                 /* res.success == false
                 console.log(res.message);
                 */
-                infoSwal("Unexpected Acess Tried!! <br/> Refresh the page!!", window.location.reload, 10);
+                infoSwal("Unexpected Acess Tried!! <br/> Refresh the page!!", reloadPage, 10);
               }
             },
             error: function (msg) {
               /* Ajax Error
               console.log(msg);
               */
-              infoSwal("Unexpected Error Occurred. <br/> Refresh the page!!", window.location.reload, 10);
+              infoSwal("Unexpected Error Occurred. <br/> Refresh the page!!", reloadPage, 10);
             },
           });
         }
@@ -184,11 +187,7 @@
           }).then((result) => {
             if (result.isConfirmed) {
               // Move to next section
-              if (func !== null) {
-                return func();
-              } else {
-                return window.location.reload();
-              }
+              Swal.close();
             }
           });
         }
@@ -217,7 +216,7 @@
               if (confirmFunc !== null) {
                 return confirmFunc();
               } else {
-                window.location.reload();
+                return window.location.reload();
               }
             } else {
               if (cancelFunc !== null) {
@@ -309,9 +308,9 @@
                 console.log(res.message);
                 */
                 if (res.code === "er") {
-                  infoSwal("Unexpected Server Error. <br/> Refresh the page!!", window.location.reload, 10);
+                  infoSwal("Unexpected Server Error. <br/> Refresh the page!!", reloadPage, 10);
                 } else if (res.code === "ua" || res.code === "ns") {
-                  infoSwal("Unexpected Access Tried. <br/> Refresh the page!!", window.location.reload, 10);
+                  infoSwal("Unexpected Access Tried. <br/> Refresh the page!!", reloadPage, 10);
                 } else if (res.code === "as") {
                   updateDomainDataForDomain(domain, true);
                   mainFunc();
@@ -322,7 +321,7 @@
               /* Ajax Console Error
               console.log(msg);
               */
-              infoSwal("Unexpected Error Occurred. <br/> Refresh the page!!", window.location.reload, 10);
+              infoSwal("Unexpected Error Occurred. <br/> Refresh the page!!", reloadPage, 10);
             },
           });
           function prepareAll(questions) {
@@ -542,7 +541,7 @@
             console.log("Ajax: Post Answers for " + domain);
             */
             if (callNo >= 3) {
-              window.location.reload();
+              return window.location.reload();
             }
             $.ajax({
               url: `/question/${domain}`,
@@ -569,9 +568,9 @@
                   if (res.code === "er") {
                     // some server error either refresh and restart section
                     // or give resubmit option
-                    confirmCancelSwal("Unexpected Server Error. <br/> Should we try submitting again? <br /> or page will reload", actualAnswerPost, window.location.reload, 10);
+                    confirmCancelSwal("Unexpected Server Error. <br/> Should we try submitting again? <br /> or page will reload", actualAnswerPost, reloadPage, 10);
                   } else if (res.code === "ua" || res.code === "ns") {
-                    infoSwal("Unexpected Access Tried. <br/> Refresh the page!!", window.location.reload, 10);
+                    infoSwal("Unexpected Access Tried. <br/> Refresh the page!!", reloadPage, 10);
                   } else if (res.code === "as") {
                     updateDomainDataForDomain(domain, true);
                     userSectionData = undefined;
@@ -583,7 +582,7 @@
                 /* Ajax Error Message
                 console.log(msg);
                 */
-                infoSwal("Unexpected Error Occurred. <br/> Refresh the page!!", window.location.reload, 10);
+                infoSwal("Unexpected Error Occurred. <br/> Refresh the page!!", reloadPage, 10);
               },
             });
           }

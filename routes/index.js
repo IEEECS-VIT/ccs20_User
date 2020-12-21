@@ -73,7 +73,7 @@ router.post("/register", async (req, res, next) => {
   try {
     let message = await userFunctions.addUser(req.body);
     // console.log(req.body);
-    console.log(message);
+    console.log("Tried Reg: " +  req.body.regno + " " + message);
     if (message === "ok") return res.render("index", { message: "ok" });
     return res.render("index", { message: message });
   } catch (err) {
@@ -264,7 +264,7 @@ router.get(
           }
           res.json({ success: true, data: questions.data });
         } catch (err) {
-          console.log(err.message);
+          console.log(req.user.regno + " domain " + domain + " question get " + error.message);
           return res.json({ success: false, message: err.message, code: "er" });
         }
       } else {
@@ -307,14 +307,13 @@ router.post(
         if (req.body.solutions === undefined) {
           req.body.solutions = [];
         }
-        console.log(req.body.solutions);
         let responseObj = await R_Database.findById(domains[domain]);
-        console.log(responseObj)
         responseObj.data.forEach((que) => {
           req.body.solutions.forEach((sol) => {
             if (sol.questionId == que.questionId) {
-              console.log(sol.solution);
-              que.solution = sol.solution;
+              if (sol.solution !== undefined) {
+                que.solution = sol.solution;
+              }
             }
           });
         });
