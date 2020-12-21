@@ -29,7 +29,13 @@ module.exports.addUser = async userDetails => {
     // console.log(message);
     if (message !== "ok") return message;
     // console.log("Adding User:" + userDetails);
-    let newUser = new User(userDetails);
+    let newUser = new User({
+      name: userDetails.name.trim(),
+      regno: userDetails.regno.trim(),
+      gender: userDetails.gender,
+      email: userDetails.email.trim(),
+      password: userDetails.Password.trim(),
+    });
     newUser.password = newUser.generateHash(userDetails.Password);
     // console.log("password hashed");
     let savedUser = await newUser.save();
