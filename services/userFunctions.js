@@ -36,7 +36,7 @@ module.exports.addUser = async userDetails => {
       email: userDetails.email.trim(),
       password: userDetails.Password.trim(),
     });
-    newUser.password = newUser.generateHash(userDetails.Password);
+    newUser.password = newUser.generateHash(userDetails.Password.trim());
     // console.log("password hashed");
     let savedUser = await newUser.save();
     if (savedUser) {
