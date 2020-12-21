@@ -345,9 +345,9 @@ input:focus{
   background-color: #faa41a;
 }
 .not-selected {
-  background-color: grey;
-  color: #202020;
-  cursor: not-allowed;
+  background-color: grey !important ;
+  color: #202020 !important;
+  cursor: not-allowed !important;
 }
 /* **************** */
 .option {

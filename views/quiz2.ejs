@@ -68,11 +68,11 @@
     <div class="button-content">
       <div class="row button-container">
         <div class="col l4 s6">
-          <button type="submit" class="btn-def btn-quiz" onclick="loadPrev()"><em class="fas fa-chevron-left"></em><span
+          <button type="submit" class="btn-def btn-quiz" onclick="loadPrev()" id="prev-ctrl-btn-id"><em class="fas fa-chevron-left"></em><span
               class="quiz-nav-btn">Previous</span></button>
         </div>
         <div class="col l4 s6">
-          <button type="submit" class="btn-def btn-quiz" onclick="loadNext()"><span class="quiz-nav-btn">Next</span><em
+          <button type="submit" class="btn-def btn-quiz" onclick="loadNext()" id="nxt-ctrl-btn-id"><span class="quiz-nav-btn">Next</span><em
               class="fas fa-chevron-right"></em></button>
         </div>
         <div class="col l4 s12">
@@ -355,6 +355,16 @@
                 current = no;
                 qArray[current].classList.remove("hidden");
                 navArray[current].classList.add("ongoing");
+                if (no == len) {
+                  document.getElementById("nxt-ctrl-btn-id").classList.add("not-selected");
+                } else {
+                  document.getElementById("nxt-ctrl-btn-id").classList.remove("not-selected");
+                }
+                if (no == 0) {
+                  document.getElementById("prev-ctrl-btn-id").classList.add("not-selected");
+                } else {
+                  document.getElementById("prev-ctrl-btn-id").classList.remove("not-selected");
+                }
               }
             }
             nextTo = function nextTo() {
