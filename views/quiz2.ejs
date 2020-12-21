@@ -503,6 +503,7 @@
           userSectionData["intervalData"] = setInterval(myTimer, 990);
         }
         function endSection(domain) {
+          loaderSwal();
           if (userSectionData === undefined) {
             return;
           }
