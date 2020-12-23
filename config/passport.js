@@ -31,7 +31,7 @@ module.exports = (passport) => {
         process.nextTick(() => {
           console.log("trying passport");
           User.findOne({
-            regno: regno,
+            regno: regno.trim(),
           })
             .lean()
             .exec()
@@ -45,7 +45,7 @@ module.exports = (passport) => {
                   req.flash("message", "User not found")
                 );
               }
-              if (bcrypt.compareSync(password, user.password)) {
+              if (bcrypt.compareSync(password.trim(), user.password)) {
                 console.log("password valid, success");
                 return done(null, user);
               }

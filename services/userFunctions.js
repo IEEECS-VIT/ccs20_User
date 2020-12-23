@@ -35,6 +35,7 @@ module.exports.addUser = async userDetails => {
       gender: userDetails.gender,
       email: userDetails.email.trim(),
       password: userDetails.Password.trim(),
+      phone: userDetails.phone,
     });
     newUser.password = newUser.generateHash(userDetails.Password.trim());
     // console.log("password hashed");
