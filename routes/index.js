@@ -18,7 +18,7 @@ router.post(
   "/login",
   auth.isUser,
   passport.authenticate("login", {
-    successRedirect: "/thanks",
+    successRedirect: "/instructions",
     failureRedirect: "/",
     failureFlash: true,
   })
@@ -26,9 +26,9 @@ router.post(
 
 /* GET mobile register */
 router.get("/register", auth.isUser, (req, res) => {
-  req.logout();
-  return res.render("closed");
-  // res.render("register", { message: "" });
+  // req.logout();
+  // return res.render("closed");
+  res.render("register", { message: "" });
 });
 
 //Register with recaptcha
@@ -71,15 +71,11 @@ router.get("/register", auth.isUser, (req, res) => {
 /* POST register details */
 router.post("/register", async (req, res, next) => {
   try {
-    req.logout();
-    return res.render("closed");
-    /*
     let message = await userFunctions.addUser(req.body);
     // console.log(req.body);
     console.log("Tried Reg: " +  req.body.regno + " " + message);
     if (message === "ok") return res.render("index", { message: "ok" });
     return res.render("index", { message: message });
-    */
   } catch (err) {
     next(err);
   }
@@ -149,7 +145,7 @@ router.get(
 );
 
 /* GET instructions */
-router.get("/instructions", auth.check, thanksHandler, async (req, res, next) => {
+router.get("/instructions", auth.check, async (req, res, next) => {
   res.render("instructions");
 });
 
@@ -157,7 +153,6 @@ router.get("/instructions", auth.check, thanksHandler, async (req, res, next) =>
 router.get(
   "/domain",
   auth.isAuthenticated,
-  thanksHandler,
   auth.isSelected,
   async (req, res, next) => {
     try {
@@ -174,7 +169,6 @@ router.get(
 router.post(
   "/domain",
   auth.isAuthenticated,
-  thanksHandler,
   auth.isSelected,
   async (req, res, next) => {
     try {
@@ -210,7 +204,6 @@ router.post(
 router.get(
   "/quiz",
   auth.isAuthenticated,
-  thanksHandler,
   auth.isQuiz,
   async (req, res, next) => {
     res.render("quiz2", { user: req.user.regno });
@@ -218,7 +211,7 @@ router.get(
 );
 
 /* Get User's Domain Info */
-router.get("/domaininfo", auth.isAuthenticated, thanksHandler ,(req, res, next) => {
+router.get("/domaininfo", auth.isAuthenticated, (req, res, next) => {
   if (!req.xhr) {
     return res.json({ success: false, message: "Unauthorized to access" });
   } else {
@@ -239,7 +232,6 @@ router.get("/domaininfo", auth.isAuthenticated, thanksHandler ,(req, res, next) 
 router.get(
   "/question/:domain",
   auth.isAuthenticated,
-  thanksHandler,
   async (req, res, next) => {
     try {
       if (!req.xhr) {
@@ -293,7 +285,6 @@ router.get(
 router.post(
   "/question/:domain",
   auth.isAuthenticated,
-  thanksHandler,
   async (req, res, next) => {
     try {
       if (!req.xhr) {
@@ -350,9 +341,5 @@ router.post(
     }
   }
 );
-
-function thanksHandler(req,res){
-  res.redirect("/thanks");
-}
 
 module.exports = router;
