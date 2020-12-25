@@ -41,6 +41,33 @@ animation: animatedBackground 30s linear infinite;
   align-self: center;
 }
 
+.closed-links
+{
+  display: flex;
+  justify-content: center;
+  /* border: solid 1px white; */
+}
+.closed-links li
+{
+  font-size: 32px;
+  margin-right: 1%;
+  /* color: white; */
+}
+.closed-links li a
+{
+  transition: all 0.2s;
+  color: white;
+  text-decoration: none;
+}
+.closed-links li a:hover
+{
+  transition: all 0.2s;
+  color: #faa41a;
+}
+.closed-links li a:focus
+{
+  outline: 0 !important;
+}
 /* Remove extra left and right margins, due to padding */
 .row {
   margin: 0 -5px;
