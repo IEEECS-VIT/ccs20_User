@@ -7,7 +7,25 @@ var userFunctions = require("../services/userFunctions");
 var passport = require("passport");
 const auth = require("../middleware/authentication");
 const request = require("request-promise");
+const {
+  ObjectId
+} = require('mongodb');
 
+//TODO move this elsewhere
+function percentRank(v, arr) {
+  if (typeof v !== 'number') throw new TypeError('v must be a number');
+  for (var i = 0, l = arr.length; i < l; i++) {
+      if (v <= arr[i]) {
+          while (i < l && v === arr[i]) i++;
+          if (i === 0) return 0;
+          if (v !== arr[i-1]) {
+              i += (v - arr[i-1]) / (arr[i] - arr[i-1]);
+          }
+          return i / l;
+      }
+  }
+  return 1;
+}
 /* GET index page */
 router.get("/", auth.isUser, (req, res) => {
   res.render("index", { message: req.flash("message") || "" });
@@ -96,15 +114,67 @@ router.get(
     let responses = req.user.domains;
     let data = [];
     async function fetchData(domain) {
-      let rObj = await R_Database.findById(responses[domain]).lean();
+      let rObj = await R_Database.aggregate([
+        {
+          '$match': {
+            '_id': new ObjectId(responses[domain])
+          }
+        }, {
+          '$addFields': {
+            'timeLeft': {
+              '$subtract': [
+                600000, {
+                  '$subtract': [
+                    '$endTime', '$startTime'
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]);
+      //Taking First Object
+      rObj = rObj[0]
+      // let rObj = await R_Database.findById(responses[domain]).lean();
+      let allTimeLeftObject = await R_Database.aggregate([
+        {
+          '$addFields': {
+            'timeLeft': {
+              '$subtract': [
+                600000, {
+                  '$subtract': [
+                    '$endTime', '$startTime'
+                  ]
+                }
+              ]
+            }
+          }
+        }, {
+          '$sort': {
+            'timeLeft': 1
+          }
+        }, {
+          '$group': {
+            '_id': null, 
+            'allTimeLeft': {
+              '$push': '$timeLeft'
+            }
+          }
+        }, {
+          '$project': {
+            '_id': 0
+          }
+        }
+      ])
       let timeLeft;
-      if (rObj.endTime === undefined || rObj.startTime === undefined) {
+      if (rObj.timeLeft === undefined || rObj.timeLeft === null) {
         timeLeft = 0;
+        rObj.timeLeft = 0
       } else {
-        timeLeft = (rObj.endTime - rObj.startTime) / 1000;
+        timeLeft = (rObj.timeLeft) / 1000;
       }
+      let timePercentile = percentRank(rObj.timeLeft, allTimeLeftObject[0].allTimeLeft)*100;
       let ans = rObj.data.length;
-      timeLeft = 60 * 10 - timeLeft; // 30 seconds as per backend
       timeLeft = Math.round(Math.max(timeLeft, 0));
       rObj.data.forEach((subData) => {
         if (!subData.solution || subData.solution === []) {
@@ -120,6 +190,7 @@ router.get(
         }
       });
       return {
+        timePercentile: timePercentile,
         timeLeft: timeLeft,
         sectionName: domain.substr(0, 1).toUpperCase() + domain.substr(1),
         qAnswered: ans,
