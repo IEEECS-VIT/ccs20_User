@@ -15,7 +15,7 @@ const {
 function percentRank(v, arr) {
   if (typeof v !== 'number') throw new TypeError('v must be a number');
   for (var i = 0, l = arr.length; i < l; i++) {
-      if (v <= arr[i]) {
+      if (v >= arr[i]) {
           while (i < l && v === arr[i]) i++;
           if (i === 0) return 0;
           if (v !== arr[i-1]) {
@@ -114,50 +114,23 @@ router.get(
     let responses = req.user.domains;
     let data = [];
     async function fetchData(domain) {
-      let rObj = await R_Database.aggregate([
+      let rObj = await R_Database.findById(responses[domain]).lean();
+      // let rObj = await R_Database.findById(responses[domain]).lean();
+      let allTimeAttemptedObject = await R_Database.aggregate([
         {
           '$match': {
-            '_id': new ObjectId(responses[domain])
+            'domain': domain
           }
-        }, {
-          '$addFields': {
-            'timeLeft': {
-              '$subtract': [
-                600000, {
-                  '$subtract': [
-                    '$endTime', '$startTime'
-                  ]
-                }
-              ]
-            }
-          }
-        }
-      ]);
-      //Taking First Object
-      rObj = rObj[0]
-      // let rObj = await R_Database.findById(responses[domain]).lean();
-      let allTimeLeftObject = await R_Database.aggregate([
+        },
         {
-          '$addFields': {
-            'timeLeft': {
-              '$subtract': [
-                600000, {
-                  '$subtract': [
-                    '$endTime', '$startTime'
-                  ]
-                }
-              ]
-            }
-          }
-        }, {
           '$sort': {
-            'timeLeft': 1
+            'timeAttempted': -1
           }
         }, {
           '$group': {
             '_id': null, 
-            'allTimeLeft': {
-              '$push': '$timeLeft'
+            'allTimeAttempted': {
+              '$push': '$timeAttempted'
             }
           }
         }, {
@@ -167,14 +140,14 @@ router.get(
         }
       ])
       let timeLeft;
-      if (rObj.timeLeft === undefined || rObj.timeLeft === null) {
+      if (rObj.timeAttempted === undefined || rObj.timeAttempted === null) {
         timeLeft = 0;
-        rObj.timeLeft = 0
       } else {
-        timeLeft = (rObj.timeLeft) / 1000;
+        timeLeft = (rObj.timeAttempted) / 1000;
       }
-      let timePercentile = percentRank(rObj.timeLeft, allTimeLeftObject[0].allTimeLeft)*100;
+      let timePercentile = percentRank(rObj.timeAttempted, allTimeAttemptedObject[0].allTimeAttempted)*100;
       let ans = rObj.data.length;
+      timeLeft = 60 * 10 - timeLeft;
       timeLeft = Math.round(Math.max(timeLeft, 0));
       rObj.data.forEach((subData) => {
         if (!subData.solution || subData.solution === []) {
@@ -390,6 +363,8 @@ router.post(
         });
         responseObj.startTime = req.body.startTime;
         responseObj.endTime = req.body.endTime;
+        responseObj.timeAttempted = req.body.endTime - req.body.startTime;
+        responseObj.domain = domain
         await responseObj.save();
         var domainsLeft = req.user.domainsLeft;
         if (domainsLeft.indexOf(domain) >= 0) {

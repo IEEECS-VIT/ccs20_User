@@ -12,6 +12,14 @@ const subSchema = new mongoose.Schema(
 const resSchema = new mongoose.Schema({
   startTime: Number,
   endTime: Number,
+  timeAttempted: {
+    type: Number,
+    index: true
+  },
+  domain:{
+    type: String,
+    index: true
+  },
   data: [subSchema],
 });
 
