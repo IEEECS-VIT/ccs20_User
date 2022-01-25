@@ -4,6 +4,7 @@ var A_Database = require("../models/applicant");
 var R_Database = require("../models/response");
 var userService = require("../services/userService");
 var userFunctions = require("../services/userFunctions");
+var percentileFunctions = require("../services/percentileFunctions");
 var passport = require("passport");
 const auth = require("../middleware/authentication");
 const request = require("request-promise");
@@ -11,21 +12,6 @@ const {
   ObjectId
 } = require('mongodb');
 
-//TODO move this elsewhere
-function percentRank(v, arr) {
-  if (typeof v !== 'number') throw new TypeError('v must be a number');
-  for (var i = 0, l = arr.length; i < l; i++) {
-      if (v >= arr[i]) {
-          while (i < l && v === arr[i]) i++;
-          if (i === 0) return 0;
-          if (v !== arr[i-1]) {
-              i += (v - arr[i-1]) / (arr[i] - arr[i-1]);
-          }
-          return i / l;
-      }
-  }
-  return 1;
-}
 /* GET index page */
 router.get("/", auth.isUser, (req, res) => {
   res.render("index", { message: req.flash("message") || "" });
@@ -145,7 +131,7 @@ router.get(
       } else {
         timeLeft = (rObj.timeAttempted) / 1000;
       }
-      let timePercentile = percentRank(rObj.timeAttempted, allTimeAttemptedObject[0].allTimeAttempted)*100;
+      let timePercentile = percentileFunctions.percentRank(rObj.timeAttempted, allTimeAttemptedObject[0].allTimeAttempted)*100;
       let ans = rObj.data.length;
       timeLeft = 60 * 10 - timeLeft;
       timeLeft = Math.round(Math.max(timeLeft, 0));
