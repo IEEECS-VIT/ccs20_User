@@ -4,9 +4,13 @@ var A_Database = require("../models/applicant");
 var R_Database = require("../models/response");
 var userService = require("../services/userService");
 var userFunctions = require("../services/userFunctions");
+var percentileFunctions = require("../services/percentileFunctions");
 var passport = require("passport");
 const auth = require("../middleware/authentication");
 const request = require("request-promise");
+const {
+  ObjectId
+} = require('mongodb');
 
 /* GET index page */
 router.get("/", auth.isUser, (req, res) => {
@@ -97,14 +101,39 @@ router.get(
     let data = [];
     async function fetchData(domain) {
       let rObj = await R_Database.findById(responses[domain]).lean();
+      // let rObj = await R_Database.findById(responses[domain]).lean();
+      let allTimeAttemptedObject = await R_Database.aggregate([
+        {
+          '$match': {
+            'domain': domain
+          }
+        },
+        {
+          '$sort': {
+            'timeAttempted': -1
+          }
+        }, {
+          '$group': {
+            '_id': null, 
+            'allTimeAttempted': {
+              '$push': '$timeAttempted'
+            }
+          }
+        }, {
+          '$project': {
+            '_id': 0
+          }
+        }
+      ])
       let timeLeft;
-      if (rObj.endTime === undefined || rObj.startTime === undefined) {
+      if (rObj.timeAttempted === undefined || rObj.timeAttempted === null) {
         timeLeft = 0;
       } else {
-        timeLeft = (rObj.endTime - rObj.startTime) / 1000;
+        timeLeft = (rObj.timeAttempted) / 1000;
       }
+      let timePercentile = percentileFunctions.percentRank(rObj.timeAttempted, allTimeAttemptedObject[0].allTimeAttempted)*100;
       let ans = rObj.data.length;
-      timeLeft = 60 * 10 - timeLeft; // 30 seconds as per backend
+      timeLeft = 60 * 10 - timeLeft;
       timeLeft = Math.round(Math.max(timeLeft, 0));
       rObj.data.forEach((subData) => {
         if (!subData.solution || subData.solution === []) {
@@ -120,6 +149,7 @@ router.get(
         }
       });
       return {
+        timePercentile: timePercentile,
         timeLeft: timeLeft,
         sectionName: domain.substr(0, 1).toUpperCase() + domain.substr(1),
         qAnswered: ans,
@@ -319,6 +349,8 @@ router.post(
         });
         responseObj.startTime = req.body.startTime;
         responseObj.endTime = req.body.endTime;
+        responseObj.timeAttempted = req.body.endTime - req.body.startTime;
+        responseObj.domain = domain
         await responseObj.save();
         var domainsLeft = req.user.domainsLeft;
         if (domainsLeft.indexOf(domain) >= 0) {
