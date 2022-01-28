@@ -7,7 +7,7 @@ var userFunctions = require("../services/userFunctions");
 var passport = require("passport");
 const auth = require("../middleware/authentication");
 const request = require("request-promise");
-
+const Feedback=require("../models/feedback");
 /* GET index page */
 router.get("/", auth.isUser, (req, res) => {
   res.render("index", { message: req.flash("message") || "" });
@@ -81,13 +81,41 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
+router.get("/feedback", auth.isAuthenticated, (req, res) => {
+   res.render("feedback", { message: "" });
+});
+
+router.post('/feedback', auth.isAuthenticated,
+auth.isCompleted, async(req, res) => {
+
+  const feedback = new Feedback({
+          Name: req.user._id,
+          Question1:req.body.q1,
+          Question2:req.body.q2,
+          Question3:req.body.q3,
+          Question4:req.body.q4,
+          Question5:req.body.q5,
+          Message:req.body.text
+  })
+  console.log(req.body)
+  const fb = await feedback.save(
+          function(err){ if(err)
+                  { 
+                          console.log(err); 
+                          return; 
+                  }  
+          }
+          );
+  
+  res.redirect('/thanks');
+});
 /* GET user logout */
 router.get("/logout", auth.isLoggedIn, (req, res) => {
   req.logout();
   res.redirect("/");
 });
 
-/* GET thanks page */
+// GET thanks page 
 router.get(
   "/thanks",
   auth.isAuthenticated,

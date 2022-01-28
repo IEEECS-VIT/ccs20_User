@@ -10,6 +10,11 @@ const session = require("cookie-session");
 const flash = require("connect-flash");
 require("dotenv").config();
 
+//setting Database
+// mongoose.connect(
+//   'mongodb://localhost:27017/IEEECS_CCS',
+//   }
+// );
 
 mongoose.connect(
   process.env.MONGO_URI,
@@ -23,9 +28,6 @@ const usersRouter = require("./routes");
 const app = express();
 app.disable("x-powered-by");
 
-// certbot
-// app.use("/.well-known", express.static(path.join(__dirname, "certbot")));
-
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -38,30 +40,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-
-// // GET CountDown Page
-// // For all the routes
-// app.use("/", (req,res) => {
-//   res.render("countDown"); 
-// });
-
-// GET Closed Page
-// For all the routes
-app.use("/", (req,res) => {
-  res.render("closed"); 
-});
-
+const keys = ["Ron", "Swanson"];
 const expiryDate = new Date(5 * Date.now() + 60 * 60 * 1000); // 5 hours
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: "mustache",
     resave: true,
     saveUninitialized: true,
     cookie: {
       secure: true,
       expires: expiryDate
     },
-    keys: process.env.SESSION_KEYS.split()
+    keys: keys
   })
 );
 
@@ -89,7 +79,5 @@ app.use(function (err, req, res, next) {
   console.log(err.message)
   return res.render("error", { success: false, message: err.message });
 });
-
-
 
 module.exports = app;

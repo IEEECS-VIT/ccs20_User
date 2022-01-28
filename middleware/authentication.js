@@ -20,7 +20,7 @@ module.exports = {
   check:(req,res,next)=>{
     if (req.user.questionSelected) {
       if(req.user.domainsLeft.length === 0){
-        return res.redirect("/thanks");
+        return res.redirect("/feedback");
       }
       return res.redirect("/quiz");
     } 
@@ -29,12 +29,13 @@ module.exports = {
   isQuiz:(req,res,next) => {
     if (req.user.questionSelected) {
       if(req.user.domainsLeft.length === 0){
-        return res.redirect("/thanks");
+        return res.redirect("/feedback");
       }
       return next();
     }
     res.redirect("/domain");
   },
+
   isAuthenticated: (req, res, next) => {
     if (req.user && req.user._id && req.user.regno && req.user.regno.startsWith("20"))
       return next();

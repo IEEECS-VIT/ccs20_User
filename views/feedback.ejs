@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="stylesheets/feedback.css">
+    <link rel="icon" href="images/logoicon.png" />
+    <title>Feedback Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script type="text/javascript">
+
+    </script>
+</head>
+
+<body class="colour1">
+    <div class="container">
+        <div class="row" style="text-align: center;">
+            <div class="col12 top">
+                <img src="images/ieeecs.png" alt="logo" class="logo" />
+            </div>
+        </div>
+        <div class="col s5 s12 m12 15 sect2">
+            <div class="colour2">
+                <h3 class="form-heading">Feedback Form</h3>
+                <h5 class="form-sub-heading">We value your opinions! Help us make our portal better.</h5>
+            </div>
+        </div>
+    </div>
+    <form method="POST" action="/feedback">      
+              
+        <p>Question 1: How did you find the level of questions?</p>
+        <input id="1a" type="radio" name="q1" value=1>
+        <label for="1a"><span></span>Very Easy</label><br>   
+        <input id="1b" type="radio" name="q1" value=2>
+        <label for="1b"><span></span>Easy</label><br>
+        <input id="1c" type="radio" name="q1" value=3>
+        <label for="1c"><span></span>Manageable</label><br>
+        <input id="1d" type="radio" name="q1" value=4>
+        <label for="1d"><span></span>Tough</label><br>
+        <input id="1e" type="radio" name="q1" value=5>
+        <label for="1e"><span></span>Hardcore T^T</label>
+        
+        <br>
+
+        <p>Question 2: How was the variety of questions?</p>
+        <input id="2a" type="radio" name="q2" value=1>
+        <label for="2a"><span></span>I got all questions of the same type/topic :(</label>
+        <br>
+        <input id="2b" type="radio" name="q2" value=2>
+        <label for="2b"><span></span>Most of my questions were of the same type/topic</label>
+        <br>
+        <input id="2c" type="radio" name="q2" value=3>
+        <label for="2c"><span></span>I had a few variety of questions all throught the paper :/</label>
+        <br>
+        <input id="2d" type="radio" name="q2" value=4>
+        <label for="2d"><span></span>Besides a few repeated concepts the variety was good ^_^</label>
+        <br>
+        <input id="2e" type="radio" name="q2" value=5>
+        <label for="2e"><span></span>All my questions were from various topics and domains :)</label>
+        
+        <br>
+        
+        <p>Question 3: How well managed was your time during the test?</p>
+        <input id="3a" type="radio" name="q3" value=1>
+        <label for="3a"><span></span>I got stuck on one question that left me no time for the rest :(</label>
+        <br>
+        <input id="3b" type="radio" name="q3" value=2>
+        <label for="3b"><span></span>Got held up on a few questions so had to speed up in the end</label>
+        <br>
+        <input id="3c" type="radio" name="q3" value=3>
+        <label for="3c"><span></span>I was able to complete all questions in time ^_^</label>
+        <br>
+        <input id="3d" type="radio" name="q3" value=4>
+        <label for="3d"><span></span>I managed my time well for proper rough work and thought</label>
+        <br>
+        <input id="3e" type="radio" name="q3" value=5>
+        <label for="3e"><span></span>I completed all my questions before time `0`</label>
+        
+        <br>        
+        
+        <p>Question 4: How was your experience in using the CCS Portal?</p>
+        <input id="4a" type="radio" name="q4" value=1>
+        <label for="4a"><span></span>Terrible</label>
+        <br>
+        <input id="4b" type="radio" name="q4" value=2>
+        <label for="4b"><span></span>Bad</label>
+        <br>
+        <input id="4c" type="radio" name="q4" value=3>
+        <label for="4c"><span></span>Average</label>
+        <br>
+        <input id="4d" type="radio" name="q4" value=4>
+        <label for="4d"><span></span>Good</label>
+        <br>
+        <input id="4e" type="radio" name="q4" value=5>
+        <label for="4e"><span></span>Excellent!</label>
+        
+        <br>
+
+        <p>Question 5: How was your overall experience of the entrance test?</p>
+        <input id="5a" type="radio" name="q5" value=1>
+        <label for="5a"><span></span>Very Stressful :(</label>
+        <br>
+        <input id="5b" type="radio" name="q5" value=2>
+        <label for="5b"><span></span>Couldve been better</label>
+        <br>
+        <input id="5c" type="radio" name="q5" value=3>
+        <label for="5c"><span></span>It was just like any other test :/</label>
+        <br>
+        <input id="5d" type="radio" name="q5" value=4>
+        <label for="5d"><span></span>I enjoyed myself!</label>
+        <br>
+        <input id="5e" type="radio" name="q5" value=5>
+        <label for="5e"><span></span>Very Fun! Awaiting Results!!</label>
+        <br>
+        <hr><hr>
+
+        <textarea name="text" class="feedback-input" id="message" placeholder="Other comments"></textarea>
+        <input type="submit" value="SUBMIT"/>
+        <div class="foot-lnk">
+            <a href="/thanks"><input type="submit" value="Skip" class="skip"/></a>
+        </div>
+
+    </form>
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
