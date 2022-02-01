@@ -1,17 +1,20 @@
 const mongoose = require("mongoose");
-// const bcrypt = require("bcrypt-nodejs");
-// let SALT_FACTOR = 8;
+const bcrypt = require("bcrypt-nodejs");
+let SALT_FACTOR = 8;
 
-// mongoose.set("useCreateIndex", true);
+mongoose.set("useCreateIndex", true);
 
-const userSchema = new mongoose.Schema({
+const applicantSchema = new mongoose.Schema({
   name: {
     type: String,
   },
   email: {
-      type: String,
-      unique: true,
+    type: String,
+    unique: true,
   },
+  // password: {
+  //   type: String,
+  // },
   regno: {
     type: String,
     unique: true,
@@ -32,12 +35,12 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  registered: {
-    type: Boolean,
-    default: false,
-  },
   domainsLeft: [String],
   domains: Object,
 });
 
-module.exports = mongoose.model("user", userSchema);
+applicantSchema.methods.generateHash = function generateHash(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(SALT_FACTOR), null);
+};
+
+module.exports = mongoose.model("applicant", applicantSchema);
