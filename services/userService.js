@@ -2,9 +2,11 @@ const Q_Database = require("../models/question");
 const A_Database = require("../models/applicant");
 const R_Databse = require("../models/response");
 
-module.exports.setQuestions = async (id, domain) => {
+module.exports.setQuestions = async (email, domain) => {
+  console.log(email);
   try {
-    var user = await A_Database.findById(id);
+    var user = await A_Database.findOne(email);
+    console.log(user);
     if (user.domains) {
       var responseObjects = Object.values(user.domains);
       if (responseObjects.length != 0) {
@@ -134,8 +136,8 @@ module.exports.setQuestions = async (id, domain) => {
   }
 };
 
-module.exports.timeStatus = async (id) => {
-  const data = await A_Database.findById(id, {});
+module.exports.timeStatus = async (email) => {
+  const data = await A_Database.find(email, {});
   var startTime = data.startTime;
   var endTime = data.endTime;
   var maxTime = data.maxTime;
@@ -146,7 +148,7 @@ module.exports.timeStatus = async (id) => {
   if (actDuration > 5) {
     overSmart = true;
   }
-  await A_Database.findByIdAndUpdate(id, { overSmart: overSmart });
+  await A_Database.findOneAndUpdate(email, { overSmart: overSmart });
 };
 
 module.exports.validate = (userDetails) => {
