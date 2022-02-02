@@ -84,7 +84,7 @@ router.get("/register", auth.isUser, (req, res) => {
 /** GET /register new version */
 
 
-router.get("/feedback", auth.isAuthenticated, (req, res) => {
+router.get("/feedback", auth.isAuthenticated, auth.isFeedback, (req, res) => {
    res.render("feedback", { message: "" });
 });
 
@@ -102,11 +102,16 @@ auth.isCompleted, async(req, res) => {
   })
   console.log(req.body)
   const fb = await feedback.save(
-          function(err){ if(err)
+          async function(err){ 
+              if(err)
                   { 
-                          console.log(err); 
-                          return; 
+                    console.log(err); 
+                    return; 
                   }  
+                else{
+                    console.log(req.user.email)
+                    let newuser = await A_Database.findOneAndUpdate({email: req.user.email},{isFeedback:true})
+                }
           }
           );
   

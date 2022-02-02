@@ -36,6 +36,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  isFeedback:{
+    type: Boolean,
+    default:false
+  },
   domainsLeft: [String],
   domains: Object,
 });

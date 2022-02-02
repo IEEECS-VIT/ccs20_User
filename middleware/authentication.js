@@ -65,5 +65,20 @@ module.exports = {
       console.log("auth failed");
       res.redirect("/");
     }
+  },
+  isFeedback: (req, res, next) => {
+    A_Database.findOne({email: req.user.email}, (error, user) => {
+      if(error){
+        res.redirect('/')
+      }
+      else{
+        if(user.isFeedback){
+          res.redirect('/thanks')
+        }
+        else{
+          next();
+        }
+      }
+    });
   }
 };
