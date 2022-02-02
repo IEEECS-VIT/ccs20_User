@@ -1,21 +1,25 @@
+const A_Database = require("../models/applicant");
+
 module.exports = {
-  isLoggedIn: (req, res, next) => {
-    if (req.isAuthenticated()) {
-      console.log("yes, is authenticated.");
-      return next();
-    }
-    console.log("auth failed");
-    res.redirect("/");
-  },
+  // isLoggedIn: (req, res, next) => {
+  //   if (req.isAuthenticated()) {
+  //     console.log("yes, is authenticated.");
+  //     return next();
+  //   }
+  //   console.log("auth failed");
+  //   res.redirect("/");
+  // },
   isSelected:(req,res,next) => {
     if (!req.user.questionSelected) return next();
     res.redirect("/quiz");
   },
   isCompleted: (req,res,next) => {
-    if(req.user.domainsLeft.length !== 0){
+    A_Database.findOne({email: req.user.email}, (error, user) => {
+    if(user.domainsLeft.length !== 0){
       return res.redirect("/quiz");
     } 
     next();
+  });
   },
   check:(req,res,next)=>{
     if (req.user.questionSelected) {
@@ -27,25 +31,39 @@ module.exports = {
     next(); 
   },
   isQuiz:(req,res,next) => {
-    if (req.user.questionSelected) {
-      if(req.user.domainsLeft.length === 0){
-        return res.redirect("/feedback");
+    A_Database.findOne({email: req.user.email}, (error, user) => {
+      if (user.questionSelected) {
+        if(user.domainsLeft.length === 0){
+          return res.redirect("/feedback");
+        }
+        return next();
       }
-      return next();
-    }
-    res.redirect("/domain");
+      res.redirect("/domain");
+    });
+    
   },
 
   isAuthenticated: (req, res, next) => {
-    if (req.user && req.user._id && req.user.regno && req.user.regno.startsWith("20"))
+    // console.log(req.user)
+    if (req.user && req.user.id ) {// req.user.regno && (req.user.regno.startsWith("21") || req.user.regno.startsWith("20")) || req.user.regno.startsWith("19")){
       return next();
+    }
     console.log("Not Authenticated to enter");
-    res.redirect("/");
+    res.redirect("/register");
   },
   isUser: (req,res,next) => {
     if(!req.user || !req.user._id){
       return next();
     }
     res.redirect("/instructions");
+  },
+  isLoggedIn: (req, res, next) => {
+    if (req.user) {
+      next();
+    } else {
+      // res.sendStatus(401);
+      console.log("auth failed");
+      res.redirect("/");
+    }
   }
 };

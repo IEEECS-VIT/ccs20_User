@@ -1,4 +1,4 @@
-const createError = require("http-errors");
+/*const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
@@ -40,18 +40,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-const keys = ["Ron", "Swanson"];
 const expiryDate = new Date(5 * Date.now() + 60 * 60 * 1000); // 5 hours
 app.use(
   session({
-    secret: "mustache",
+    secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
     cookie: {
       secure: true,
       expires: expiryDate
     },
-    keys: keys
+    keys: process.env.SESSION_KEYS.split()
   })
 );
 
@@ -79,5 +78,3 @@ app.use(function (err, req, res, next) {
   console.log(err.message)
   return res.render("error", { success: false, message: err.message });
 });
-
-module.exports = app;
