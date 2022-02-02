@@ -24,7 +24,7 @@ module.exports = {
   check:(req,res,next)=>{
     if (req.user.questionSelected) {
       if(req.user.domainsLeft.length === 0){
-        return res.redirect("/thanks");
+        return res.redirect("/feedback");
       }
       return res.redirect("/quiz");
     } 
@@ -34,7 +34,7 @@ module.exports = {
     A_Database.findOne({email: req.user.email}, (error, user) => {
       if (user.questionSelected) {
         if(user.domainsLeft.length === 0){
-          return res.redirect("/thanks");
+          return res.redirect("/feedback");
         }
         return next();
       }
@@ -42,6 +42,7 @@ module.exports = {
     });
     
   },
+
   isAuthenticated: (req, res, next) => {
     // console.log(req.user)
     if (req.user && req.user.id ) {// req.user.regno && (req.user.regno.startsWith("21") || req.user.regno.startsWith("20")) || req.user.regno.startsWith("19")){

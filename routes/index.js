@@ -7,6 +7,7 @@ var userFunctions = require("../services/userFunctions");
 var passport = require("passport");
 const auth = require("../middleware/authentication");
 const request = require("request-promise");
+const Feedback=require("../models/feedback");
 require("../middleware/oauth.js");
 
 /* GET index page */
@@ -80,15 +81,115 @@ router.get("/register", auth.isUser, (req, res) => {
 
 /** GET /register new version */
 
-router.get("/register", auth.isLoggedIn, (req, res) => {
-    // let user_exists = A_Database.exists({email: request.})
-    // return response.sendStatus(200);
-    res.render("register.ejs", {
-        username: req.user.name,
+
+router.get("/feedback", auth.isAuthenticated, (req, res) => {
+   res.render("feedback", { message: "" });
+});
+
+router.post('/feedback', auth.isAuthenticated,
+auth.isCompleted, async(req, res) => {
+
+  const feedback = new Feedback({
+          Name: req.user._id,
+          Question1:req.body.q1,
+          Question2:req.body.q2,
+          Question3:req.body.q3,
+          Question4:req.body.q4,
+          Question5:req.body.q5,
+          Message:req.body.text
+  })
+  console.log(req.body)
+  const fb = await feedback.save(
+          function(err){ if(err)
+                  { 
+                          console.log(err); 
+                          return; 
+                  }  
+          }
+          );
+  
+  res.redirect('/thanks');
+});
+/* GET user logout */
+router.get("/logout", auth.isLoggedIn, (req, res) => {
+  req.logout();
+  res.redirect("/");
+});
+
+// GET thanks page 
+router.get(
+  "/thanks",
+  auth.isAuthenticated,
+  auth.isCompleted,
+  async (req, res, next) => {
+    let user = await A_Database.findOne({email: req.user.email}, {});
+    let responses = user.domains;
+    let data = [];
+    async function fetchData(domain) {
+      let rObj = await R_Database.findById(responses[domain]).lean();
+      let timeLeft;
+      if (rObj.endTime === undefined || rObj.startTime === undefined) {
+        timeLeft = 0;
+      } else {
+        timeLeft = (rObj.endTime - rObj.startTime) / 1000;
+      }
+      let ans = rObj.data.length;
+      timeLeft = 60 * 10 - timeLeft; // 30 seconds as per backend
+      timeLeft = Math.round(Math.max(timeLeft, 0));
+      rObj.data.forEach((subData) => {
+        if (!subData.solution || subData.solution === []) {
+          ans -= 1;
+        } else if (Array.isArray(subData.solution)) {
+          ans -= 1;
+          for (let xx = 0; xx < subData.solution.length; xx++){
+            if (subData.solution[xx] !== "") {
+              ans += 1;
+              break;
+            }
+          }
+        }
+      });
+      return {
+        timeLeft: timeLeft,
+        sectionName: domain.substr(0, 1).toUpperCase() + domain.substr(1),
+        qAnswered: ans,
+        qUnanswered: rObj.data.length - ans,
+      };
+    }
+    let promises = [];
+    Object.keys(responses).forEach((domain) => {
+      promises.push(
+        fetchData(domain).then((subData) => {
+          data.push(subData);
+        })
+      );
+    });
+    Promise.all(promises)
+      .then(async () => {
+        let user = await A_Database.findOne({email: req.user.email}, {});
+        res.render("thanks", { user: user.regno, data: data });
+      })
+      .catch((error) => {
+        next(error);
+      });
+  }
+);
+// router.get("/register", auth.isLoggedIn, (req, res) => {
+//     // let user_exists = A_Database.exists({email: request.})
+//     // return response.sendStatus(200);
+//     res.render("register.ejs", {
+//         username: req.user.name,
+//         message: ""
+//     });
+// });
+
+router.get("/register", auth.isUser, (req, res) => {
+    // req.logout();
+    // return res.render("closed");
+    res.render("register", {
         message: ""
     });
 });
-
 
 /** POST /register new version */
 router.post("/register", auth.isLoggedIn, async (req, res) => {
@@ -234,75 +335,6 @@ router.get(
         //     next(err);
         //   }
         // });
-
-        /* GET user logout */
-        router.get("/logout", auth.isLoggedIn, (req, res) => {
-            req.logout();
-            res.redirect("/");
-        });
-
-        /* GET thanks page */
-        router.get(
-            "/thanks",
-            auth.isAuthenticated,
-            auth.isCompleted,
-            async (req, res, next) => {
-              let user = await A_Database.findOne({email: req.user.email}, {});
-                let responses = user.domains;
-                let data = [];
-                async function fetchData(domain) {
-                    let rObj = await R_Database.findById(responses[domain]).lean();
-                    let timeLeft;
-                    if (rObj.endTime === undefined || rObj.startTime === undefined) {
-                        timeLeft = 0;
-                    } else {
-                        timeLeft = (rObj.endTime - rObj.startTime) / 1000;
-                    }
-                    // let ans = rObj.data.length;
-                    console.log(rObj.data);
-                    let ans = 0;
-                    timeLeft = 60 * 10 - timeLeft; // 30 seconds as per backend
-                    timeLeft = Math.round(Math.max(timeLeft, 0));
-                    rObj.data.forEach((subData) => {
-                        if (!subData.solution || subData.solution === []) {
-                            ans -= 1;
-                        } else if (Array.isArray(subData.solution)) {
-                            ans -= 1;
-                            for (let xx = 0; xx < subData.solution.length; xx++) {
-                                if (subData.solution[xx] !== "") {
-                                    ans += 1;
-                                    break;
-                                }
-                            }
-                        }
-                    });
-                    return {
-                        timeLeft: timeLeft,
-                        sectionName: domain.substr(0, 1).toUpperCase() + domain.substr(1),
-                        qAnswered: ans,
-                        qUnanswered: rObj.data.length - ans,
-                    };
-                }
-                let promises = [];
-                Object.keys(responses).forEach((domain) => {
-                    promises.push(
-                        fetchData(domain).then((subData) => {
-                            data.push(subData);
-                        })
-                    );
-                });
-                Promise.all(promises)
-                    .then(() => {
-                        res.render("thanks", {
-                            user: req.user.regno,
-                            data: data
-                        });
-                    })
-                    .catch((error) => {
-                        next(error);
-                    });
-            }
-        );
 
         /* GET instructions */
         router.get("/instructions", auth.check, async (req, res, next) => {
