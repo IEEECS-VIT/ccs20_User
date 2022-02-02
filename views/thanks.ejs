@@ -72,6 +72,8 @@
                 <div class="column1"  > 
                     <h2>Time Left: </h2>
                     <p><%= (section.timeLeft) + ' Seconds' %></p>
+                    <p><%= (section.timePercentile) + ' percentile' %></p>
+
                 </div>
                 <script>                    
                     var ctx = document.getElementById('<%= section.sectionName %>').getContext('2d');
