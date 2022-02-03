@@ -28,10 +28,6 @@ router.post(
         failureFlash: true,
     })
 
-    /** Check if user is registered or not. 
-     * If registered, redirect to /quiz
-     * else redirect to /register
-     */
 );
 
 /* GET mobile register */
