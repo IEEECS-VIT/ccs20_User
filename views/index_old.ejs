@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="author" content="Aditya Menon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IEEECS | Selections</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="icon" type="image/png" href="images/logoicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+      rel="stylesheet"
+    />
+    <style>
+      .swal-button {
+        background-color: #faa41a !important;
+      }
+    </style>
+  </head>
+  <body onload="check()">
+    <div class="row" style="text-align: center">
+      <img src="images/ieeecsnew.png" id="mainlogo" alt="IEEECS-LOGO"/>
+    </div>
+    <br />
+   <div class="outer">
+      <div class="mycontainer">
+        <div style="text-align: center">
+          <h2 class="Lheading">Core Committee Selections</h2>
+        </div>
+        <br /><br />
+        <div class="left">
+          <object
+            type="image/svg+xml"
+            id="vector"
+            data="images/illustration.svg"
+          >
+            Your browser does not support SVG
+          </object>
+        </div>
+        <div class="right">
+          <div class="container">
+            <div class="container-forms">
+              <div class="container-info">
+                <!-- <div class="info-item">
+                  <div class="table">
+                    <div class="table-cell">
+                      <p>Have an account?</p>
+                      <div class="btn">Log in</div>
+                    </div>
+                  </div>
+                </div> -->
+                <div class="info-item">
+                  <div class="table">
+                    <div class="table-cell">
+                      <p>Don't have an account?</p>
+                      <div class="btn">Sign up</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="container-form">
+                <!-- <div class="form-item log-in">
+                  <div class="table">
+                    <div class="table-cell">
+                      <form autocomplete="off" action="/login" method="POST">
+                        <input
+                          id="regno"
+                          type="text"
+                          name="regno"
+                          placeholder="Reg. No."
+                          autocomplete="off"
+                          required
+                        />
+                        <input
+                          id="pwd"
+                          type="password"
+                          name="password"
+                          placeholder="Password"
+                          autocomplete="off"
+                          required
+                        />
+                        <button
+                          style="
+                            z-index: 100;
+                            border: none;
+                            height: 100%;
+                            width: 100%;
+                            background-color: #faa41a;
+                            color: #333333;
+                            padding: 10px 13px 10px 13px;
+                            width: 180px;
+                            margin: auto;
+                            border-radius: 100px;
+                          "
+                        >
+                          Submit
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div> -->
+                <div class="form-item sign-up">
+                  <div class="table">
+                    <div class="table-cell" style="padding: 20px">
+                      <form
+                        autocomplete="off"
+                        action="/register"
+                        method="POST"
+                        name="reg_form"
+                        onsubmit="return pwdValidate();"
+                      >
+                        <input
+                          autocomplete="false"
+                          name="hidden"
+                          type="text"
+                          style="display: none"
+                        />
+                        <input
+                          name="name"
+                          placeholder="Name"
+                          type="text"
+                          autocomplete="off"
+                          required
+                        />
+                        <input
+                          name="regno"
+                          placeholder="Reg. No."
+                          type="text"
+                          autocomplete="off"
+                          required
+                        />
+                        <!-- <input
+                          name="email"
+                          placeholder="Email"
+                          type="text"
+                          autocomplete="off"
+                          required
+                        />
+                        <input 
+                          id="pwd-reg-1"
+                          name="Password"
+                          placeholder="Password"
+                          type="Password"
+                          autocomplete="off"
+                          required
+                          title="Minimum 8 characters. Must contain a Special character, a
+                          Digit and Upper & Lowercase letters."
+                        />
+                        <input id="pwd-repeat" type="password" placeholder="Confirm Password"> -->
+                        <input
+                          name="phone"
+                          placeholder="Phone Number"
+                          type="number"
+                          autocomplete="off"
+                          title="Use 10 Digit Mobile Number"
+                          required
+                        /><input
+                          type="text"
+                          for="g-recaptcha-response"
+                          class="g-recaptcha-response"
+                          name="g-recaptcha-response"
+                          style="display: none"
+                        />
+                        <ul>
+                          <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                          <li>
+                            <input
+                              type="radio"
+                              name="gender"
+                              value="male"
+                              class="gender"
+                              style="width: unset; float: left"
+                              checked
+                            />
+                          </li>
+                          <li>Male</li>
+                          <li>
+                            <input
+                              class="gender"
+                              type="radio"
+                              name="gender"
+                              value="female"
+                              style="width: unset; float: left"
+                            />
+                          </li>
+                          <li>Female</li>
+                          <li>
+                            <input
+                              class="gender"
+                              type="radio"
+                              name="gender"
+                              value="other"
+                              style="width: unset; float: left"
+                            />
+                          </li>
+                          <li>Other</li>
+                        </ul>
+                        <br />
+                        <button
+                          style="
+                            z-index: 100;
+                            border: none;
+                            height: 100%;
+                            width: 100%;
+                            background-color: #faa41a;
+                            color: #333333;
+                            padding: 10px 13px 10px 13px;
+                            width: 180px;
+                            margin: auto;
+                            border-radius: 100px;
+                          "
+                        >
+                          Submit
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container" id="phone" style="text-align: center; ">
+        <div style="text-align: center">
+          <h2 class="Lheading">Core Committee Selections</h2>
+        </div>
+        <div class="row">
+          <div class="phone_login">
+            <h2 class="Sheading">Login</h2>
+            <form autocomplete="off" action="/login" method="POST">
+              <input
+                id="regno1"
+                type="text"
+                name="regno"
+                placeholder="Reg. No."
+                autocomplete="off"
+                required
+              />
+              <input
+                id="pwd1"
+                type="password"
+                name="password"
+                placeholder="Password"
+                autocomplete="off"
+                required
+              />
+              <button
+                style="
+                  z-index: 100;
+                  border: none;
+                  height: 100%;
+                  width: 100%;
+                  background-color: #faa41a;
+                  color: #333333;
+                  padding: 10px 13px 10px 13px;
+                  width: 180px;
+                  margin: auto;
+                  border-radius: 100px;
+                "
+              >
+                Submit
+              </button>
+            </form>
+            <br />
+            <h4 style="color: white" id="reglink">
+              Not Registered? Click <a href="/register">Here</a>
+            </h4>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="g-recaptcha"
+        data-sitekey="6Leu6n8UAAAAAE33Fo9VhAe4f3QJ7YRrU7L63194"
+        data-size="invisible"
+        data-callback="setResponse"
+      ></div>
+    </div>
+    <script
+      src="https://www.google.com/recaptcha/api.js?onload=onloadCallback"
+      async
+      defer
+    ></script>
+    <script>
+      var onloadCallback = function () {
+        grecaptcha.execute();
+      };
+      function setResponse(response) {
+        document.querySelector(".g-recaptcha-response").value = response;
+        console.log(document.querySelector(".g-recaptcha-response").value);
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+      function pwdValidate(){
+        var regno = document.getElementsByName('regno')[1].value.trim();
+        var name = document.getElementsByName('name')[0].value.trim();
+        var phone = document.getElementsByName('phone')[0].value.trim();
+        var email = document.getElementsByName('email')[0].value.trim();
+        var pwd1=document.getElementById('pwd-reg-1').value.trim();
+        var pwd2=document.getElementById('pwd-repeat').value.trim();
+        var message = undefined;
+        var nameRegex = new RegExp(/^[a-zA-Z][a-zA-Z\s]+[a-zA-Z]$/);
+        if (!nameRegex.test(name)) {
+          message = message || "Name Should Only Consist of Letters!";
+        }
+        var regNoRegex = new RegExp(/^20[A-Z]{3}[0-9]{3}[0-9]$/);        
+        if (!regNoRegex.test(regno)) {
+          message = message || "Invalid Reg No.";
+        } 
+        var emailRegex = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+        if (!emailRegex.test(email)) {
+          message = message || "Invalid Email Address";
+        }
+        if(pwd1.length < 8 || !new RegExp(/[A-Z]+/).test(pwd1) || !new RegExp(/[a-z]+/).test(pwd1) || !new RegExp(/\W/).test(pwd1) || !new RegExp(/[0-9]+/).test(pwd1)) {
+          message = message || "Password Not Strong Enough! Must contain One Digit, One LowerCase, One UpperCase and One Special Character and be atleast 8 characters long.";
+        }
+        if(pwd1!==pwd2){
+          message = message || "Passwords Do Not Match";
+        }
+        var phoneRegex = new RegExp("[1-9]{1}[0-9]{9}");
+        if (!phoneRegex.test(phone)) {
+          message = message || "Enter a Valid Phone Number";
+        }
+        if (message===undefined){
+          return true;
+        }
+        Swal.fire({
+          icon: "error",
+          title: "Oops",
+          text: message,
+        });
+        return false;
+      }
+      function check() {
+        if ("<%=message%>") {
+          if ("<%=message%>" != "ok") {
+            Swal.fire("Oops!", "<%= message %>", "error");
+          } else {
+            Swal.fire("Successfully Registered", "One Step Closer!!", "success");
+          }
+        }
+      }
+    </script>
+    <!-- partial -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="/scripts/script.js"></script>
+  </body>
+</html>

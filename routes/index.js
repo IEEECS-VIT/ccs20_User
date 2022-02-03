@@ -8,13 +8,12 @@ var percentileFunctions = require("../services/percentileFunctions");
 var passport = require("passport");
 const auth = require("../middleware/authentication");
 const request = require("request-promise");
-const { ObjectId } = require('mongodb');
 const Feedback=require("../models/feedback");
 require("../middleware/oauth.js");
 
 /* GET index page */
-router.get("/", auth.isUser, (req, res) => {
-    res.render("index2.ejs", {
+router.get("/", (req, res) => {
+    res.render("index.ejs", {
         message: req.flash("message") || ""
     });
 });
