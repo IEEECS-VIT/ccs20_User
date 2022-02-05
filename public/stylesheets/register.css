@@ -147,6 +147,9 @@ input:focus{
   border-radius: 24px;
   text-align: center;
 }
+.container input[type="radio"]{
+  margin:0;
+}
 .container input:focus
 {
   width: 220px;
@@ -276,12 +279,12 @@ a
   }
 }
 ul{
-  margin-left: 11%;
-}
-@media(min-width:370px){
-  ul{
-    margin-left: 15%;
-  }
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
 }
 .container{
   padding: 0px !important;

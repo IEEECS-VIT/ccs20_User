@@ -13,8 +13,9 @@ require("../middleware/oauth.js");
 
 /* GET index page */
 router.get("/", (req, res) => {
+    console.log(req.query['error'])
     res.render("index.ejs", {
-        message: req.flash("message") || ""
+        message: req.query['error']
     });
 });
 
@@ -344,7 +345,7 @@ router.get(
                             // }); 
                     }
                 else {
-                    res.redirect("/login?state=failed_login&reason=NOT_VIT_EMAIL");
+                    res.redirect('/?error=Please Login Using VIT Email ID')
                 }
             }
         );

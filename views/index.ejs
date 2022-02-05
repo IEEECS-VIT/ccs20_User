@@ -2,13 +2,23 @@
 <html lang="en">
 
 <head>
+    <style>
+        .swal-button {
+          background-color: #faa41a !important;
+        }
+        #swal2-title
+        {
+          color: #333 !important;
+        }
+      </style>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel='shortcut icon' type='images/png' href='/images/new/fav_main.png'>
+    
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GRGZ3Y3N82"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-
         function gtag() {
             dataLayer.push(arguments);
         }
@@ -66,7 +76,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Quattrocento+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="stylesheets/homeStyle.css">
-    <title>ieee computer society vit</title>
+    <title>IEEE Computer Society || CCS</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Gudea&family=Montserrat:wght@100&family=Quattrocento+Sans&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Gudea&family=Montserrat:wght@100&family=Quattrocento+Sans&display=swap');
@@ -275,6 +285,20 @@
                 <img class="" src="/images/new/ieeecs2.png" ondragstart="return false">
             </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        console.log("<%=message%>")
+        if ("<%=message%>") {
+            swal.fire({
+            title: "Note:",
+            text: "<%= message %>",
+            icon: "error",
+            button: "Ok",
+          });
+        }
+    </script>
 </body>
 
 </html>
