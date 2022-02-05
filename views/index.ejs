@@ -3,39 +3,7 @@
 
 <head>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel='shortcut icon' type='images/png' href='./images/new/fav_main.png'>
-    <script>
-        var deadline = new Date(2022, 1, 5, 0, 0, 0, 0).getTime();
-        var curr_time = new Date().getTime();
-            setInterval(function fun() {
-                var now = new Date().getTime();
-                var t = deadline - now;
-                var days = Math.floor(t / (1000 * 60 * 60 * 24));
-                var hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((t % (1000 * 60)) / 1000);
-                console.log("hello");
-                document.getElementById("regstarts").innerHTML = "Registrations starts in:";
-                let str = days;
-                str+= days===1? " day  ": " days  ";
-                str += hours;
-                str+= hours===1? " hour  ": " hours  ";
-                str += minutes;
-                str+= minutes===1? " minute  ": " minutes  ";
-                str += seconds;
-                str+= seconds===1? " second  ": " seconds  ";
-
-                document.getElementById("demo").innerHTML = str;
-                if (deadline <= curr_time) {
-                    document.getElementById('button').style.display = 'block';
-                    document.getElementById('regstarts').style.display = 'none'
-                    document.getElementById('demo').style.display = 'none'
-
-                }
-            }, 1000);
-            let btn = document.getElementById('button');
-            btn.style.display = "none";
-    </script>
+    <link rel='shortcut icon' type='images/png' href='/images/new/fav_main.png'>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GRGZ3Y3N82"></script>
     <script>
@@ -60,6 +28,9 @@
                         'gradbutton2': '#EFCA53',
                         'footercol': '#E5E6E5',
                         'grey': '#d1d5db'
+                    },
+                    dropShadow: {
+                        'navShadow': '8px 10px 62px -5px rgba(255,255,255,0.61)',
                     }
                 },
                 fontFamily: {
@@ -94,8 +65,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quattrocento+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="stylesheet/homeStyle.css">
-    <title>IEEE COMPUTER SOCIETY-VIT</title>
+    <link rel="stylesheet" href="stylesheets/homeStyle.css">
+    <title>ieee computer society vit</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Gudea&family=Montserrat:wght@100&family=Quattrocento+Sans&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Gudea&family=Montserrat:wght@100&family=Quattrocento+Sans&display=swap');
@@ -103,34 +74,34 @@
     <script src="https://kit.fontawesome.com/4a2410e994.js" crossorigin="anonymous"></script>
 </head>
 
-<body class="bg-black overflow-x-hidden" style="background-image: url(./images/new/Group\ 4.png);background-size: cover; background-position: center;">
+<body class="bg-black" style="background-image: url(/images/new/bg_svg1.svg);background-size: cover; background-position: center; background-repeat: repeat-y;">
     <!-- navigation-->
     <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-black object-right-top select-none">
-        <div class="container-fluid select-none">
-            <div class="parentdiv flex flex-row w-full justify-between">
-                <div class="headlogo select-none w-2/5 sm:w-1/5 flex justify-center items-center">
-                    <img src="./images/new/ieeecsnew.png" ondragstart="return false" class="resize: both">
+        <div class="container-fluid  select-none">
+            <div class="parentdiv flex flex-row w-full nav:w-2/3 lg:w-full justify-between">
+                <div class="headlogo select-none w-2/5 sm:w-1/5 flex justify-center items-center my-auto">
+                    <img src="/images/new/ieeecsnew.png" ondragstart="return false" class="w-44">
                 </div>
-                <div class="btn flex justify-center items-center">
+                <div class="btn flex justify-center nav:hidden items-center">
                     <button class="navbar-toggler focus:outline-none" type="button" data-toggle="collapse" data-target="#navbarCollapse">
                         <i class="fas fa-bars text-yellow_ieee" ></i>
                     </button>
                 </div>
             </div>
-            <div class="collapse navbar-collapse nav:w-1/4 " id="navbarCollapse">
-                <ul class="navbar-nav ml-auto flex items-center w-full">
-                    <li class="nav-item px-1">
-                        <a class="nav-link mx-2" href="/auth/google" target="_blank">
+            <div class="collapse navbar-collapse nav:justify-end nav:w-1/4 " id="navbarCollapse">
+                <ul class="navbar-nav flex items-center justify-start nav:justify-end w-full nav:w-auto">
+                    <li class="nav-item px-1 lg:px-0">
+                        <a class="nav-link mx-0 xl:mx-2 " href="/auth/google" target="_blank">
                             <button class="bg-gradient-to-r from-gradbutton to-gradbutton2 hover:bg-yellow text-black px-6 rounded-full hidden nav:block text-sm font-semibold nav:py-1 xl:py-2 focus:outline-none">
                                 Login
                             </button>
                         </a>
                     </li>
                     <!-- Twitter icon hrefs -->
-                    <a class="nav-link w-full" href="https://twitter.com/ieeecsvit?lang=en" target="_blank">
-                        <li class="nav-item px-1 w-full nav:w-auto flex flex-row justify-center">
-                            <div class="parentlink flex flex-row items-center justify-center w-3/4 sm:w-1/2 md:w-3/5 nav:w-full">
-                                <div class="flex items-center justify-center w-1/12 nav:w-full">
+                    <a class="nav-link flex justify-center w-full m-auto items-center nav:p-0 nav:m-0" href="https://twitter.com/ieeecsvit?lang=en" target="_blank">
+                        <li class="nav-item px-1 w-full nav:w-3/4 lg:w-1/2 flex flex-row justify-start nav:justify-center xl:w-1/2">
+                            <div class="parentlink flex flex-row items-center justify-start nav:justify-center w-3/4 sm:w-1/2 md:w-3/5 nav:w-full">
+                                <div class="flex items-center justify-center w-1/12 nav:w-full lg:justify-center">
                                     <i class="fab fa-twitter w-full" style="color: #FAA41A; width:25px; height:25px;"></i>
                                 </div>
                                 <div class="flex flex-row justify-center items-center w-auto px-4 nav:hidden">
@@ -143,10 +114,10 @@
                     </a>
 
                     <!-- LinkedIn hrefs -->
-                    <a class="nav-link w-full" href="https://www.linkedin.com/company/ieee-cs-vit/mycompany/" target="_blank">
-                        <li class="nav-item px-1 w-full nav:w-auto flex flex-row justify-center">
-                            <div class="parentlink flex flex-row items-center justify-center w-3/4 sm:w-1/2 md:w-3/5 nav:w-full">
-                                <div class="flex items-center justify-center w-1/12 nav:w-full">
+                    <a class="nav-link flex justify-center w-full nav:w-1/3 m-auto items-center" href="https://www.linkedin.com/company/ieee-cs-vit/mycompany/" target="_blank">
+                        <li class="nav-item px-1 w-full nav:w-2/3 lg:w-1/2 flex flex-row justify-start nav:justify-center">
+                            <div class="parentlink flex flex-row items-center justify-start nav:justify-center w-3/4 sm:w-1/2 md:w-3/5 nav:w-full">
+                                <div class="flex items-center justify-center w-1/12 nav:w-full lg:justify-center">
                                     <i class="fab fa-linkedin w-full" style="color: #FAA41A; width: 25px; height: 25px;"></i>
                                 </div>
                                 <div class="flex flex-row justify-center items-center w-auto px-4 nav:hidden">
@@ -157,10 +128,10 @@
                     </a>
 
                     <!-- Instagram hrefs -->
-                    <a class="nav-link w-full" href="https://www.instagram.com/ieeecs_vit/?hl=en" target="_blank">
-                        <li class="nav-item px-1 w-full nav:w-auto flex flex-row justify-center">
-                            <div class="parentlink flex flex-row items-center justify-center w-3/4 sm:w-1/2 md:w-3/5 nav:w-full">
-                                <div class="flex items-center justify-center w-1/12 nav:w-full">
+                    <a class="nav-link flex justify-center w-full nav:w-1/3 m-auto items-center" href="https://www.instagram.com/ieeecs_vit/?hl=en" target="_blank">
+                        <li class="nav-item px-1 w-full nav:w-2/3 lg:w-1/2 flex flex-row justify-start nav:justify-center">
+                            <div class="parentlink flex flex-row items-center justify-start nav:justify-center w-3/4 sm:w-1/2 md:w-3/5 nav:w-full">
+                                <div class="flex items-center justify-center w-1/12 nav:w-full lg:justify-center">
                                     <i class="fab fa-instagram w-full" style="color: #FAA41A; width: 25px; height: 25px;"></i>
                                 </div>
                                 <div class=" flex flex-row justify-center items-center w-auto px-4 nav:hidden">
@@ -171,10 +142,10 @@
                     </a>
 
                     <!-- Facebook hrefs -->
-                    <a class="nav-link w-full" href="https://www.facebook.com/ieeecsvit/" target="_blank">
-                        <li class="nav-item px-1 w-full nav:w-auto flex flex-row justify-center">
-                            <div class="parentlink flex flex-row items-center justify-center w-3/4 sm:w-1/2 md:w-3/5 nav:w-full">
-                                <div class="flex items-center justify-center w-1/12 nav:w-full ">
+                    <a class="nav-link flex justify-start nav:justify-center w-full nav:w-1/3  m-auto items-center" href="https://www.facebook.com/ieeecsvit/" target="_blank">
+                        <li class="nav-item px-1 w-full nav:w-2/3 lg:w-1/2 flex flex-row justify-start nav:justify-center">
+                            <div class="parentlink flex flex-row items-center justify-start nav:justify-center w-3/4 sm:w-1/2 md:w-3/5 nav:w-full">
+                                <div class="flex items-center justify-center w-1/12 nav:w-full lg:justify-center">
                                     <i class="fab fa-facebook w-full" style="color: #FAA41A; width: 25px; height: 25px;"></i>
                                 </div>
                                 <div class=" flex flex-row justify-center items-center w-auto px-4 nav:hidden">
@@ -184,13 +155,15 @@
                         </li>
                     </a>
 
-                    <li class=" w-2/5 block nav:hidden m-auto">
-                        <a class="nav-link" href="#" target="_blank">
+                    <li class="w-full nav:w-2/5 block nav:hidden m-auto justify-start nav:justify-center">
+                        <a class="nav-link flex justify-start nav:justify-center w-full" href="#" target="_blank">
                             <div class="parent flex flex-row justify-center items-center">
-                                <div class="btn">
-                                    <button class=" bg-gradient-to-r from-gradbutton to-gradbutton2 hover:bg-yellow text-black text-sm px-6 rounded-full focus:outline-none">
-                                        Login
-                                    </button>
+                                <div class="btn px-0.5 sm:px-2">
+                                    <a class="nav-link mx-0 xl:mx-2 " href="/auth/google" target="_blank">
+                                        <button class=" bg-gradient-to-r from-gradbutton to-gradbutton2 hover:bg-yellow text-black text-sm px-6 rounded-full focus:outline-none">
+                                            Login
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                         </a>
@@ -220,110 +193,31 @@
     <div class="w-full">
         <div class="flex flex-wrap justify-center w-full">
             <div class="px-6 text-center w-1/3 md:w-1/4 xl:w-1/5">
-                <img src="./images/new/Group 8.png" bg-none ondragstart="return false" style="margin: auto;" justify="center" class="">
+                <img src="/images/new/Group 8.png" bg-none ondragstart="return false" style="margin: auto;" justify="center" class="">
                 <h3 class="text-yellow_ieee pb-5 pt-2 text-xs sm:text-lg lg:text-2xl" style="font-family: 'Montserrat', sans-serif;letter-spacing: 0.02em;">TECHNICAL</h3>
             </div>
             <div class="px-6 text-center w-1/3 md:w-1/4 xl:w-1/5">
-                <img src="./images/new/Group 9.png" ondragstart="return false" style="margin: auto;" class="">
+                <img src="/images/new/Group 9.png" ondragstart="return false" style="margin: auto;" class="">
                 <h3 class="text-yellow_ieee pb-5 pt-2 text-xs sm:text-lg lg:text-2xl" style="font-family: 'Montserrat', sans-serif;letter-spacing: 0.02em;">COMPETITIVE</h3>
             </div>
             <div class="px-6 text-center w-1/3 md:w-1/4 xl:w-1/5">
-                <img src="./images/new/Group 10.png" ondragstart="return false" style="margin: auto;" class="">
+                <img src="/images/new/Group 10.png" ondragstart="return false" style="margin: auto;" class="">
                 <h3 class="text-yellow_ieee pb-5 pt-2 text-xs sm:text-lg lg:text-2xl" style="font-family: 'Montserrat', sans-serif;letter-spacing: 0.02em;">DESIGN</h3>
             </div>
         </div>
     </div>
 
     <div class="container-fluid">
-        <div class="">
             <div class="text-center">
-                <a class="nav-link mx-2" href="/auth/google" target="_blank">
-                    <button id="button" style = "display: none;" class="bg-gradient-to-r from-gradbutton to-gradbutton2 hover:bg-yellow m-auto 
-                        text-black font-bold text-lg sm:texl-sm md:text-2xl lg:text-3xl py-2 sm:py-4 md:py-6 md:w-1/5 sm:w-3/12 w-1/2 rounded-full focus:outline-none " style="font-family: 'Quattrocento Sans';font-weight: bold;"> Register Now
+                <a href="/auth/google">
+                    <button id="button"
+                        class="bg-gradient-to-r from-gradbutton to-gradbutton2 hover:bg-yellow 
+                        text-black font-bold text-lg sm:texl-sm md:text-2xl lg:text-3xl py-2 sm:py-4 md:py-6 md:w-1/5 sm:w-3/12 w-1/2 rounded-full focus:outline-none "
+                        style="font-family: 'Quattrocento Sans';font-weight: bold;"> Register Now
                     </button>
                 </a>
-                <div class="text-center text-transparent bg-clip-text bg-gradient-to-r from-gradbutton to-gradbutton2" style="font-family: 'Quattrocento Sans';font-weight: bold; letter-spacing: 0.2rem;">
-                    <p id="regstarts" class="my-4 xl:text-5xl lg:text-4xl md:text-3xl sm:text-2xl text-xl"></p>
-                    <p id="demo" class="my-4 xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl text-lg"></p>
-                </div>
             </div>
-        </div>
     </div>
-
-    <div class="text-yellow_ieee text-3xl my-4 xl:mx-36 lg:mx-32 md:mx-24 sm:mx-12 md:flex pl-2" style="font-family: 'Quattrocento Sans', sans-serif; font-weight: bold;">
-        <h3 class="events-heading">Our events</h3>
-    </div>
-
-    <!--CAROUSEL-->
-    <div class="events mb-4 sm:mb-2 flex flex-row justify-center items-center">
-        <div id="carouselExampleControls" class="carousel slide sm:w-5/6 py-6" data-ride="carousel">
-            <div class="carousel-inner w-3/4" style="margin-left: 10%;">
-
-                <div class="carousel-item active">
-                    <div class="float-left">
-                        <img class="events-img d-block w-72 rounded-full" src="https://res.cloudinary.com/ieeecs-vit/image/upload/c_scale,q_100,w_539/v1621358997/Chapter%20Website%202021%20assets/Events/a_hqm2rx.jpg" alt="First slide">
-                    </div>
-                    <div class="xl:pl-8 pt-6 sm:pt-12 float-left  xl:w-1/2 lg:w-10/12 md:w:11/12  text-xl xl:text-2xl lg:text-xl md:text-lg sm:text-md" style="font-family: 'Quattrocento Sans', sans-serif;letter-spacing: 0.02em;">
-                        <h3 class="text-yellow_ieee font-bold">ARCS</h3>
-                        <p class="" style="font-family: 'Quattrocento Sans'; letter-spacing: 0.02em;color: white"> A Technical colloquium where participants learn and get inspired from the best in the business through numerous workshops and a Convoke. It also has a 36-hr Hack-a-thon wherein ideas come to life. With a big prize pool and an even
-                            larger participant base, it is one of the most popular Solo Events in VIT.</p>
-                    </div>
-                </div>
-
-                <div class="carousel-item">
-                    <div class="float-left">
-                        <img class="events-img d-block w-72 rounded-full" src="https://res.cloudinary.com/ieeecs-vit/image/upload/c_scale,q_100,w_550/v1621358997/Chapter%20Website%202021%20assets/Events/hb_xhcjdc.jpg" alt="Second slide">
-                    </div>
-                    <div class="xl:pl-8 pt-6 sm:pt-12 float-left  xl:w-1/2 lg:w-10/12 md:w:11/12 text-xl xl:text-2xl lg:text-xl md:text-lg sm:text-md" style="font-family: 'Quattrocento Sans', sans-serif;letter-spacing: 0.02em;">
-                        <h3 class="text-yellow_ieee font-bold">HackBattle</h3>
-                        <p class="" style="font-family: 'Quattrocento Sans'; letter-spacing: 0.02em;color: white"> A 2-day race to innovation, of developers where the most staunch and inventive prevail. Where inspiration is served in heaps and bounds by our most astounding guests, as they take the stage to shower their knowledge.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="carousel-item">
-                    <div class="float-left">
-                        <img class="events-img d-block w-72 rounded-full" src="https://res.cloudinary.com/ieeecs-vit/image/upload/q_100/v1621358997/Chapter%20Website%202021%20assets/Events/tbc_x8odjv.jpg" alt="Second slide">
-                    </div>
-                    <div class="xl:pl-8 pt-6 sm:pt-12 float-left  xl:w-1/2 lg:w-10/12 md:w:11/12 text-xl xl:text-2xl lg:text-xl md:text-lg sm:text-md" style="font-family: 'Quattrocento Sans', sans-serif;letter-spacing: 0.02em;">
-                        <h3 class="text-yellow_ieee font-bold">Think Before Code</h3>
-                        <p class="" style="font-family: 'Quattrocento Sans'; letter-spacing: 0.02em;color: white">An adventure ride for the competitive coders, TBC is your chance to unleash the problem solver within you. Get your head gears on, fasten the seatbelts you dive into the ocean of critical thinking!</p>
-                    </div>
-                </div>
-
-                <div class="carousel-item">
-                    <div class="float-left">
-                        <img class="events-img d-block w-72 rounded-full" src="https://res.cloudinary.com/ieeecs-vit/image/upload/c_scale,q_100,w_550/v1621359854/Chapter%20Website%202021%20assets/Events/icada_jmwukt.jpg" alt="Second slide">
-                    </div>
-                    <div class="xl:pl-8 pt-6 sm:pt-12 float-left  xl:w-1/2 lg:w-10/12 md:w:11/12 text-xl xl:text-2xl lg:text-xl md:text-lg sm:text-md" style="font-family: 'Quattrocento Sans', sans-serif;letter-spacing: 0.02em;">
-                        <h3 class="text-yellow_ieee font-bold">Cicada 3302</h3>
-                        <p class="" style="font-family: 'Quattrocento Sans'; letter-spacing: 0.02em;color: white"> A virtual maze filled with a series of mind-boggling puzzles and hidden messages. The event enjoys extreme popularity amongst the cryptic geeks and is one of the most sought-after.</p>
-                    </div>
-                </div>
-
-                <div class="carousel-item ">
-                    <div class="float-left">
-                        <img class="events-img d-block w-72 rounded-full" src="https://res.cloudinary.com/ieeecs-vit/image/upload/c_scale,q_100,w_550/v1621358997/Chapter%20Website%202021%20assets/Events/moz_quvs0s.jpg" alt="Third slide">
-                    </div>
-                    <div class="xl:pl-8 pt-6 sm:pt-12 float-left  xl:w-1/2 lg:w-10/12 md:w:11/12 text-xl xl:text-2xl lg:text-xl md:text-lg sm:text-md" style="font-family: 'Quattrocento Sans', sans-serif;letter-spacing: 0.02em;">
-                        <h3 class="text-yellow_ieee font-bold">MozDev</h3>
-                        <p class="" style="font-family: 'Quattrocento Sans'; letter-spacing: 0.02em;color: white">A premium 6 hour hands-on session on Web Development for the developers of tomorrow. The workshop is delivered by an industry experts from the Mozilla Open-Source Community. Novice learners looking for a perfect kick-start to their
-                            career are most welcomed!</p>
-                    </div>
-                </div>
-            </div>
-
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-    </div>
-
     <!--SECOND PARA-->
     <div class="about container-fluid padding">
         <div class="md:flex  justify-around text-justify pb-9 pt-6">
@@ -331,21 +225,21 @@
                 <h2 class="pt-3 text-3xl text-yellow_ieee font-sans pb-3 xl:ml-36 lg:ml-36 md:ml-24 sm:ml-12" style="font-family: 'Quattrocento Sans', sans-serif; font-weight: bold;">About us</h2>
                 <p class="text-white font-sans pb-2 xl:ml-36 lg:ml-32 md:ml-24 sm:ml-12 pb-8" style="font-family: 'Quattrocento Sans', sans-serif;letter-spacing: 0.02em;">IEEE Computer Society, VIT, is an eminent Student Branch belonging to the Madras Section of IEEE Region 10. Formed in the February of 2012, we aim to solve the modern-day problems by understanding and harnessing cutting-edge technologies.
                 </p>
-                <p class="text-white font-sans xl:ml-36 lg:ml-32 md:ml-24 sm:ml-12 pb-8" style="font-family: 'Quattrocento Sans', sans-serif; letter-spacing: 0.02em;">Internationally recognized as the symbol of technical expertise and professionalism, IEEE Computer Society has been a home to all inquisitive minds out there, encouraging, motivating, and shaping them to face present-day challenges, and
+                <p class="text-white xl:ml-36 lg:ml-32 md:ml-24 sm:ml-12 pb-8" style="font-family: 'Quattrocento Sans', sans-serif; letter-spacing: 0.02em;">Internationally recognized as the symbol of technical expertise and professionalism, IEEE Computer Society has been a home to all inquisitive minds out there, encouraging, motivating, and shaping them to face present-day challenges, and
                     conquer the same.</p>
             </div>
-            <div class="flex sm:flex-nowrap md:w-2/5 select-none justify-center" style=" margin: auto">
-                <div class="md:px-4">
-                    <img src="./images/new/Group 11.png" ondragstart="return false" class="">
-                    <h3 class="text-white text-center width=100% pb-3">Hackathon Winners</h3>
+            <div class="flex sm:flex-nowrap md:w-2/5 select-none justify-around" style=" margin: auto">
+                <div class="md:px-4 w-1/4 md:w-auto">
+                    <img src="/images/new/Group 11.png" ondragstart="return false" class="">
+                    <h3 class="text-white text-center width=100% pb-3 pt-3">Hackathon Winners</h3>
                 </div>
-                <div class="md:px-4">
-                    <img class="" src="./images/new/Group 12.png" ondragstart="return false" class="comp">
-                    <h3 class="text-white text-center pb-3">Merwin Scholars</h3>
+                <div class="md:px-4 w-1/4 md:w-auto">
+                    <img class="" src="/images/new/Group 12.png" ondragstart="return false" class="comp">
+                    <h3 class="text-white text-center pb-3 pt-3">Merwin Scholars</h3>
                 </div>
-                <div class="md:px-4">
-                    <img class="" src="./images/new/Group 13.png" ondragstart="return false" class="des">
-                    <h3 class="text-white text-center pb-3">Best Chapter Awards</h3>
+                <div class="md:px-4 w-1/4 md:w-auto">
+                    <img class="" src="/images/new/Group 13.png" ondragstart="return false" class="des">
+                    <h3 class="text-white text-center pb-3 pt-3">Best Chapter Awards</h3>
                 </div>
             </div>
         </div>
@@ -356,33 +250,35 @@
     <footer class="text-black bg-footercol w-full">
         <div class="wrapper flex justify-around object-fit: cover; w-full select-none select-none">
             <div class="py-2 border-t-2 border-black lg:w-4/12 md:w-3/12 w-2/12 my-8"></div>
-            <div class="font-montserrat text-center p-4 ">IEEE Computer Society</div>
+            <div class="font-montserrat text-center pt-6">IEEE Computer Society</br>VIT Chapter</div>
             <div class="py-2 border-t-2 border-black lg:w-4/12 md:w-3/12 w-2/12 my-8"></div>
         </div>
 
-        <h4 class="font-montserrat text-center">VIT Chapter</h3>
-            <!-- <div class=" text-center flex justify-around items-center w-full select-none"> -->
-            <div class=" text-center flex justify-around items-center w-full grid grid-cols-3  select-none">
-                <div class="px-4 w-0 hidden md:block md:w-2/5 nav:w-96 nav:p-0 select-none justify-around">
-                    <img class="pl-14 py-2 left: 3px" src="./images/new/ieeecs2.png" ondragstart="return false">
+        <h4 class="font-montserrat text-center pt-0.07">
+            </h3>
+            <div class=" text-center flex justify-around items-center select-none">
+                <div class="px-4 w-0 hidden md:block md:w-2/5 nav:w-96 nav:p-0 select-none">
+                    <img class="pl-14 py-2 left: 3px" src="/images/new/ieeecs2.png" ondragstart="return false">
                 </div>
-                <!-- <div class="px-4 py-2 font-montserrat text-center md:w-1/4 w-1/2 nav:w-1/3 justify-around"> -->
-                <div class="font-montserrat text-center justify-around">
+                <div class="px-4 py-2 font-montserrat text-center md:w-1/4 w-full nav:w-1/3">
                     <h3 class="underline decoration-yellow_ieee text-center">Contact us</h3>
                     <p>ieeecs@vit.ac.in</p>
                     <p>+91 8114468591</p>
                 </div>
-                <!-- <div class="px-4 py-2 font-montserrat text-center md:w-3/5 nav:w-1/2 w-0 hidden md:block justify-around"> -->
-                    <div class="pr-14 font-montserrat text-center justify-around">
-                    <p class="text-justify">
-                        We, here at IEEECS, nurture the coders and leaders of tomorrow. We empower and support new ideas giving them a platform to shine.
+                <div class="px-4 py-2 font-montserrat text-center w-2/12 md:w-3/12 lg-4/12 nav:w-1/2 w-0 hidden md:block">
+                    <p class="text-justify w-5/6">
+                        We, here at IEEECS, nurture the coders and leaders of tomorrow. We empower and support new ideas giving them a platform to shine. IEEECS has been a home to great ideas capable of bringing a better future for all.
                     </p>
                 </div>
             </div>
             <div class=" w-2/5 block md:hidden m-auto">
-                <img class="" src="./images/new/ieeecs2.png" ondragstart="return false">
+                <img class="" src="/images/new/ieeecs2.png" ondragstart="return false">
             </div>
     </footer>
 </body>
+
+</html>
+
+</html>
 
 </html>
