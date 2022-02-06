@@ -42,7 +42,7 @@
           <li class="tab"><a class="active" href="#tech">Technical</a></li>
           <li class="tab"><a href="#manag">Management</a></li>
           <li class="tab"><a href="#design">Design</a></li>
-          <li class="tab"><a href="#doc">Documentation</a></li>
+          <!-- <li class="tab"><a href="#doc">Documentation</a></li> -->
         </ul>
       </div>
     </nav>
@@ -56,7 +56,7 @@
     <% var technical = []; %>
     <% var design = []; %>
     <% var management = []; %>
-    <% var documentation = []; %>
+    <!-- <% var documentation = []; %> -->
     <% data.response.forEach((obj) => { %>
     <% if (obj.questionId.qDomain == "technical") { %>
     <% technical.push(obj); %>
@@ -65,7 +65,7 @@
     <% } else if (obj.questionId.qDomain == "design") { %>
     <% design.push(obj); %>
     <% } else { %>
-    <% documentation.push(obj); %>
+    <!-- <% documentation.push(obj); %> -->
     <% }}); %>
   </div>
 
@@ -186,8 +186,8 @@
   </div>
   <!-- END Design -->
 
-  <!--Documentation-->
-  <div id="doc" class="col s12 scrollable">
+  <!-- Documentation-->
+  <!-- <div id="doc" class="col s12 scrollable">
     <div class="container white-text">
       <% var dcntr = 0; %>
       <% documentation.forEach((obj) => { %>
@@ -216,8 +216,8 @@
       <p class="white-text">Not chosen!</p>
       <% } %>
     </div>
-  </div>
-  <!--END Documentation-->
+  </div> -->
+  <!--END Documentation -->
 
   <footer class="page-footer myfooter">
     <div class="container">

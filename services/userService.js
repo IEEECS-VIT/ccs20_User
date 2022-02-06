@@ -19,7 +19,7 @@ module.exports.setQuestions = async (email, domain) => {
       { qDomain: { $in: domain } },
       { _id: 1, qDomain: 1, qType: 1 }
     ).lean();
-    console.log(Ques.length);
+    console.log("checkpoint: ",Ques.length);
     var domainArray = {},
       que,
       i;
@@ -54,7 +54,7 @@ module.exports.setQuestions = async (email, domain) => {
           len -= 1;
         }
         len = sque.length;
-        xlen = Math.min(3,len);
+        xlen = Math.min(10,len);
         for (i = 0; i < xlen; i++) {
           index = Math.floor(Math.random() * len);
           resultque.push(sque[index]);
@@ -87,7 +87,7 @@ module.exports.setQuestions = async (email, domain) => {
           len -= 1;
         }
         len = sque.length;
-        xlen = Math.min(1,len);
+        xlen = Math.min(10,len);
         for (i = 0; i < xlen; i++) {
           index = Math.floor(Math.random() * len);
           resultque.push(sque[index]);
@@ -120,6 +120,7 @@ module.exports.setQuestions = async (email, domain) => {
           len -= 1;
         }
       }
+      console.log("checkpoint2:", resultque);
       resultque.forEach((qid) => {
         response.data.push({
           questionId: qid,
@@ -127,6 +128,7 @@ module.exports.setQuestions = async (email, domain) => {
         });
       });
       user["domains"][newDomain] = response.id;
+      console.log("checkpoint 3:",response);
       await response.save();
     }
     user.questionSelected = true;

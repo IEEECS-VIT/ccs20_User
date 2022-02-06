@@ -281,7 +281,8 @@ router.get(
 
             // console.log(req);
 
-            if (req.query.hd === "vitstudent.ac.in") {
+            // if (req.query.hd === "vitstudent.ac.in") {
+            if (true) {
                 // Redirect to
                 // let user_exists = 
                 A_Database.exists({
@@ -398,6 +399,7 @@ router.get(
                     // req.logout();
                     // return res.render("closed")
                     var domain = req.body.domain;
+                    domain.push("management");
                     var compete = false;
                     var domainsLeft = [];
                     for (var i = 0; i < domain.length; i++) {
