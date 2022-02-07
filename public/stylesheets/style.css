@@ -1,4 +1,9 @@
 @charset "UTF-8";
+* {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 @media only screen and (max-width: 660px) {
   .phone_login {
     width: 80% !important;
@@ -100,27 +105,26 @@
   /* outline-style:none !important; */
   /* box-shadow:none;
   border-color:transparent; */
-  
 }
-input,button{
+input,
+button {
   outline: none !important;
 }
-input:focus{
+input:focus {
   text-decoration: none !important;
 }
-li
-{
+li {
   font-size: 12px;
   margin-left: -3%;
   margin-right: 2%;
   /* border: solid 1px white; */
 }
 body {
-	/* background-image: url(bg-clouds.png); */
-  background-image: url('../images/line_pattern.png');
-	background-position: 0px 0px;
-	background-repeat: repeat-x;
-	animation: animatedBackground 30s linear infinite;
+  /* background-image: url(bg-clouds.png); */
+  background-image: url("../images/line_pattern.png");
+  background-position: 0px 0px;
+  background-repeat: repeat-x;
+  animation: animatedBackground 30s linear infinite;
   position: absolute;
   left: 0;
   top: 0;
@@ -472,8 +476,7 @@ a {
   .container {
     width: 100% !important;
   }
-  #phone
-  {
+  #phone {
     /* left: 0 !important; */
     margin-left: -2.3% !important;
   }

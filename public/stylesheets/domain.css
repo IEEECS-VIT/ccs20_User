@@ -1,3 +1,8 @@
+* {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 body {
   font-family: "Montserrat";
 }
@@ -5,11 +10,11 @@ body {
   from { background-position: 0 0; }
   to { background-position: 100% 0; }
 } */
-body{
-background-image: url('../images/line_pattern.png');
-background-position: 0px 0px;
-background-repeat: repeat-x;
-animation: animatedBackground 30s linear infinite;
+body {
+  background-image: url("../images/line_pattern.png");
+  background-position: 0px 0px;
+  background-repeat: repeat-x;
+  animation: animatedBackground 30s linear infinite;
 }
 
 .logo {
@@ -41,37 +46,31 @@ animation: animatedBackground 30s linear infinite;
   align-self: center;
 }
 
-.closed-links
-{
+.closed-links {
   display: flex;
   justify-content: center;
   /* border: solid 1px white; */
 }
-.closed-links li
-{
+.closed-links li {
   font-size: 32px;
   margin-right: 1%;
   /* color: white; */
 }
-.closed-links li a
-{
+.closed-links li a {
   transition: all 0.2s;
   color: white;
   text-decoration: none;
 }
-.closed-links li a:hover
-{
+.closed-links li a:hover {
   transition: all 0.2s;
   color: #faa41a;
 }
-.closed-links li a:focus
-{
+.closed-links li a:focus {
   outline: 0 !important;
 }
 /* Remove extra left and right margins, due to padding */
 .row {
   margin: 0 -5px;
- 
 }
 
 /* Clear floats after the columns */
@@ -79,7 +78,6 @@ animation: animatedBackground 30s linear infinite;
   content: "";
   display: table;
   clear: both;
- 
 }
 
 /* Responsive columns */
@@ -306,15 +304,14 @@ input:checked + .slider:before {
   font-weight: 700;
   padding-bottom: 64px;
 }
-@media screen and (max-width: 600px){
-  .logo2{
+@media screen and (max-width: 600px) {
+  .logo2 {
     /* height: 252px !important; */
     width: 300px !important;
-    
   }
 }
-@media screen and (max-width: 992px){
-  .logo2{
+@media screen and (max-width: 992px) {
+  .logo2 {
     width: 277px !important;
     /* height: 252px !important; */
   }
@@ -325,59 +322,53 @@ h2 {
   text-align: center;
   font-size: 2em !important;
 }
-.th{
-    color: #ffffff !important;
-    /* margin: 22.37rem 0px -0.576rem 245px !important; */
-    text-align: center;
-    font-size: 1.5em;
+.th {
+  color: #ffffff !important;
+  /* margin: 22.37rem 0px -0.576rem 245px !important; */
+  text-align: center;
+  font-size: 1.5em;
 }
 .contanier2 {
   margin: 22.37rem 0px -0.576rem 245px !important;
   text-align: center;
 }
-@media screen and (max-width: 992px){
-  .th{
+@media screen and (max-width: 992px) {
+  .th {
     font-size: 1em;
   }
 }
 
-.carousel
-{
+.carousel {
   transform: translateY(-100px);
   height: 700px;
-  perspective:600px;
+  perspective: 600px;
 }
-.carousel .carousel-item
-{
+.carousel .carousel-item {
   width: 600px;
   height: 700px;
   border: solid 2px gold;
 }
-.carousel .carousel-item img{
+.carousel .carousel-item img {
   width: 100%;
   /* margin: 20%; */
-  
 }
 
-.carousel .carousel-item p
-{
-  margin :0; 
+.carousel .carousel-item p {
+  margin: 0;
   padding: 0;
   /* background: #fff; */
   /* color:#000; */
   box-sizing: border-box;
-  padding:10px 5px;
-  font-weight:bold;
-  font-size:16px;
-  text-align:center;
+  padding: 10px 5px;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
 }
-.carousel .carousel-item #logo1
-{
-  height: 100px  !important;
+.carousel .carousel-item #logo1 {
+  height: 100px !important;
 }
 
-.mycardNew
-{
+.mycardNew {
   padding: 64px;
   text-align: center;
   color: #333;
@@ -400,45 +391,36 @@ h2 {
 {
   margin-bottom: 2% !important;
 } */
-.rowCard
-{
+.rowCard {
   display: none !important;
 }
 
-.column
-{
-  display:hide !important;
+.column {
+  display: hide !important;
 }
 
-@media only screen and (max-width:600px)
-{
-  .last{
+@media only screen and (max-width: 600px) {
+  .last {
     display: none !important;
   }
 }
 
-@media only screen and (max-width:460px)
-{
-  .last{
+@media only screen and (max-width: 460px) {
+  .last {
     display: none !important;
   }
-  #begin
-  {
+  #begin {
     margin-top: 15% !important;
   }
-  #RedLine
-  {
+  #RedLine {
     margin-top: 4% !important;
   }
 }
-@media only screen and (max-width:768px)
-{
-  .rowCard
-  {
+@media only screen and (max-width: 768px) {
+  .rowCard {
     display: block !important;
   }
-  .rowCarousel
-  {
+  .rowCarousel {
     display: none !important;
   }
   .mycard {
@@ -452,21 +434,17 @@ h2 {
     width: 100% !important;
     padding-bottom: 30px;
   }
-  .last
-  {
-   background-color: transparent !important;
-    
+  .last {
+    background-color: transparent !important;
   }
-  .last-btn
-  {
+  .last-btn {
     box-shadow: none;
     color: transparent;
     border: transparent;
     background-color: transparent;
     height: 36px;
   }
- #RedLine
- {
-   margin-top: 1% !important;
- }
+  #RedLine {
+    margin-top: 1% !important;
+  }
 }

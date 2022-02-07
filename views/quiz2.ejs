@@ -1,656 +1,755 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:400,600,700"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+      integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/stylesheets/quiz.css" />
+    <link rel="icon" href="images/logoicon.png" />
+    <title>IEEECS | QUIZ</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700" rel="stylesheet" />
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css" />
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
-    integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
-  <link rel="stylesheet" href="/stylesheets/quiz.css" />
-  <link rel="icon" href="images/logoicon.png" />
-  <title>IEEECS | QUIZ</title>
-</head>
-
-<body>
-  <div id="cover"></div>
-  <script>
-    $(window).on("load", function () {
-      $("#cover").fadeOut(200);
-    });
-  </script>
-  <div class="navbar-fixed">
-    <nav class="nav-extended" style="height: 72px;">
-      <div class="nav-wrapper">
-        <a class="brand-logo left"><img src="/images/IEEE-CS_New.png" alt="logo" class="custom-logo" /></a>
-        <span class="right-nav-item"><em class="fas fa-user user-icon"></em><span
-            class="username"><%= user %></span></span>
-      </div>
-    </nav>
-  </div>
-  <div class="main-content">
-    <div class="first-content-container">
-      <div class="domain-option row reset">
-        <div class="technical domain-name col border-left border-1">1. Technical</div>
-        <div class="management domain-name col border-1">2. Management</div>
-        <div class="design domain-name col border-1">3. Design</div>
-        <!-- <div class="documentation domain-name col border-right border-1 border-2">4. Documentation</div> -->
-      </div>
-      <div class="clock">
-        <span class="timer"><em class="far fa-clock"></em><span class="time" id="section-time">HH:MM:SS</span></span>
-      </div>
-
-    </div>
-    <div class="mobile-domain-option">
-      <span id="mobile-domain-text">Section 1 of 4: Technical</span>
-    </div>
-    <form>
-      <div class="second-content-container">
-        <div class="question-area">
-          <!-- Question Area -->
+  <body>
+    <div id="cover"></div>
+    <script>
+      $(window).on("load", function () {
+        $("#cover").fadeOut(200);
+      });
+    </script>
+    <div class="navbar-fixed">
+      <nav class="nav-extended" style="height: 72px">
+        <div class="nav-wrapper">
+          <a class="brand-logo left"
+            ><img src="/images/IEEE-CS_New.png" alt="logo" class="custom-logo"
+          /></a>
+          <span class="right-nav-item"
+            ><em class="fas fa-user user-icon"></em
+            ><span class="username"><%= user %></span></span
+          >
         </div>
-        <div class="question-navigation">
-          <div class="nav-container">
-            <ul class="nav-container-ul">
-              <!-- Navigation Area -->
-            </ul>
+      </nav>
+    </div>
+    <div class="main-content">
+      <div class="first-content-container">
+        <div class="domain-option row reset">
+          <div class="technical domain-name col border-left border-1">
+            1. Technical
+          </div>
+          <div class="management domain-name col border-1">2. Management</div>
+          <div class="design domain-name col border-1">3. Design</div>
+          <!-- <div class="documentation domain-name col border-right border-1 border-2">4. Documentation</div> -->
+        </div>
+        <div class="clock">
+          <span class="timer"
+            ><em class="far fa-clock"></em
+            ><span class="time" id="section-time">HH:MM:SS</span></span
+          >
+        </div>
+      </div>
+      <div class="mobile-domain-option">
+        <span id="mobile-domain-text">Section 1 of 4: Technical</span>
+      </div>
+      <form>
+        <div class="second-content-container">
+          <div class="question-area">
+            <!-- Question Area -->
+          </div>
+          <div class="question-navigation">
+            <div class="nav-container">
+              <ul class="nav-container-ul">
+                <!-- Navigation Area -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="button-content">
+        <div class="row button-container">
+          <div class="col l4 s6">
+            <button
+              type="submit"
+              class="btn-def btn-quiz"
+              onclick="loadPrev()"
+              id="prev-ctrl-btn-id"
+            >
+              <em class="fas fa-chevron-left"></em
+              ><span class="quiz-nav-btn">Previous</span>
+            </button>
+          </div>
+          <div class="col l4 s6">
+            <button
+              type="submit"
+              class="btn-def btn-quiz"
+              onclick="loadNext()"
+              id="nxt-ctrl-btn-id"
+            >
+              <span class="quiz-nav-btn">Next</span
+              ><em class="fas fa-chevron-right"></em>
+            </button>
+          </div>
+          <div class="col l4 s12">
+            <button
+              type="submit"
+              class="btn-def btn-submit"
+              onclick="mainSubmit()"
+            >
+              <span id="submit-test-section">Submit Test</span>
+            </button>
           </div>
         </div>
       </div>
-    </form>
-    <div class="button-content">
-      <div class="row button-container">
-        <div class="col l4 s6">
-          <button type="submit" class="btn-def btn-quiz" onclick="loadPrev()" id="prev-ctrl-btn-id"><em class="fas fa-chevron-left"></em><span
-              class="quiz-nav-btn">Previous</span></button>
-        </div>
-        <div class="col l4 s6">
-          <button type="submit" class="btn-def btn-quiz" onclick="loadNext()" id="nxt-ctrl-btn-id"><span class="quiz-nav-btn">Next</span><em
-              class="fas fa-chevron-right"></em></button>
-        </div>
-        <div class="col l4 s12">
-          <button type="submit" class="btn-def btn-submit" onclick="mainSubmit()"><span id="submit-test-section">Submit
-              Test</span></button>
-        </div>
-      </div>
     </div>
-  </div>
-  <script type="text/javascript">
-    var loadQues, loadNext, loadPrev, mainSubmit;
-    $(document).ready(function () {
-      (function packFunc() {
-        // this array holds the data corresponding to backend data of 
-        // section answered.
-        // update this array only when a section's answer is submitted to backend and 
-        // success response is what we got
-        var userDomainData;
-        var userSectionData;
-        function reloadPage() {
-          window.location.reload();
-        }
-        function startWithCollectingDomainData() {
-          /* Ajax Console
+    <script type="text/javascript">
+      var loadQues, loadNext, loadPrev, mainSubmit;
+      $(document).ready(function () {
+        (function packFunc() {
+          // this array holds the data corresponding to backend data of
+          // section answered.
+          // update this array only when a section's answer is submitted to backend and
+          // success response is what we got
+          var userDomainData;
+          var userSectionData;
+          function reloadPage() {
+            window.location.reload();
+          }
+          function startWithCollectingDomainData() {
+            /* Ajax Console
           console.log("Ajax: Domain Info");
           */
-          $.ajax({
-            url: "/domaininfo",
-            method: "GET",
-            success: function (res) {
-              if (res.success == true) {
-                userDomainData = res.data;
-                /* User Domain Data
-                console.log(userDomainData);
-                */
-                mainFunc();
-              } else {
-                /* res.success == false
-                console.log(res.message);
-                */
-                infoSwal("Unexpected Acess Tried!! <br/> Refresh the page!!", reloadPage, 10);
-              }
-            },
-            error: function (msg) {
-              /* Ajax Error
-              console.log(msg);
-              */
-              infoSwal("Unexpected Error Occurred. <br/> Refresh the page!!", reloadPage, 10);
-            },
-          });
-        }
-        function submitSection() {
-          // Alert when user confirms submit section
-          Swal.fire({
-            icon: 'warning',
-            title: 'Are You Sure?',
-            html: "<span>Want to submit this section?</span>",
-            showCancelButton: true,
-            showConfirmButton: true,
-            confirmButtonText: 'Confirm',
-            allowOutsideClick: false,
-          }).then((result) => {
-            if (result.isConfirmed) {
-              // Move to next section
-              if (userSectionData !== undefined) {
-                return endSection(userSectionData["domain"]);
-              } else {
-                return mainFunc();
-              }
-            }
-          });
-        }
-        function submitTest() {
-          // Alert when user confirms submit section
-          Swal.fire({
-            icon: 'warning',
-            title: 'Are You Sure?',
-            html: "<span>Want to submit test?</span>",
-            showCancelButton: true,
-            showConfirmButton: true,
-            confirmButtonText: 'Confirm',
-            allowOutsideClick: false,
-          }).then((result) => {
-            if (result.isConfirmed) {
-              // Move to next section
-              if (userSectionData !== undefined) {
-                return endSection(userSectionData["domain"]);
-              } else {
-                return mainFunc();
-              }
-            }
-          });
-        }
-        function infoSwal(message, func, time) {
-          // Alert when user confirms submit section
-          Swal.fire({
-            icon: 'info',
-            title: 'Notice!',
-            html: `<span>${message}</span>`,
-            showConfirmButton: true,
-            showCancelButton: false,
-            confirmButtonText: 'Continue',
-            allowOutsideClick: false,
-            timer: time * 1000,
-            willClose: () => {
-              if (func !== null) {
-                return func();
-              } else {
-                return window.location.reload();
-              }
-            }
-          }).then((result) => {
-            if (result.isConfirmed) {
-              // Move to next section
-              Swal.close();
-            }
-          });
-        }
-        function confirmCancelSwal(message, confirmFunc, cancelFunc, time) {
-          // Alert when user confirms submit section
-          Swal.fire({
-            icon: 'info',
-            title: 'Notice!',
-            html: `<span>${message}</span>`,
-            showConfirmButton: true,
-            showCancelButton: true,
-            cancelButtonText: "Cancel",
-            confirmButtonText: 'Confirm',
-            allowOutsideClick: false,
-            timer: time * 1000,
-            willClose: () => {
-              if (cancelFunc !== null) {
-                return cancelFunc();
-              } else {
-                return window.location.reload();
-              }
-            }
-          }).then((result) => {
-            if (result.isConfirmed) {
-              // Move to next section
-              if (confirmFunc !== null) {
-                return confirmFunc();
-              } else {
-                return window.location.reload();
-              }
-            } else {
-              if (cancelFunc !== null) {
-                return cancelFunc();
-              } else {
-                return window.location.reload();
-              }
-            }
-          });
-        }
-        function loaderSwal() {
-          Swal.fire({
-            html: "<img id='loaderSwalsvg' src='/images/load.svg'/><h4 style='text-align:center'>Please Wait</h4> ",
-            showConfirmButton: false,
-            allowOutsideClick: false,
-          })
-        }
-        function endTest() {
-          infoSwal("Thankyou for taking this test!", goToComplete, 5);
-          function goToComplete() {
-            window.location.href = "/feedback";
-          }
-        }
-        function mainFunc() {
-          // false: Not attempted
-          // true: attempted
-          // null: Not chosen
-          var domainSelector = document.getElementsByClassName('domain-name');
-          var domainNameArray = ['Technical', 'Management', 'Design', 'Documentation'];
-          var mobileSectionCount = domainNameArray.length;
-          var mobileSectionNumber = 1;
-          var mobileFirstSection = null;
-          var mobileDomainSelector = document.getElementById('mobile-domain-text');
-          for (var i = 0; i < domainSelector.length; i++) {
-            if (userDomainData[i] === null) {
-              domainSelector[i].classList.add('not-selected');
-              mobileSectionCount -= 1;
-            } else if (mobileFirstSection === null) {
-              if (userDomainData[i] === false) {
-                domainSelector[i].classList.add('ongoing');
-                mobileFirstSection = domainNameArray[i];
-              } else {
-                domainSelector[i].classList.remove('ongoing');
-                domainSelector[i].classList.add('domain-attempted');
-                mobileSectionNumber += 1;
-              }
-            }
-          }
-          if (mobileFirstSection !== null) {
-            mobileDomainSelector.textContent = `Section ${mobileSectionNumber} of ${mobileSectionCount}: ${mobileFirstSection}`;
-            let spanData = document.getElementById("submit-test-section");
-            let timeData = document.getElementById("section-time");
-            timeData.innerText = "HH:MM:SS";
-            if (mobileSectionCount === mobileSectionNumber) {
-              spanData.innerText = "Submit Test";
-              mainSubmit = submitTest;
-            } else {
-              spanData.innerText = "Submit Section";
-              mainSubmit = submitSection;
-            }
-            var domainChoosedName = mobileFirstSection.toLowerCase();
-            domainFunc(domainChoosedName);
-          } else {
-            // All domains Answered
-            // fire an end message
-            endTest();
-          }
-        }
-        function domainFunc(domain) {
-          // first fetch all questions from backend
-          // add a loader here
-          loaderSwal();
-          /*  Ajax Console
-          console.log("Ajax: Questions for " + domain);
-          */
-          $.ajax({
-            url: `/question/${domain}`,
-            method: "GET",
-            success: function (res) {
-              if (res.success == true) {
-                /* questions data
-                console.log(res.data);
-                */
-                prepareAll(res.data);
-              } else {
-                // We can display this error as a 
-                // sweet alert and tell to refresh page
-                /* res.success = false 
-                console.log(res.message);
-                */
-                if (res.code === "er") {
-                  infoSwal("Unexpected Server Error. <br/> Refresh the page!!", reloadPage, 10);
-                } else if (res.code === "ua" || res.code === "ns") {
-                  infoSwal("Unexpected Access Tried. <br/> Refresh the page!!", reloadPage, 10);
-                } else if (res.code === "as") {
-                  updateDomainDataForDomain(domain, true);
-                  mainFunc();
-                }
-              }
-            },
-            error: function (msg) {
-              /* Ajax Console Error
-              console.log(msg);
-              */
-              infoSwal("Unexpected Error Occurred. <br/> Refresh the page!!", reloadPage, 10);
-            },
-          });
-          function prepareAll(questions) {
-            let qDivision = document.getElementsByClassName("question-area")[0];
-            let qNavig = document.getElementsByClassName("nav-container-ul")[0];
-            qDivision.innerHTML = "";
-            qNavig.innerHTML = "";
-            let qArray = [];
-            let navArray = [];
-            var len = 0;
-            var changeTo;
-            var prevTo;
-            var nextTo;
-            questions.forEach(question => {
-              let qData = createQuestion(question, ++len);
-              qDivision.appendChild(qData);
-              qArray.push(qData);
-              let navData = createNavigation(len);
-              qNavig.appendChild(navData);
-              navArray.push(navData.children[0]);
-            });
-            var current = 0;
-            --len;
-            /* no of question for this domain
-            console.log(len);
-            */
-            changeTo = function changeTo(no) {
-              if (no <= len && no >= 0) {
-                qArray[current].classList.add("hidden");
-                navArray[current].classList.remove("ongoing");
-                current = no;
-                qArray[current].classList.remove("hidden");
-                navArray[current].classList.add("ongoing");
-                if (no == len) {
-                  document.getElementById("nxt-ctrl-btn-id").classList.add("not-selected");
-                } else {
-                  document.getElementById("nxt-ctrl-btn-id").classList.remove("not-selected");
-                }
-                if (no == 0) {
-                  document.getElementById("prev-ctrl-btn-id").classList.add("not-selected");
-                } else {
-                  document.getElementById("prev-ctrl-btn-id").classList.remove("not-selected");
-                }
-              }
-            }
-            nextTo = function nextTo() {
-              changeTo(current + 1);
-            }
-            prevTo = function prevTo() {
-              changeTo(current - 1);
-            }
-            loadNext = nextTo;
-            loadPrev = prevTo;
-            loadQues = changeTo;
-            changeTo(current);
-          }
-          var form = document.forms[0];
-          userSectionData = Object.create(null);
-          form.onsubmit = function onsubmit(e) {
-            e.preventDefault();
-          }
-          userSectionData["domain"] = domain;
-          userSectionData["form"] = form;
-          timer(5);
-        }
-        function createNavigation(no, func) {
-          let liE = document.createElement("li");
-          liE.classList.add("navigation-txt");
-          let buttonE = document.createElement("button");
-          buttonE.type = "submit";
-          buttonE.classList.add("btn-nav");
-          buttonE.innerText = no;
-          buttonE.onclick = new Function(`{loadQues(parseInt(${no - 1}))}`);
-          liE.appendChild(buttonE);
-          return liE;
-        }
-        function createQuestion(questionObj, no) {
-          let questionContainer = document.createElement("div");
-          questionContainer.classList.add("hidden");
-          questionContainer.classList.add("actual-question");
-          let qDiv = document.createElement("div");
-          qDiv.classList.add("question-txt");
-          qDiv.innerText = `Q${no}. ${questionObj.question}`;
-          let ansDiv;
-          if (questionObj.qType === "multic") {
-            ansDiv = multiChoiceAns(questionObj._id, questionObj.options);
-          } else if (questionObj.qType === "singlec") {
-            ansDiv = singleChoiceAns(questionObj._id, questionObj.options);
-          } else if (questionObj.qType === "descr") {
-            ansDiv = descAns(questionObj._id);
-          } else {
-            ansDiv = singleLineAns(questionObj._id);
-          }
-          questionContainer.appendChild(qDiv);
-          questionContainer.appendChild(ansDiv);
-          return questionContainer;
-        }
-        function multiChoiceAns(qid, options) {
-          let containerDiv = document.createElement("div");
-          containerDiv.classList.add("option-container");
-          containerDiv.classList.add("extra1");
-          var i;
-          for (i = 0; i < options.length; i++) {
-            let label = document.createElement("label");
-            label.classList.add("option");
-            let br = document.createElement("br");
-            let inputElement = document.createElement("input");
-            inputElement.type = "checkbox";
-            inputElement.name = qid; // name
-            inputElement.value = options[i] // option-text
-            inputElement.classList.add("filled-in");
-            inputElement.classList.add("checkbox-style");
-            let span = document.createElement("span");
-            span.classList.add("option-txt");
-            span.innerText = options[i]; // option text
-            label.appendChild(inputElement);
-            label.appendChild(span);
-            containerDiv.appendChild(label);
-            containerDiv.appendChild(br);
-          }
-          return containerDiv;
-        }
-        function singleChoiceAns(qid, options) {
-          let containerDiv = document.createElement("div");
-          containerDiv.classList.add("option-container");
-          containerDiv.classList.add("extra1");
-          var i;
-          for (i = 0; i < options.length; i++) {
-            let label = document.createElement("label");
-            label.classList.add("option");
-            let br = document.createElement("br");
-            let inputElement = document.createElement("input");
-            inputElement.type = "radio";
-            inputElement.name = qid; // name
-            inputElement.value = options[i] // option-text
-            let span = document.createElement("span");
-            span.classList.add("option-txt");
-            span.innerText = options[i]; // option text
-            label.appendChild(inputElement);
-            label.appendChild(span);
-            containerDiv.appendChild(label);
-            containerDiv.appendChild(br);
-          }
-          return containerDiv;
-        }
-        function descAns(qid) {
-          let containerDiv = document.createElement("div");
-          containerDiv.classList.add("option-container");
-          let textarea = document.createElement("textarea");
-          textarea.classList.add("long-input-field-style");
-          textarea.placeholder = "Answer in Brief";
-          textarea.cols = 60;
-          textarea.rows = 30;
-          textarea.name = qid; // name
-          containerDiv.appendChild(textarea);
-          return containerDiv;
-        }
-        function singleLineAns(qid) {
-          let containerDiv = document.createElement("div");
-          containerDiv.classList.add("option-container");
-          let label = document.createElement("label");
-          label.htmlFor = qid; // name
-          label.innerText = "Answer:";
-          let inputElement = document.createElement("input");
-          inputElement.classList.add("input-field-style");
-          inputElement.type = "text";
-          inputElement.placeholder = "In a Sentence or Two";
-          inputElement.name = qid; // name
-          containerDiv.appendChild(label);
-          containerDiv.appendChild(inputElement);
-          return containerDiv;
-        }
-        function startSection(domain) {
-          // Set Timer 
-          // Record startTime and endTime
-          if (userSectionData === undefined) {
-            return;
-          }
-          userSectionData["startTime"] = Date.now();
-          var timer = 60 * 10; // 15 minutes maxTime
-          function myTimer() {
-            document.getElementById("section-time").innerText = "00:" + ((timer / 60) < 10 ? ("0" + Math.floor(timer / 60)) : Math.floor(timer / 60)) + ":" + ((timer % 60) < 10 ? ("0" + timer % 60) : timer % 60);
-            timer--;
-            if (timer <= 0) {
-              document.getElementById("section-time").innerText = "Time's Up";
-              endSection(domain);
-            }
-          }
-          userSectionData["intervalData"] = setInterval(myTimer, 990);
-        }
-        function endSection(domain) {
-          loaderSwal();
-          if (userSectionData === undefined) {
-            return;
-          }
-          // preparing multiple submit
-          mainSubmit = function mainSubmit() { };
-          userSectionData["endTime"] = Date.now();
-          if (userSectionData["intervalData"]) {
-            clearInterval(userSectionData["intervalData"]);
-          }
-          // Parse and Submit Answers
-          // Call mainFunc To Begin NextSection
-          var multiCSep = "$$##$$"; // 4 dollar symbols concatenated with 2 # in middle
-          var formData = new FormData(userSectionData["form"]);
-          var solutions = [];
-          var lastData;
-          var callNo = 0;
-          formData.forEach((val, key) => {
-            if (lastData && lastData.questionId === key) {
-              if (val !== "") {
-                lastData.solution.push(val);
-              }
-            } else {
-              lastData = {
-                "questionId": key,
-                "solution": [],
-              };
-              if (val !== "") {
-                lastData.solution.push(val);
-              }
-              solutions.push(lastData);
-            }
-          });
-          function actualAnswerPost() {
-            ++callNo;
-            /* Ajax Console
-            console.log("Ajax: Post Answers for " + domain);
-            */
-            if (callNo >= 3) {
-              return window.location.reload();
-            }
             $.ajax({
-              url: `/question/${domain}`,
-              method: "POST",
-              dataType: "json",
-              contentType: "application/x-www-form-urlencoded",
-              data: {
-                endTime: userSectionData["endTime"],
-                startTime: userSectionData["startTime"],
-                solutions: solutions,
-              },
+              url: "/domaininfo",
+              method: "GET",
               success: function (res) {
                 if (res.success == true) {
-                  // update the data
-                  updateDomainDataForDomain(domain, true);
-                  userSectionData = undefined;
+                  userDomainData = res.data;
+                  /* User Domain Data
+                console.log(userDomainData);
+                */
                   mainFunc();
                 } else {
-                  // We can display this error as a 
+                  /* res.success == false
+                console.log(res.message);
+                */
+                  infoSwal(
+                    "Unexpected Acess Tried!! <br/> Refresh the page!!",
+                    reloadPage,
+                    10
+                  );
+                }
+              },
+              error: function (msg) {
+                /* Ajax Error
+              console.log(msg);
+              */
+                infoSwal(
+                  "Unexpected Error Occurred. <br/> Refresh the page!!",
+                  reloadPage,
+                  10
+                );
+              }
+            });
+          }
+          function submitSection() {
+            // Alert when user confirms submit section
+            Swal.fire({
+              icon: "warning",
+              title: "Are You Sure?",
+              html: "<span>Want to submit this section?</span>",
+              showCancelButton: true,
+              showConfirmButton: true,
+              confirmButtonText: "Confirm",
+              allowOutsideClick: false
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // Move to next section
+                if (userSectionData !== undefined) {
+                  return endSection(userSectionData["domain"]);
+                } else {
+                  return mainFunc();
+                }
+              }
+            });
+          }
+          function submitTest() {
+            // Alert when user confirms submit section
+            Swal.fire({
+              icon: "warning",
+              title: "Are You Sure?",
+              html: "<span>Want to submit test?</span>",
+              showCancelButton: true,
+              showConfirmButton: true,
+              confirmButtonText: "Confirm",
+              allowOutsideClick: false
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // Move to next section
+                if (userSectionData !== undefined) {
+                  return endSection(userSectionData["domain"]);
+                } else {
+                  return mainFunc();
+                }
+              }
+            });
+          }
+          function infoSwal(message, func, time) {
+            // Alert when user confirms submit section
+            Swal.fire({
+              icon: "info",
+              title: "Notice!",
+              html: `<span>${message}</span>`,
+              showConfirmButton: true,
+              showCancelButton: false,
+              confirmButtonText: "Continue",
+              allowOutsideClick: false,
+              timer: time * 1000,
+              willClose: () => {
+                if (func !== null) {
+                  return func();
+                } else {
+                  return window.location.reload();
+                }
+              }
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // Move to next section
+                Swal.close();
+              }
+            });
+          }
+          function confirmCancelSwal(message, confirmFunc, cancelFunc, time) {
+            // Alert when user confirms submit section
+            Swal.fire({
+              icon: "info",
+              title: "Notice!",
+              html: `<span>${message}</span>`,
+              showConfirmButton: true,
+              showCancelButton: true,
+              cancelButtonText: "Cancel",
+              confirmButtonText: "Confirm",
+              allowOutsideClick: false,
+              timer: time * 1000,
+              willClose: () => {
+                if (cancelFunc !== null) {
+                  return cancelFunc();
+                } else {
+                  return window.location.reload();
+                }
+              }
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // Move to next section
+                if (confirmFunc !== null) {
+                  return confirmFunc();
+                } else {
+                  return window.location.reload();
+                }
+              } else {
+                if (cancelFunc !== null) {
+                  return cancelFunc();
+                } else {
+                  return window.location.reload();
+                }
+              }
+            });
+          }
+          function loaderSwal() {
+            Swal.fire({
+              html: "<img id='loaderSwalsvg' src='/images/load.svg'/><h4 style='text-align:center'>Please Wait</h4> ",
+              showConfirmButton: false,
+              allowOutsideClick: false
+            });
+          }
+          function endTest() {
+            infoSwal("Thankyou for taking this test!", goToComplete, 5);
+            function goToComplete() {
+              window.location.href = "/feedback";
+            }
+          }
+          function mainFunc() {
+            // false: Not attempted
+            // true: attempted
+            // null: Not chosen
+            var domainSelector = document.getElementsByClassName("domain-name");
+            var domainNameArray = [
+              "Technical",
+              "Management",
+              "Design",
+              "Documentation"
+            ];
+            var mobileSectionCount = domainNameArray.length;
+            var mobileSectionNumber = 1;
+            var mobileFirstSection = null;
+            var mobileDomainSelector =
+              document.getElementById("mobile-domain-text");
+            for (var i = 0; i < domainSelector.length; i++) {
+              if (userDomainData[i] === null) {
+                domainSelector[i].classList.add("not-selected");
+                mobileSectionCount -= 1;
+              } else if (mobileFirstSection === null) {
+                if (userDomainData[i] === false) {
+                  domainSelector[i].classList.add("ongoing");
+                  mobileFirstSection = domainNameArray[i];
+                } else {
+                  domainSelector[i].classList.remove("ongoing");
+                  domainSelector[i].classList.add("domain-attempted");
+                  mobileSectionNumber += 1;
+                }
+              }
+            }
+            if (mobileFirstSection !== null) {
+              mobileDomainSelector.textContent = `Section ${mobileSectionNumber} of ${mobileSectionCount}: ${mobileFirstSection}`;
+              let spanData = document.getElementById("submit-test-section");
+              let timeData = document.getElementById("section-time");
+              timeData.innerText = "HH:MM:SS";
+              if (mobileSectionCount === mobileSectionNumber) {
+                spanData.innerText = "Submit Test";
+                mainSubmit = submitTest;
+              } else {
+                spanData.innerText = "Submit Section";
+                mainSubmit = submitSection;
+              }
+              var domainChoosedName = mobileFirstSection.toLowerCase();
+              domainFunc(domainChoosedName);
+            } else {
+              // All domains Answered
+              // fire an end message
+              endTest();
+            }
+          }
+          function domainFunc(domain) {
+            // first fetch all questions from backend
+            // add a loader here
+            loaderSwal();
+            /*  Ajax Console
+          console.log("Ajax: Questions for " + domain);
+          */
+            $.ajax({
+              url: `/question/${domain}`,
+              method: "GET",
+              success: function (res) {
+                if (res.success == true) {
+                  /* questions data
+                console.log(res.data);
+                */
+                  prepareAll(res.data);
+                } else {
+                  // We can display this error as a
                   // sweet alert and tell to refresh page
-                  /* Error Message for res.success = false
-                  console.log(res.message);
-                  */
+                  /* res.success = false 
+                console.log(res.message);
+                */
                   if (res.code === "er") {
-                    // some server error either refresh and restart section
-                    // or give resubmit option
-                    confirmCancelSwal("Unexpected Server Error. <br/> Should we try submitting again? <br /> or page will reload", actualAnswerPost, reloadPage, 10);
+                    infoSwal(
+                      "Unexpected Server Error. <br/> Refresh the page!!",
+                      reloadPage,
+                      10
+                    );
                   } else if (res.code === "ua" || res.code === "ns") {
-                    infoSwal("Unexpected Access Tried. <br/> Refresh the page!!", reloadPage, 10);
+                    infoSwal(
+                      "Unexpected Access Tried. <br/> Refresh the page!!",
+                      reloadPage,
+                      10
+                    );
                   } else if (res.code === "as") {
                     updateDomainDataForDomain(domain, true);
-                    userSectionData = undefined;
                     mainFunc();
                   }
                 }
               },
               error: function (msg) {
-                /* Ajax Error Message
-                console.log(msg);
-                */
-                infoSwal("Unexpected Error Occurred. <br/> Refresh the page!!", reloadPage, 10);
-              },
+                /* Ajax Console Error
+              console.log(msg);
+              */
+                infoSwal(
+                  "Unexpected Error Occurred. <br/> Refresh the page!!",
+                  reloadPage,
+                  10
+                );
+              }
             });
-          }
-          actualAnswerPost();
-        }
-        function timer(time) {
-          // Pre section timer using Sweetalert2
-          Swal.fire({
-            title: 'Get Ready!',
-            html: `The section will start in <b>${time}</b> seconds.`,
-            timer: time * 1000,
-            timerProgressBar: true,
-            showCloseButton: false,
-            showCancelButton: false,
-            showConfirmButton: false,
-            allowOutsideClick: false,
-            focusConfirm: false,
-            didOpen: () => {
-              timerInterval = setInterval(() => {
-                const content = Swal.getContent();
-                if (content) {
-                  const b = content.querySelector('b');
-                  if (b) {
-                    b.textContent = Math.round(Swal.getTimerLeft() / 1000);
+            function prepareAll(questions) {
+              let qDivision =
+                document.getElementsByClassName("question-area")[0];
+              let qNavig =
+                document.getElementsByClassName("nav-container-ul")[0];
+              qDivision.innerHTML = "";
+              qNavig.innerHTML = "";
+              let qArray = [];
+              let navArray = [];
+              var len = 0;
+              var changeTo;
+              var prevTo;
+              var nextTo;
+              questions.forEach((question) => {
+                let qData = createQuestion(question, ++len);
+                qDivision.appendChild(qData);
+                qArray.push(qData);
+                let navData = createNavigation(len);
+                qNavig.appendChild(navData);
+                navArray.push(navData.children[0]);
+              });
+              var current = 0;
+              --len;
+              /* no of question for this domain
+            console.log(len);
+            */
+              changeTo = function changeTo(no) {
+                if (no <= len && no >= 0) {
+                  qArray[current].classList.add("hidden");
+                  navArray[current].classList.remove("ongoing");
+                  current = no;
+                  qArray[current].classList.remove("hidden");
+                  navArray[current].classList.add("ongoing");
+                  if (no == len) {
+                    document
+                      .getElementById("nxt-ctrl-btn-id")
+                      .classList.add("not-selected");
+                  } else {
+                    document
+                      .getElementById("nxt-ctrl-btn-id")
+                      .classList.remove("not-selected");
+                  }
+                  if (no == 0) {
+                    document
+                      .getElementById("prev-ctrl-btn-id")
+                      .classList.add("not-selected");
+                  } else {
+                    document
+                      .getElementById("prev-ctrl-btn-id")
+                      .classList.remove("not-selected");
                   }
                 }
-              }, 1000)
-            },
-            willClose: () => {
-              clearInterval(timerInterval);
-              startSection(userSectionData["domain"]);
+              };
+              nextTo = function nextTo() {
+                changeTo(current + 1);
+              };
+              prevTo = function prevTo() {
+                changeTo(current - 1);
+              };
+              loadNext = nextTo;
+              loadPrev = prevTo;
+              loadQues = changeTo;
+              changeTo(current);
             }
-          })
-        }
-        function updateDomainDataForDomain(domain, val) {
-          if (val !== null && val !== false && val !== true) {
-            val = false;
+            var form = document.forms[0];
+            userSectionData = Object.create(null);
+            form.onsubmit = function onsubmit(e) {
+              e.preventDefault();
+            };
+            userSectionData["domain"] = domain;
+            userSectionData["form"] = form;
+            timer(5);
           }
-          /* update Domain Args
+          function createNavigation(no, func) {
+            let liE = document.createElement("li");
+            liE.classList.add("navigation-txt");
+            let buttonE = document.createElement("button");
+            buttonE.type = "submit";
+            buttonE.classList.add("btn-nav");
+            buttonE.innerText = no;
+            buttonE.onclick = new Function(`{loadQues(parseInt(${no - 1}))}`);
+            liE.appendChild(buttonE);
+            return liE;
+          }
+          function createQuestion(questionObj, no) {
+            let questionContainer = document.createElement("div");
+            questionContainer.classList.add("hidden");
+            questionContainer.classList.add("actual-question");
+            let qDiv = document.createElement("div");
+            qDiv.classList.add("question-txt");
+            qDiv.innerText = `Q${no}. ${questionObj.question}`;
+            let ansDiv;
+            if (questionObj.qType === "multic") {
+              ansDiv = multiChoiceAns(questionObj._id, questionObj.options);
+            } else if (questionObj.qType === "singlec") {
+              ansDiv = singleChoiceAns(questionObj._id, questionObj.options);
+            } else if (questionObj.qType === "descr") {
+              ansDiv = descAns(questionObj._id);
+            } else {
+              ansDiv = singleLineAns(questionObj._id);
+            }
+            questionContainer.appendChild(qDiv);
+            questionContainer.appendChild(ansDiv);
+            return questionContainer;
+          }
+          function multiChoiceAns(qid, options) {
+            let containerDiv = document.createElement("div");
+            containerDiv.classList.add("option-container");
+            containerDiv.classList.add("extra1");
+            var i;
+            for (i = 0; i < options.length; i++) {
+              let label = document.createElement("label");
+              label.classList.add("option");
+              let br = document.createElement("br");
+              let inputElement = document.createElement("input");
+              inputElement.type = "checkbox";
+              inputElement.name = qid; // name
+              inputElement.value = options[i]; // option-text
+              inputElement.classList.add("filled-in");
+              inputElement.classList.add("checkbox-style");
+              let span = document.createElement("span");
+              span.classList.add("option-txt");
+              span.innerText = options[i]; // option text
+              label.appendChild(inputElement);
+              label.appendChild(span);
+              containerDiv.appendChild(label);
+              containerDiv.appendChild(br);
+            }
+            return containerDiv;
+          }
+          function singleChoiceAns(qid, options) {
+            let containerDiv = document.createElement("div");
+            containerDiv.classList.add("option-container");
+            containerDiv.classList.add("extra1");
+            var i;
+            for (i = 0; i < options.length; i++) {
+              let label = document.createElement("label");
+              label.classList.add("option");
+              let br = document.createElement("br");
+              let inputElement = document.createElement("input");
+              inputElement.type = "radio";
+              inputElement.name = qid; // name
+              inputElement.value = options[i]; // option-text
+              let span = document.createElement("span");
+              span.classList.add("option-txt");
+              span.innerText = options[i]; // option text
+              label.appendChild(inputElement);
+              label.appendChild(span);
+              containerDiv.appendChild(label);
+              containerDiv.appendChild(br);
+            }
+            return containerDiv;
+          }
+          function descAns(qid) {
+            let containerDiv = document.createElement("div");
+            containerDiv.classList.add("option-container");
+            let textarea = document.createElement("textarea");
+            textarea.classList.add("long-input-field-style");
+            textarea.placeholder = "Answer in Brief";
+            textarea.cols = 60;
+            textarea.rows = 30;
+            textarea.name = qid; // name
+            textarea.onpaste = "return false";
+            textarea.oncopy = "return false";
+            containerDiv.appendChild(textarea);
+            return containerDiv;
+          }
+          function singleLineAns(qid) {
+            let containerDiv = document.createElement("div");
+            containerDiv.classList.add("option-container");
+            let label = document.createElement("label");
+            label.htmlFor = qid; // name
+            label.innerText = "Answer:";
+            let inputElement = document.createElement("input");
+            inputElement.classList.add("input-field-style");
+            inputElement.type = "text";
+            inputElement.placeholder = "In a Sentence or Two";
+            inputElement.name = qid; // name
+            containerDiv.appendChild(label);
+            containerDiv.appendChild(inputElement);
+            return containerDiv;
+          }
+          function startSection(domain) {
+            // Set Timer
+            // Record startTime and endTime
+            if (userSectionData === undefined) {
+              return;
+            }
+            userSectionData["startTime"] = Date.now();
+            var timer = 60 * 10; // 15 minutes maxTime
+            function myTimer() {
+              document.getElementById("section-time").innerText =
+                "00:" +
+                (timer / 60 < 10
+                  ? "0" + Math.floor(timer / 60)
+                  : Math.floor(timer / 60)) +
+                ":" +
+                (timer % 60 < 10 ? "0" + (timer % 60) : timer % 60);
+              timer--;
+              if (timer <= 0) {
+                document.getElementById("section-time").innerText = "Time's Up";
+                endSection(domain);
+              }
+            }
+            userSectionData["intervalData"] = setInterval(myTimer, 990);
+          }
+          function endSection(domain) {
+            loaderSwal();
+            if (userSectionData === undefined) {
+              return;
+            }
+            // preparing multiple submit
+            mainSubmit = function mainSubmit() {};
+            userSectionData["endTime"] = Date.now();
+            if (userSectionData["intervalData"]) {
+              clearInterval(userSectionData["intervalData"]);
+            }
+            // Parse and Submit Answers
+            // Call mainFunc To Begin NextSection
+            var multiCSep = "$$##$$"; // 4 dollar symbols concatenated with 2 # in middle
+            var formData = new FormData(userSectionData["form"]);
+            var solutions = [];
+            var lastData;
+            var callNo = 0;
+            formData.forEach((val, key) => {
+              if (lastData && lastData.questionId === key) {
+                if (val !== "") {
+                  lastData.solution.push(val);
+                }
+              } else {
+                lastData = {
+                  questionId: key,
+                  solution: []
+                };
+                if (val !== "") {
+                  lastData.solution.push(val);
+                }
+                solutions.push(lastData);
+              }
+            });
+            function actualAnswerPost() {
+              ++callNo;
+              /* Ajax Console
+            console.log("Ajax: Post Answers for " + domain);
+            */
+              if (callNo >= 3) {
+                return window.location.reload();
+              }
+              $.ajax({
+                url: `/question/${domain}`,
+                method: "POST",
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded",
+                data: {
+                  endTime: userSectionData["endTime"],
+                  startTime: userSectionData["startTime"],
+                  solutions: solutions
+                },
+                success: function (res) {
+                  if (res.success == true) {
+                    // update the data
+                    updateDomainDataForDomain(domain, true);
+                    userSectionData = undefined;
+                    mainFunc();
+                  } else {
+                    // We can display this error as a
+                    // sweet alert and tell to refresh page
+                    /* Error Message for res.success = false
+                  console.log(res.message);
+                  */
+                    if (res.code === "er") {
+                      // some server error either refresh and restart section
+                      // or give resubmit option
+                      confirmCancelSwal(
+                        "Unexpected Server Error. <br/> Should we try submitting again? <br /> or page will reload",
+                        actualAnswerPost,
+                        reloadPage,
+                        10
+                      );
+                    } else if (res.code === "ua" || res.code === "ns") {
+                      infoSwal(
+                        "Unexpected Access Tried. <br/> Refresh the page!!",
+                        reloadPage,
+                        10
+                      );
+                    } else if (res.code === "as") {
+                      updateDomainDataForDomain(domain, true);
+                      userSectionData = undefined;
+                      mainFunc();
+                    }
+                  }
+                },
+                error: function (msg) {
+                  /* Ajax Error Message
+                console.log(msg);
+                */
+                  infoSwal(
+                    "Unexpected Error Occurred. <br/> Refresh the page!!",
+                    reloadPage,
+                    10
+                  );
+                }
+              });
+            }
+            actualAnswerPost();
+          }
+          function timer(time) {
+            // Pre section timer using Sweetalert2
+            Swal.fire({
+              title: "Get Ready!",
+              html: `The section will start in <b>${time}</b> seconds.`,
+              timer: time * 1000,
+              timerProgressBar: true,
+              showCloseButton: false,
+              showCancelButton: false,
+              showConfirmButton: false,
+              allowOutsideClick: false,
+              focusConfirm: false,
+              didOpen: () => {
+                timerInterval = setInterval(() => {
+                  const content = Swal.getContent();
+                  if (content) {
+                    const b = content.querySelector("b");
+                    if (b) {
+                      b.textContent = Math.round(Swal.getTimerLeft() / 1000);
+                    }
+                  }
+                }, 1000);
+              },
+              willClose: () => {
+                clearInterval(timerInterval);
+                startSection(userSectionData["domain"]);
+              }
+            });
+          }
+          function updateDomainDataForDomain(domain, val) {
+            if (val !== null && val !== false && val !== true) {
+              val = false;
+            }
+            /* update Domain Args
           console.log(domain + ":" + val);
           */
-          switch (domain) {
-            case "technical": userDomainData[0] = val;
-              break;
-            case "management": userDomainData[1] = val;
-              break;
-            case "design": userDomainData[2] = val;
-              break;
-            case "documentation": userDomainData[3] = val;
-              break;
+            switch (domain) {
+              case "technical":
+                userDomainData[0] = val;
+                break;
+              case "management":
+                userDomainData[1] = val;
+                break;
+              case "design":
+                userDomainData[2] = val;
+                break;
+              case "documentation":
+                userDomainData[3] = val;
+                break;
+            }
+            return;
           }
-          return;
-        }
-        startWithCollectingDomainData();
-      })()
-    });
-  </script>
-</body>
-
+          startWithCollectingDomainData();
+        })();
+      });
+    </script>
+  </body>
 </html>

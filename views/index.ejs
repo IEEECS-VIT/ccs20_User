@@ -86,14 +86,14 @@
 
 <body class="bg-black" style="background-image: url(/images/new/bg_svg1.svg);background-size: cover; background-position: center; background-repeat: repeat-y;">
     <!-- navigation-->
-    <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-black object-right-top select-none">
+    <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-black object-right-top select-none h-auto">
         <div class="container-fluid  select-none">
             <div class="parentdiv flex flex-row w-full nav:w-2/3 lg:w-full justify-between">
                 <div class="headlogo select-none w-2/5 sm:w-1/5 flex justify-center items-center my-auto">
                     <img src="/images/new/ieeecsnew.png" ondragstart="return false" class="w-44">
                 </div>
-                <div class="btn flex justify-center nav:hidden items-center">
-                    <button class="navbar-toggler focus:outline-none" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+                <div class="flex justify-center nav:hidden items-center">
+                    <button class="navbar-toggler focus:outline-none bg-transparent" type="button" data-toggle="collapse" data-target="#navbarCollapse">
                         <i class="fas fa-bars text-yellow_ieee" ></i>
                     </button>
                 </div>
@@ -165,18 +165,14 @@
                         </li>
                     </a>
 
-                    <li class="w-full nav:w-2/5 block nav:hidden m-auto justify-start nav:justify-center">
-                        <a class="nav-link flex justify-start nav:justify-center w-full" href="#" target="_blank">
-                            <div class="parent flex flex-row justify-center items-center">
-                                <div class="btn px-0.5 sm:px-2">
-                                    <a class="nav-link mx-0 xl:mx-2 " href="/auth/google" target="_blank">
-                                        <button class=" bg-gradient-to-r from-gradbutton to-gradbutton2 hover:bg-yellow text-black text-sm px-6 rounded-full focus:outline-none">
-                                            Login
-                                        </button>
-                                    </a>
-                                </div>
-                            </div>
-                        </a>
+                    <li class="px-1 w-full nav:w-2/5 block nav:hidden m-auto justify-start nav:justify-center">
+                        <div class="parent flex flex-row items-center">
+                            <a class="nav-link mx-0 xl:mx-2 " href="/auth/google" target="_blank">
+                                <button class=" bg-gradient-to-r from-gradbutton to-gradbutton2 hover:bg-yellow text-black text-sm px-6 rounded-full focus:outline-none">
+                                    Login
+                                </button>
+                            </a>
+                        </div>
                     </li>
                 </ul>
             </div>

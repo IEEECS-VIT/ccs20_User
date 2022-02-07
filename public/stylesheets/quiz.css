@@ -1,3 +1,9 @@
+* {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 html {
   font-family: "Poppins", sans-serif;
   list-style: none;
@@ -10,20 +16,18 @@ html {
 }
 ::-webkit-scrollbar-thumb {
   background: #faa41a;
-  
 }
 /* @keyframes animatedBackground {
   from { background-position: 0 0; }
   to { background-position: 100% 0; }
 } */
-body{
-background-image: url('../images/line_pattern.png');
-background-position: 0px 0px;
-background-repeat: repeat-x;
-background-repeat: repeat-y;
-animation: animatedBackground 30s linear infinite;
+body {
+  background-image: url("../images/line_pattern.png");
+  background-position: 0px 0px;
+  background-repeat: repeat-x;
+  background-repeat: repeat-y;
+  animation: animatedBackground 30s linear infinite;
 }
-
 
 .custom-logo {
   width: 35%;
@@ -121,9 +125,8 @@ textarea:focus:not([readonly]) {
   height: 100%;
   width: 100%;
 }
-.swal2-timer-progress-bar
-{
-  background-color: #FAA41A;
+.swal2-timer-progress-bar {
+  background-color: #faa41a;
 }
 /* .swal2-timer-progress-bar-container
 {
@@ -138,10 +141,12 @@ textarea:focus:not([readonly]) {
   border: 0px;
   border-radius: 5px;
 }
-input, textarea,button{
+input,
+textarea,
+button {
   outline: none !important;
 }
-input:focus{
+input:focus {
   text-decoration: none !important;
 }
 
@@ -177,8 +182,7 @@ input:focus{
 .username {
   color: #faa41a;
   font-size: 20px;
-  font-family: 'Montserrat', sans-serif;
-  
+  font-family: "Montserrat", sans-serif;
 }
 .main-content {
   margin-left: 20px;
@@ -225,7 +229,6 @@ input:focus{
   justify-content: center;
   color: #faa41a;
   /* border-radius:20px; */
-  
 }
 .border-left {
   border-top-left-radius: 20px;
@@ -237,7 +240,7 @@ input:focus{
 }
 .domain-name {
   font-size: 1.2vw;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 .timer {
   font-size: 25px;
@@ -245,7 +248,7 @@ input:focus{
 }
 .time {
   margin-left: 1.2vw;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 .border-1 {
   border-right: 2px solid #faa41a;
@@ -279,7 +282,6 @@ input:focus{
   background-color: #202020;
   margin-left: 10px;
   box-shadow: 5px 5px 10px black;
-  
 }
 .actual-question {
   width: 80%;
@@ -291,8 +293,9 @@ input:focus{
 .question-txt {
   font-size: 2.25vw;
   color: #f7f7f7;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   margin-bottom: 10px;
+  user-select: none;
   /* border: 2px solid white; */
 }
 .option-container {
@@ -310,22 +313,19 @@ input:focus{
   overflow-y: scroll;
 }
 /* ***************** */
-.input-field-style
-{
-  color: #F7F7F7; 
+.input-field-style {
+  color: #f7f7f7;
   /* border-bottom: 1px solid #FAA41A; 
   box-shadow: 0 1px 0 0 #FAA41A; */
 }
-.input-field-style:focus
-{ 
-  border-bottom: 1px solid #FAA41A !important; 
-  box-shadow: 0 1px 0 0 #FAA41A !important;
+.input-field-style:focus {
+  border-bottom: 1px solid #faa41a !important;
+  box-shadow: 0 1px 0 0 #faa41a !important;
 }
 
-.long-input-field-style
-{
-  color: #F7F7F7;
-  border: solid 2px #FAA41A;
+.long-input-field-style {
+  color: #f7f7f7;
+  border: solid 2px #faa41a;
   border-radius: 20px;
   padding: 2% 2% 2% 2%;
   background-color: #444;
@@ -334,10 +334,9 @@ input:focus{
   resize: none;
 }
 
-.checkbox-style[type="checkbox"].filled-in:checked + span:not(.lever):after 
-{
-    border: 2px solid #FAA41A;  
-    background-color: #FAA41A;
+.checkbox-style[type="checkbox"].filled-in:checked + span:not(.lever):after {
+  border: 2px solid #faa41a;
+  background-color: #faa41a;
 }
 
 .ongoing {
@@ -356,16 +355,20 @@ input:focus{
 .option-txt {
   color: #f7f7f7;
   line-height: 10px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   /* font-size: 100px; */
 }
-[type="radio"]:not(:checked) + span, [type="radio"]:checked + span {
+[type="radio"]:not(:checked) + span,
+[type="radio"]:checked + span {
   font-size: 1rem;
 }
-[type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:after {
+[type="radio"]:checked + span:after,
+[type="radio"].with-gap:checked + span:after {
   background-color: #faa41a;
 }
-[type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:before, [type="radio"].with-gap:checked + span:after {
+[type="radio"]:checked + span:after,
+[type="radio"].with-gap:checked + span:before,
+[type="radio"].with-gap:checked + span:after {
   border: none !important;
 }
 .button-content {
@@ -388,11 +391,11 @@ input:focus{
   height: 45px;
   position: relative;
   left: 50%;
-  transform: translate(-50%,0%);
+  transform: translate(-50%, 0%);
   border-radius: 10px;
   box-shadow: 2px 2px 5px black;
   cursor: pointer;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   margin: 10px 0px;
   /* margin: 0px auto; */
 }
@@ -436,7 +439,7 @@ ul li {
   border: 2px solid #faa41a;
   margin: 15px;
   border-radius: 15px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   color: #faa41a;
   font-size: 1.6vw;
   cursor: pointer;
@@ -529,15 +532,15 @@ textarea {
 }
 
 /* Media Queries */
-@media all and (min-width:910px) {
+@media all and (min-width: 910px) {
   .mobile-domain-option {
     display: none;
   }
 }
-@media all and (max-width:910px) {
+@media all and (max-width: 910px) {
   .domain-option {
-    width:0px;
-    display:none;
+    width: 0px;
+    display: none;
   }
   .clock {
     width: 100px;
@@ -546,7 +549,8 @@ textarea {
     justify-content: center;
     margin: 0px auto;
   }
-  .time, .timer {
+  .time,
+  .timer {
     margin-left: 4px !important;
     margin: 0px;
     font-size: 20px;
@@ -568,7 +572,8 @@ textarea {
   .question-txt {
     font-size: 1.5em;
   }
-  [type="radio"]:not(:checked) + span, [type="radio"]:checked + span {
+  [type="radio"]:not(:checked) + span,
+  [type="radio"]:checked + span {
     font-size: 0.5em;
   }
   [type="checkbox"] + span:not(.lever) {
@@ -607,11 +612,12 @@ textarea {
   }
 }
 
-@media all and (max-width:600px) {
+@media all and (max-width: 600px) {
   .question-txt {
     font-size: 17px;
   }
-  [type="radio"]:not(:checked) + span, [type="radio"]:checked + span {
+  [type="radio"]:not(:checked) + span,
+  [type="radio"]:checked + span {
     font-size: 12px;
   }
   [type="checkbox"] + span:not(.lever) {
@@ -624,12 +630,13 @@ textarea {
   .option {
     font-size: 20px;
   }
-  .user-icon, .username {
+  .user-icon,
+  .username {
     font-size: 15px;
   }
 }
 
-@media all and (max-width:610px) {
+@media all and (max-width: 610px) {
   .nav-extended {
     height: 60px !important;
   }
@@ -637,7 +644,7 @@ textarea {
     padding-top: 0px;
   }
 }
-@media all and (max-width:400px) {
+@media all and (max-width: 400px) {
   .nav-extended {
     height: 15vw !important;
   }
