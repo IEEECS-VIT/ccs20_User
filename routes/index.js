@@ -317,7 +317,7 @@ router.get(
                                         } else {
                                             A_Database.create(details, (error) => {
                                                 if (error) {
-                                                    console.log("Error");
+                                                    console.log("Error1");
                                                 } else {
                                                     res.redirect("/register");
                                                 }
@@ -325,7 +325,7 @@ router.get(
                                         }
                                     }).catch((error) => {
                                         if (error) {
-                                            console.log("Error");
+                                            console.log("Error2");
                                         }
 
                                         // res.redirect("/register");
