@@ -263,6 +263,8 @@ router.get(
     "/auth/google",
     passport.authenticate("google", {
         scope: ["profile", "email"],
+        hd:'vitstudent.ac.in',
+        prompt:'select_account'
     })
 );
 
