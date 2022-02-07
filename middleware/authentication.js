@@ -62,6 +62,7 @@ module.exports = {
       next();
     } else {
       // res.sendStatus(401);
+      
       console.log("auth failed");
       res.redirect("/");
     }
