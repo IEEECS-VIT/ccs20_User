@@ -262,7 +262,9 @@ router.post("/register", auth.isLoggedIn, async (req, res) => {
 router.get(
     "/auth/google",
     passport.authenticate("google", {
-        scope: ["profile", "email"]
+        scope: ["profile", "email"],
+        prompt: 'select_account',
+        hd:'vitstudent.ac.in'
     })
 );
 
