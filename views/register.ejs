@@ -21,11 +21,19 @@
       ul {
         list-style-type: none;
       }
-
+      .container{
+        width: 100%!important;
+      }
       li {
         padding: 4px;
         color: #ffffff;
         float: left;
+      }
+      .warning{
+        margin:10px auto;
+        padding: 0;
+        color: rgb(201, 30, 30);
+        text-align: center;
       }
     </style>
   </head>
@@ -142,7 +150,7 @@
               </li>
               <li style="margin-left: -1.5%;">Other</li>
             </ul>
-            <br />
+            <p class="warning">Regristration on VTOP is compulsory for your application to be considered.</p>
             <button
               style="
                 z-index: 100;
@@ -171,6 +179,8 @@
         data-callback="setResponse"
       ></div>
     </div>
+    <p class="warning">Join our discord server for Updates and results.</p>
+    <p class="warning"> <span style="color:#faa41a">Link: </span> <a href="https://discord.gg/cr87yvuqbr"> https://discord.gg/cr87yvuqbr</a></p>
     <script
       src="https://www.google.com/recaptcha/api.js?onload=onloadCallback"
       async
