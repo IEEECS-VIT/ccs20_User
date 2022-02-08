@@ -281,7 +281,7 @@ router.get(
             // If not, render the register.ejs form
             // Else, send to quiz page
 
-            // console.log(req);
+            console.log(req.query);
 
             // if (req.query.hd === "vitstudent.ac.in") {
             if (true) {
