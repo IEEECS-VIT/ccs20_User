@@ -285,7 +285,7 @@ router.get(
 
             // if (req.query.hd === "vitstudent.ac.in") {
             if (true) {
-                // Redirect to
+                // Redirect to/
                 // let user_exists = 
                 A_Database.exists({
                         $and: [{
